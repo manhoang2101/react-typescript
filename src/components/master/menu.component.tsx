@@ -4,17 +4,18 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 export interface PropsMenu {
-    AnchorEl: HTMLElement | null
-    MobileMoreAnchorEl: HTMLElement | null
-    HandleMenuClose: Function
-    HandleMobileMenuClose: Function
-    HandleProfileMenuOpen: Function
+    AnchorEl?: HTMLElement | null
+    MobileMoreAnchorEl?: HTMLElement | null
+    HandleMenuClose?: Function
+    HandleMobileMenuClose?: Function
+    HandleProfileMenuOpen?: Function
     MenuId: string
     MobileMenuId: string
+    StoryOpen?: boolean
 }
 const MenuComponent = (props: PropsMenu) => {
 
-    const isMenuOpen = Boolean(props.AnchorEl);
+    const isMenuOpen = Boolean(Boolean(props.AnchorEl) || props.StoryOpen);
     const isMobileMenuOpen = Boolean(props.MobileMoreAnchorEl);
     const renderMenu = (
         <Menu
@@ -24,10 +25,10 @@ const MenuComponent = (props: PropsMenu) => {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMenuOpen}
-            onClose={() => props.HandleMenuClose()}
+            onClose={() => props.HandleMenuClose && props.HandleMenuClose()}
         >
-            <MenuItem onClick={() => props.HandleMenuClose()}>Profile</MenuItem>
-            <MenuItem onClick={() => props.HandleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={() => props.HandleMenuClose && props.HandleMenuClose()}>Profile</MenuItem>
+            <MenuItem onClick={() => props.HandleMenuClose && props.HandleMenuClose()}>My account</MenuItem>
         </Menu>
     );
 
@@ -39,7 +40,7 @@ const MenuComponent = (props: PropsMenu) => {
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMobileMenuOpen}
-            onClose={() => props.HandleMobileMenuClose}
+            onClose={() => props.HandleMobileMenuClose && props.HandleMobileMenuClose()}
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
@@ -57,7 +58,7 @@ const MenuComponent = (props: PropsMenu) => {
                 </IconButton>
                 <p>Notifications</p>
             </MenuItem>
-            <MenuItem onClick={() => props.HandleProfileMenuOpen}>
+            <MenuItem onClick={() => props.HandleProfileMenuOpen && props.HandleProfileMenuOpen()}>
                 <IconButton
                     aria-label="account of current user"
                     aria-controls="primary-search-account-menu"

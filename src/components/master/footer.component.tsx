@@ -1,12 +1,19 @@
 import React from "react"
-import { useSelector } from 'react-redux'
-import { selectorUser } from "../../store/user/user.selector";
-const FooterComponent = () => {
-    const user = useSelector(selectorUser);
-    return <>
-        Hello footer
-        <footer>{user && user.name}</footer>
-    </>
-}
+import { WithStyles, withStyles } from "@material-ui/core";
+import style from "./style";
 
-export default FooterComponent;
+export interface PropsAppHeader extends WithStyles<typeof style> {
+    SetHeight: Function
+};
+export class FooterComponent extends React.Component<PropsAppHeader> {
+    refCallback = (element: HTMLElement | null) => {
+        if (element) {
+            const bounding = element.getBoundingClientRect();
+            this.props.SetHeight('FooterComponent', bounding.height);
+        }
+    };
+    render() {
+        return <div ref={this.refCallback} > </div>
+    }
+}
+export default withStyles(style)(FooterComponent);

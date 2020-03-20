@@ -1,5 +1,5 @@
 import React from 'react'
-import AppButton from '../src/components/buttons/button.component'
+import AppButton from '../src/components/button'
 
 export const Default = () => (
     <AppButton
@@ -29,4 +29,4 @@ export const Secondary = () => (
     >primary
     </AppButton>
 );
-export default { title: 'Button' }
+export default { title: 'Component/Button' }

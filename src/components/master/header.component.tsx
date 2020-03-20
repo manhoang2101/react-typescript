@@ -16,124 +16,151 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import style from './style';
 import MenuComponent from './menu.component';
 import SidebarComponent from './sidebar.component';
-
-export interface PropsAppHeader extends WithStyles<typeof style> { 
+import { menuId, mobileMenuId } from './constants';
+export interface PropsAppHeader extends WithStyles<typeof style> {
     Open: boolean
-    SetOpen : Function
+    SetOpen: Function
+    SetHeight: Function
 };
-const HeaderComponent = (prop: PropsAppHeader) => {
-    const { classes } = prop;
-    const menuId = 'primary-search-account-menu';
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState<null | HTMLElement>(null);
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>): void => {
-        setAnchorEl(event.currentTarget);
+export interface StatesAppHeader {
+    anchorEl: null | HTMLElement
+    mobileMoreAnchorEl: null | HTMLElement
+};
+
+export class HeaderComponent extends React.Component<PropsAppHeader, StatesAppHeader>{
+    containerRef: any;
+    constructor(props: Readonly<PropsAppHeader>) {
+        super(props);
+        this.state = {
+            anchorEl: null,
+            mobileMoreAnchorEl: null
+        }
+        this.containerRef = React.createRef();
+    }
+    refCallback = (element: HTMLElement) => {
+        if (element) {
+            const bounding = element.getBoundingClientRect();
+            this.props.SetHeight('HeaderComponent',bounding.height);
+
+        }
+    };
+    componentDidMount() {
+
+    }
+    handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>): void => {
+        this.setState({ anchorEl: event.currentTarget })
     };
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+    handleMobileMenuClose = () => {
+        this.setState({ mobileMoreAnchorEl: null })
+    }
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+    handleMenuClose = () => {
+        this.setState({ anchorEl: null })
+        this.handleMobileMenuClose();
+    }
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
-    const handleDrawerOpen = () => {
-        prop.SetOpen(true);
-    };
+    handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        this.setState({ mobileMoreAnchorEl: event.currentTarget })
+    }
 
-    const handleDrawerClose = () => {
-        prop.SetOpen(false);
-    };
-    return <header>
-        <div className={classes.grow}>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: prop.Open,
-                })}>
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        onClick={handleDrawerOpen}
-                        color="inherit"
-                        aria-label="open drawer"
-                        className={clsx(classes.menuButton,  prop.Open && classes.hide)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+    handleDrawerOpen = () => {
+        this.props.SetOpen(true);
+    }
+
+    handleDrawerClose = () => {
+        this.props.SetOpen(false);
+    }
+    render() {
+        const { classes } = this.props;
+        return (
+            <div className={classes.grow}>
+                <AppBar
+                    ref={this.refCallback}
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: this.props.Open,
+                    })}>
+                    <Toolbar>
+                        <IconButton
+                            edge="start"
+                            onClick={this.handleDrawerOpen}
+                            color="inherit"
+                            aria-label="open drawer"
+                            className={clsx(classes.menuButton, this.props.Open && classes.hide)}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                        <Typography className={classes.title} variant="h6" noWrap>
+                            Material-UI
                     </Typography>
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
+                        <div className={classes.search}>
+                            <div className={classes.searchIcon}>
+                                <SearchIcon />
+                            </div>
+                            <InputBase
+                                placeholder="Search…"
+                                classes={{
+                                    root: classes.inputRoot,
+                                    input: classes.inputInput,
+                                }}
+                                inputProps={{ 'aria-label': 'search' }}
+                            />
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </div>
-                    <div className={classes.grow} />
-                    <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </div>
-                    <div className={classes.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            <MenuComponent
-                AnchorEl={anchorEl}
-                MobileMoreAnchorEl={mobileMoreAnchorEl}
-                HandleMenuClose={handleMenuClose}
-                HandleMobileMenuClose={handleMobileMenuClose}
-                HandleProfileMenuOpen={handleProfileMenuOpen}
-                MenuId={menuId}
-                MobileMenuId={mobileMenuId}
-            ></MenuComponent>
-            <SidebarComponent
-                Open={prop.Open}
-                HandleDrawerClose={handleDrawerClose}
-            ></SidebarComponent>
-        </div>
-    </header >
+                        <div className={classes.grow} />
+                        <div className={classes.sectionDesktop}>
+                            <IconButton aria-label="show 4 new mails" color="inherit">
+                                <Badge badgeContent={4} color="secondary">
+                                    <MailIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton aria-label="show 17 new notifications" color="inherit">
+                                <Badge badgeContent={17} color="secondary">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={this.handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        </div>
+                        <div className={classes.sectionMobile}>
+                            <IconButton
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                onClick={this.handleMobileMenuOpen}
+                                color="inherit"
+                            >
+                                <MoreIcon />
+                            </IconButton>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                <MenuComponent
+                    AnchorEl={this.state.anchorEl}
+                    MobileMoreAnchorEl={this.state.mobileMoreAnchorEl}
+                    HandleMenuClose={this.handleMenuClose}
+                    HandleMobileMenuClose={this.handleMobileMenuClose}
+                    HandleProfileMenuOpen={this.handleProfileMenuOpen}
+                    MenuId={menuId}
+                    MobileMenuId={mobileMenuId}
+                ></MenuComponent>
+                <SidebarComponent
+                    Open={this.props.Open}
+                    HandleDrawerClose={this.handleDrawerClose}
+                ></SidebarComponent>
+            </div>
+        )
+
+    }
 }
+
 
 export default withStyles(style)(HeaderComponent);

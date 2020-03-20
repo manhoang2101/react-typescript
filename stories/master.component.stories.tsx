@@ -7,5 +7,5 @@ export const Master = () => {
     )
 } 
   
-export default { title: 'Master' }
+export default { title: 'Container/Master' }
 

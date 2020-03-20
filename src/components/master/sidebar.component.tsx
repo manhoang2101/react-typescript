@@ -15,7 +15,7 @@ import style from './style';
 import theme from 'src/untils/theme';
 interface PropsSidebar extends WithStyles<typeof style> {
     Open: boolean
-    HandleDrawerClose: Function
+    HandleDrawerClose?: Function
 }
 
 class SidebarComponent extends React.Component<PropsSidebar> {
@@ -32,7 +32,7 @@ class SidebarComponent extends React.Component<PropsSidebar> {
                 }}
             >
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={() => HandleDrawerClose()}>
+                    <IconButton onClick={() => HandleDrawerClose && HandleDrawerClose()}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </div>

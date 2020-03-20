@@ -9,19 +9,38 @@ import clsx from 'clsx'
 export interface PropsMaster extends WithStyles<typeof styles> { }
 export interface StatesMaster {
     OpenSidebar: boolean
+    HeightHeader: number
+    HeightFooter: number
 }
 export class MasterContainer extends React.Component<PropsMaster, StatesMaster> {
 
     constructor(props: Readonly<PropsMaster>) {
         super(props);
         this.state = {
-            OpenSidebar: false
+            OpenSidebar: false,
+            HeightHeader: 0,
+            HeightFooter: 0,
         }
     }
     handleOpenSidebar = (status: boolean) => {
         this.setState({
             OpenSidebar: status
         })
+    }
+    setHeightElement = (name: string, height: number) => {
+        switch (name) {
+            case 'HeaderComponent':
+                this.setState({
+                    HeightHeader: height
+                });
+                break;
+            case 'FooterComponent':
+                this.setState({
+                    HeightFooter: height
+                });
+                break;
+            default: break;
+        }
     }
     render() {
         const { classes } = this.props
@@ -30,22 +49,32 @@ export class MasterContainer extends React.Component<PropsMaster, StatesMaster> 
                 <HeaderComponent
                     Open={this.state.OpenSidebar}
                     SetOpen={this.handleOpenSidebar}
+                    SetHeight={this.setHeightElement}
                     key="HeaderComponent" />
                 <main
+                    style={
+                        {
+                            marginTop: this.state.HeightHeader,
+                            marginBottom: this.state.HeightFooter
+                        }
+                    }
                     className={clsx(classes.content, {
                         [classes.contentShift]: this.state.OpenSidebar,
                     })}>
                     <Switch key="Switch">
                         {
                             AppRoutes.map(route => (
-                                <Route exact path={route.path} key={route.lable} >
+                                <Route exact path={route.path} key={route.lable} pathMatch={route?.pathMatch} >
                                     {<route.component />}
                                 </Route>)
                             )
                         }
                     </Switch>
                 </main>
-                <FooterComponent key="FooterComponent" />
+                <FooterComponent
+                    SetHeight={this.setHeightElement}
+                    key="FooterComponent"
+                />
             </>
         )
     }
