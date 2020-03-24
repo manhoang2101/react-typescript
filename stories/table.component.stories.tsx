@@ -199,6 +199,7 @@ export const TableRowSpan = () => {
 }
 
 const datas = generateData.dataEXST(60)
+
 export const TableHasPaging = () => {
     const [page, setPage] = useState(0)
     const [perPage, setPerPage] = useState(5)
@@ -257,9 +258,9 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 }
 export const TableHasSort = () => {
 
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [onData, setonData] = React.useState(data);
-    const [orderBy, setOrderBy] = React.useState('name');
+    const [order, setOrder] = useState<Order>('asc');
+    const [onData, setonData] = useState(data);
+    const [orderBy, setOrderBy] = useState('name');
 
     const handleRequestSort = (column) => {
         const isAsc = orderBy === column && order === 'asc';

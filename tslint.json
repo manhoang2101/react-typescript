@@ -1,8 +1,11 @@
 {
     "extends": [
-        "tslint-react-hooks"
+        "tslint-react-hooks",
+        "react-hooks"
     ],
     "rules": {
-        "react-hooks-nesting": "error"
+        "react-hooks-nesting": "error",
+        "react-hooks/rules-of-hooks": "error", 
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
