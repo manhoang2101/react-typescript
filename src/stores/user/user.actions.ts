@@ -1,0 +1,6 @@
+export enum EUserAction {
+  FETCH_USERS = "FETCH_USERS",
+  FETCH_USERS_SUCCESS = "FETCH_USERS_SUCCESS",
+  SET_USER = "SET_USER",
+  ADD_USER = "ADD_USER",
+}

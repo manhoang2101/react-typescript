@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import AppTable from '../src/components/table'
 import GenerateData from './generateData'
-import { ITableColumn, IRenderCell, Order } from '../src/components/table/type'
-import { border } from '@material-ui/system'
+import {ITableColumn, IRenderCell, Order} from '../src/components/table/type'
+import {border} from '@material-ui/system'
 
 const constSchema = {
     id: 'id',
@@ -48,17 +48,21 @@ const columns: ITableColumn[] = [
 
 const columnsGroupHeader: ITableColumn[] = [
     {
+        label: 'id',
+        key: 'id',
+
+    },
+    {
         label: 'Group 1',
         key: 'top1',
-
+        styleThear: {
+            background: '#000',
+            color: 'yellow'
+        }
     },
     {
         label: 'Group 2',
         key: 'top2'
-    },
-    {
-        label: 'id',
-        key: 'id',
     },
     {
         label: 'name',
@@ -113,9 +117,18 @@ const columnsRowspan: ITableColumn[] = [
         key: 'id'
     },
     {
+        label: 'Group 1',
+        key: 'top1',
+        styleThear: {
+            background: '#000',
+            color: 'yellow'
+        }
+    },
+    {
         label: 'name',
         key: 'name',
         rowSpanCell: 2,
+        pid :'top1'
     },
     {
         label: 'address',
@@ -125,6 +138,7 @@ const columnsRowspan: ITableColumn[] = [
         label: 'phone',
         key: 'phone',
         rowSpanCell: 2,
+        pid :'top1'
     },
     {
         label: 'birthday',
@@ -161,6 +175,31 @@ const columnsPaging: ITableColumn[] = [
         key: 'birthday',
     }
 ]
+const columsSpanThear: ITableColumn[] = [
+    {
+        label: 'id',
+        key: 'id'
+    },
+    {
+        label: 'name',
+        key: 'name',
+        columSpanThear: 2,
+    },
+    {
+        label: 'address',
+        key: 'address',
+
+    },
+    {
+        label: 'phone',
+        key: 'phone',
+    },
+    {
+        label: 'birthday',
+        key: 'birthday',
+    }
+]
+
 export const SampleTable = () => {
     return <AppTable
         columns={columns}
@@ -173,6 +212,8 @@ export const TableGroupHeader = () => {
     return <AppTable
         columns={columnsGroupHeader}
         data={data}
+        sort={true}
+        columsSort={['name', 'address']}
     ></AppTable>
 }
 export const TableColSpan = () => {
@@ -180,7 +221,7 @@ export const TableColSpan = () => {
         columns={columnsColSpan}
         data={data}
         cellStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
     ></AppTable>
 }
@@ -190,10 +231,10 @@ export const TableRowSpan = () => {
         columns={columnsRowspan}
         data={data}
         rowStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
         cellStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
     ></AppTable>
 }
@@ -214,10 +255,10 @@ export const TableHasPaging = () => {
         columns={columnsPaging}
         data={datas}
         rowStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
         cellStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
         paging={true}
         page={page}
@@ -241,7 +282,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 function getComparator<Key extends keyof any>(
     order: Order,
     orderBy: Key,
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
+): (a: {[key in Key]: number | string}, b: {[key in Key]: number | string}) => number {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
         : (a, b) => -descendingComparator(a, b, orderBy);
@@ -268,15 +309,14 @@ export const TableHasSort = () => {
         setOrderBy(column);
         setonData(stableSort(onData, getComparator(order, orderBy)))
     };
-    
     return <AppTable
         columns={columnsPaging}
         data={onData}
         rowStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
         cellStyle={
-            { border: '1px solid #cccc' }
+            {border: '1px solid #cccc'}
         }
         columsSort={['name', 'phone']}
         sort={true}
@@ -285,4 +325,21 @@ export const TableHasSort = () => {
         onRequestSort={handleRequestSort}
     ></AppTable>
 }
-export default { title: 'Component/Table' }
+
+
+export const TableColumsSpanThear = () => {
+    return <AppTable
+        columns={columsSpanThear}
+        data={data}
+        rowStyle={
+            {border: '1px solid #cccc'}
+        }
+        cellStyle={
+            {border: '1px solid #cccc'}
+        }
+        onClickRow = { (row) => console.log(row)}
+    ></AppTable>
+}
+
+
+export default {title: 'Component/Table'}

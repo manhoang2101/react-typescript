@@ -1,14 +1,14 @@
-import { IUserState, IUser } from "../store/user/user.types";
+import { IUserState, IUser } from "../stores/user/user.types";
 import React from "react";
 import { withStyles, WithStyles } from "@material-ui/core";
 import { compose } from "redux";
-import style from "src/store/user/style";
+import style from "src/stores/user/style";
 import AppTable from "../components/table";
 
 interface PropsFromDispatch extends WithStyles<typeof style> {
-  fetchUsersAction: Function;
-  setUser: Function;
-  addUser: Function;
+  fetchUsersAction?: () => void;
+  setUser?: (user: IUser) => void;
+  addUser?: (user: IUser) => void;
 }
 
 type Props = IUserState & PropsFromDispatch;
@@ -20,7 +20,7 @@ class UserContainer extends React.Component<Props> {
   }
   componentDidMount() {
     const { fetchUsersAction } = this.props;
-    fetchUsersAction();
+    fetchUsersAction && fetchUsersAction();
   }
   render() {
     const { users = [] } = this.props;
@@ -51,12 +51,12 @@ class UserContainer extends React.Component<Props> {
   }
   onSelectUser(user: IUser) {
     const { setUser } = this.props;
-    setUser(user);
+    setUser && setUser(user);
   }
   addUser() {
     const { users, addUser } = this.props;
     const user = users && users[0];
-    addUser(user);
+    addUser && addUser(user);
   }
 }
 export default compose(withStyles(style)(UserContainer));

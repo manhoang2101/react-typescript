@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FooterComponent /> toMatchSnapshot() 1`] = `ShallowWrapper {}`;
+
+exports[`<HeaderComponent /> toMatchSnapshot() 1`] = `ShallowWrapper {}`;

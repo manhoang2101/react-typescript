@@ -22,7 +22,7 @@ export interface PropsAppTable extends WithStyles<typeof style> {
   paging?: boolean;
   data: any[];
   columns: ITableColumn[];
-  onChangePage?: (page: number) => void;
+  onChangePage?: (page: number, event?: any) => void;
   onChangeRowsPerPage?: (perPage: number) => void;
   rowsPerPage?: number;
   perPageOptions?: number[];
@@ -60,8 +60,10 @@ export class AppTable extends React.Component<PropsAppTable> {
           (item) => item?.pid === column.key
         ),
       }));
+    this.handleChangePage.bind(this);
+    this.handleChangeRowsPerPage.bind(this);
   }
-  public renderThearParent(
+  private renderThearParent(
     column: ITableColumn & { childrens: ITableColumn[] },
     index: number
   ) {
@@ -70,7 +72,7 @@ export class AppTable extends React.Component<PropsAppTable> {
       <TableCell
         className={`${
           column.childrens.length > 0 && classes.topHeaderHasChildren
-        } ${classes.topHeader} ${column.key}`}
+        } ${classes.topHeader} ${column.key} ${classes.tdThear} td-thear`}
         key={`thear-${index}`}
         colSpan={column.childrens.length}
         rowSpan={column.childrens.length === 0 ? 2 : 1}
@@ -80,107 +82,127 @@ export class AppTable extends React.Component<PropsAppTable> {
       </TableCell>
     );
   }
-  createSortHandler(column: string) {
+  private createSortHandler(column: string) {
     const { onRequestSort } = this.props;
-    onRequestSort && onRequestSort(column);
+    return onRequestSort && onRequestSort(column);
   }
-  renderThear(
+  private renderThear(
     column: ITableColumn & { childrens: ITableColumn[] },
     index: number
   ) {
     const { classes, sort, columsSort, order, orderBy } = this.props;
     if (column?.childrens?.length > 0) {
-      return column.childrens?.map((children, index) => (
-        <TableCell
-          key={`thear-${index}`}
-          style={children.styleThear && children.styleThear}
-          className={`${children.key} ${classes.topHeaderGroup}`}
-        >
-          {(sort && columsSort?.includes(children.key) && (
-            <TableSortLabel direction={order}>
-              {(children.renderThear && children.renderThear(children)) ||
-                children.label}
-            </TableSortLabel>
-          )) ||
-            (children.renderThear && children.renderThear(children)) ||
-            children.label}
-        </TableCell>
-      ));
-    }
-    return (
-      <TableCell
-        key={`thear-${index}`}
-        style={column.styleThear && column.styleThear}
-        className={`${column.key} ${
-          this._pColumns.length > 0
-            ? classes.topHeaderGroup
-            : classes.topHeaderNotGroup
-        }`}
-      >
-        {(sort && columsSort?.includes(column.key) && (
-          <TableSortLabel
-            direction={order}
-            active={orderBy === column.key}
-            onClick={() => this.createSortHandler(column.key)}
+      return column.childrens?.map((children, index) => {
+        const data = !this._columSpan && (
+          <TableCell
+            key={`thear-${index}`}
+            style={children.styleThear && children.styleThear}
+            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThear} td-thear`}
+            colSpan={children.columSpanThear}
           >
-            {(column.renderThear && column.renderThear(column)) || column.label}
-            {orderBy === column.key ? (
-              <span className={classes.visuallyHidden}>
-                {order === "desc" ? "sorted descending" : "sorted ascending"}
-              </span>
-            ) : null}
-          </TableSortLabel>
+            {(sort && columsSort?.includes(children.key) && (
+              <TableSortLabel
+                direction={order}
+                className={`sort-${children.key} sort-column`}
+              >
+                {(children.renderThear && children.renderThear(children)) ||
+                  children.label}
+              </TableSortLabel>
+            )) ||
+              (children.renderThear && children.renderThear(children)) ||
+              children.label}
+          </TableCell>
+        );
+        if (!this._columSpan)
+          this._columSpan =
+            (children.columSpanThear && children.columSpanThear - 1) || 0;
+        else {
+          this._columSpan--;
+        }
+        return data;
+      });
+    } else {
+      const data =
+        (!this._columSpan && (
+          <TableCell
+            key={`thear-${index}`}
+            style={column.styleThear && column.styleThear}
+            className={`${column.key} ${classes.tdThear} td-thear`}
+            colSpan={column.columSpanThear}
+          >
+            {(sort && columsSort?.includes(column.key) && (
+              <TableSortLabel
+                direction={order}
+                active={orderBy === column.key}
+                onClick={() => this.createSortHandler(column.key)}
+                className={`sort-${column.key} sort-column`}
+              >
+                {(column.renderThear && column.renderThear(column)) ||
+                  column.label}
+                {orderBy === column.key ? (
+                  <span className={classes.visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </span>
+                ) : null}
+              </TableSortLabel>
+            )) ||
+              (column.renderThear && column.renderThear(column)) ||
+              column.label}
+          </TableCell>
         )) ||
-          (column.renderThear && column.renderThear(column)) ||
-          column.label}
-      </TableCell>
-    );
+        null;
+      if (!this._columSpan)
+        this._columSpan =
+          (column.columSpanThear && column.columSpanThear - 1) || 0;
+      else {
+        this._columSpan--;
+      }
+      return data;
+    }
   }
-  renderCell(
+  private renderCell(
     row: any,
     column: ITableColumn & { childrens: ITableColumn[] },
     index: number
   ) {
-    const converRow = row as any;
     if (column?.childrens?.length > 0) {
       return column.childrens?.map((children) => {
         const check: IRowSpan[] = this._rowSpans.filter(
-          (row) => row.key === column.key
+          (row) => row.key === children.key
         );
         const rowSpan: IRowSpan | null = check.length > 0 ? check[0] : null;
         const cell: IRenderCell = {
           row,
           cell: children,
-          value: converRow[children.key],
+          value: row[children.key],
           index,
         };
         const data =
-          (this._columSpan === 0 &&
-            (rowSpan === null || rowSpan.break === 0) && (
-              <TableCell
-                colSpan={children.columSpanCell || 1}
-                key={`cell-${index}-${children.key}`}
-                className={children.key}
-                onClick={() =>
-                  this.props.onClickRow && this.props.onClickRow(row)
-                }
-                style={{
-                  ...this.props.cellStyle,
-                  ...children.styleCell,
-                }}
-              >
-                {(children.renderCell && children.renderCell(cell)) ||
-                  converRow[children.key]}
-              </TableCell>
-            )) ||
+          (!this._columSpan && (!rowSpan || !rowSpan.break) && (
+            <TableCell
+              colSpan={children.columSpanCell || 1}
+              rowSpan={children.rowSpanCell || 1}
+              key={`cell-${index}-${children.key}`}
+              className={`${children.key} td-cell`}
+              style={{
+                ...this.props.cellStyle,
+                ...children.styleCell,
+              }}
+            >
+              {(children.renderCell && children.renderCell(cell)) ||
+                row[children.key]}
+            </TableCell>
+          )) ||
           null;
-        if (this._columSpan === 0)
+        if (!this._columSpan)
           this._columSpan =
             (children.columSpanCell && children.columSpanCell - 1) || 0;
         else {
           this._columSpan--;
         }
-        if (rowSpan === null) {
+        if (!rowSpan) {
           this._rowSpans.push({
             key: children.key,
             break: (children.rowSpanCell && children.rowSpanCell - 1) || 0,
@@ -188,17 +210,15 @@ export class AppTable extends React.Component<PropsAppTable> {
         } else {
           this._rowSpans = this._rowSpans.map((row) => {
             if (row.key === rowSpan.key) {
-              const d = {
+              row = {
                 ...row,
                 break:
                   row.break === 0
                     ? (children.rowSpanCell && children.rowSpanCell - 1) || 0
                     : row.break - 1,
               };
-              return d;
-            } else {
-              return row;
             }
+            return row;
           });
         }
         return data;
@@ -211,36 +231,34 @@ export class AppTable extends React.Component<PropsAppTable> {
       const cell: IRenderCell = {
         row,
         cell: column,
-        value: converRow[column.key],
+        value: row[column.key],
         index,
       };
       const data =
-        (this._columSpan === 0 && (rowSpan === null || rowSpan.break === 0) && (
+        (!this._columSpan && (!rowSpan || !rowSpan.break) && (
           <TableCell
             colSpan={column.columSpanCell || 1}
             rowSpan={column.rowSpanCell || 1}
             key={`cell-${index}-${column.key}`}
-            className={column.key}
-            onClick={() => this.props.onClickRow && this.props.onClickRow(row)}
+            className={`${column.key} td-cell`}
             style={{
               ...this.props.cellStyle,
               ...column.styleCell,
             }}
           >
-            {(column.renderCell && column.renderCell(cell)) ||
-              converRow[column.key]}
+            {(column.renderCell && column.renderCell(cell)) || row[column.key]}
           </TableCell>
         )) ||
         null;
 
-      if (this._columSpan === 0)
+      if (!this._columSpan)
         this._columSpan =
           (column.columSpanCell && column.columSpanCell - 1) || 0;
       else {
         this._columSpan--;
       }
 
-      if (rowSpan === null) {
+      if (!rowSpan) {
         this._rowSpans.push({
           key: column.key,
           break: (column.rowSpanCell && column.rowSpanCell - 1) || 0,
@@ -248,31 +266,28 @@ export class AppTable extends React.Component<PropsAppTable> {
       } else {
         this._rowSpans = this._rowSpans.map((row) => {
           if (row.key === rowSpan.key) {
-            return {
+            row = {
               ...row,
               break:
                 row.break === 0
                   ? (column.rowSpanCell && column.rowSpanCell - 1) || 0
                   : row.break - 1,
             };
-          } else {
-            return row;
           }
+          return row;
         });
       }
       return data;
     }
   }
-  handleChangePage = (row: number) => {
-    return this.props.onChangePage && this.props.onChangePage(row);
+  public handleChangePage = (_event: any, row: number) => {
+    this.props.onChangePage && this.props.onChangePage(row);
   };
-  handleChangeRowsPerPage = (perPage: string) => {
-    const per = parseInt(perPage);
-    return (
-      this.props.onChangeRowsPerPage && this.props.onChangeRowsPerPage(per)
-    );
+  public handleChangeRowsPerPage = (event: any) => {
+    const per = parseInt(event.target.value);
+    this.props.onChangeRowsPerPage && this.props.onChangeRowsPerPage(per);
   };
-  generateData() {
+  public generateData() {
     if (this.props.paging === true) {
       const { page = 0, rowsPerPage = 0 } = this.props;
       const from = page * rowsPerPage;
@@ -300,7 +315,7 @@ export class AppTable extends React.Component<PropsAppTable> {
           <Table className={classes.table} aria-label="simple">
             <TableHead>
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle}>
+                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
                   {this._groupColums.map(
                     (
                       column: ITableColumn & { childrens: ITableColumn[] },
@@ -311,7 +326,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle}>
+                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
                   {this._groupColums
                     .filter((group) => group?.childrens.length > 0)
                     .map((column, index) => this.renderThear(column, index))}
@@ -319,7 +334,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length === 0 && (
-                <TableRow style={this.props.rowStyle}>
+                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
                   {this._groupColums
                     .filter((group) => group?.childrens)
                     .map(
@@ -338,6 +353,7 @@ export class AppTable extends React.Component<PropsAppTable> {
                     key={index}
                     onClick={() => onClickRow && onClickRow(item)}
                     style={this.props.rowStyle}
+                    className={`tr-cell ${onClickRow && classes.hasClickRow}`}
                   >
                     {this._groupColums.map((column) =>
                       this.renderCell(item, column, index)
@@ -349,15 +365,14 @@ export class AppTable extends React.Component<PropsAppTable> {
         </TableContainer>
         {this.props.paging && (
           <TablePagination
+            className={`app-table-pagination`}
             rowsPerPageOptions={perPageOptions || [5, 10, 20]}
             component="div"
             count={(count && count) || 0}
             rowsPerPage={rowsPerPage || 10}
             page={page || 0}
-            onChangePage={(_event, row: number) => this.handleChangePage(row)}
-            onChangeRowsPerPage={(event) =>
-              this.handleChangeRowsPerPage(event.target.value)
-            }
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
           />
         )}
       </>

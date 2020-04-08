@@ -27,7 +27,6 @@ string = (length: number) => {
 
 dataEXST = ($length = 10, $sm: { [x: string]: any; } | null = null): any[] | any => {
     if (!$sm) $sm = this.initialSchema;
-    console.log($sm );
     const data = [];
     for (let i = 0; i <= $length; i += 1) {
         const item: { [x: string]: any; } = {};
