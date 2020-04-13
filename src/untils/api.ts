@@ -48,5 +48,6 @@ export async function callApi(
   return response.json().then((res: IResponse) => checkRequest(res));
 }
 export const checkRequest = (res: IResponse) => {
+  console.log(res);
   return res;
 };

@@ -1,11 +1,8 @@
-import React from 'react'
-import MasterContainer from '../src/containers/master.container';
+import React from "react";
+import MasterContainer from "../src/containers/master";
 
 export const Master = () => {
-    return (
-        <MasterContainer />
-    )
-}
+  return <MasterContainer />;
+};
 
-export default { title: 'Container/Master' }
-
+export default { title: "Container/Master" };

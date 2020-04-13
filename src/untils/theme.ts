@@ -2,6 +2,7 @@ import { colors } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { responsiveFontSizes } from "@material-ui/core/styles";
 // A custom theme for this app
+const defaultTheme = createMuiTheme();
 export const themeStyle = createMuiTheme({
   palette: {
     type: "light",
@@ -16,6 +17,14 @@ export const themeStyle = createMuiTheme({
     },
     background: {
       default: "#fffff",
+    },
+  },
+  overrides: {
+    MuiDialogTitle: {
+      root: {
+        paddingLeft: defaultTheme.spacing(1),
+        paddingRight: defaultTheme.spacing(1),
+      },
     },
   },
 });

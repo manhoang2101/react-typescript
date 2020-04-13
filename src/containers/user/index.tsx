@@ -1,6 +1,6 @@
 import { IUserState, IUser } from "../../store/user/user.types";
 import React from "react";
-import { WithStyles } from "@material-ui/core";
+import { WithStyles, withStyles } from "@material-ui/core";
 import style from "src/pages/user/style";
 import AppTable from "../../components/table";
 
