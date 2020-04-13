@@ -49,16 +49,6 @@ describe("<TableCell />", () => {
   ];
   const Component = withStyles(style)(AppTable);
   // ! test case function
-  test("toMatchSnapshot()", () => {
-    const container = shallow(
-      <Component
-        data={data}
-        columns={columns}
-        onClickRow={(row) => console.log(row)}
-      />
-    );
-    expect(container).toMatchSnapshot();
-  });
   describe("should be function renderThearParent", () => {
     test("should be show lable header", () => {
       const { container } = render(

@@ -1,9 +1,8 @@
-import { IUserState, IUser } from "../stores/user/user.types";
+import { IUserState, IUser } from "../../store/user/user.types";
 import React from "react";
-import { withStyles, WithStyles } from "@material-ui/core";
-import { compose } from "redux";
-import style from "src/stores/user/style";
-import AppTable from "../components/table";
+import { WithStyles } from "@material-ui/core";
+import style from "src/pages/user/style";
+import AppTable from "../../components/table";
 
 interface PropsFromDispatch extends WithStyles<typeof style> {
   fetchUsersAction?: () => void;
@@ -59,4 +58,4 @@ class UserContainer extends React.Component<Props> {
     addUser && addUser(user);
   }
 }
-export default compose(withStyles(style)(UserContainer));
+export default UserContainer;

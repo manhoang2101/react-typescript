@@ -1,3 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<UserPage /> toMatchSnapshot() 1`] = `ShallowWrapper {}`;
+exports[`UserPage render component 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiTableContainer-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <table
+      aria-label="simple"
+      class="MuiTable-root AppTable-table-2 UserContainer-table-1"
+    >
+      <thead
+        class="MuiTableHead-root"
+      >
+        <tr
+          class="MuiTableRow-root tr-thear MuiTableRow-head"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head id AppTable-tdThear-6 td-thear"
+            scope="col"
+          >
+            id
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head name AppTable-tdThear-6 td-thear"
+            scope="col"
+          >
+            Name
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head cardNumber AppTable-tdThear-6 td-thear"
+            scope="col"
+          >
+            cardNumber
+          </th>
+          <th
+            class="MuiTableCell-root MuiTableCell-head cardType AppTable-tdThear-6 td-thear"
+            scope="col"
+          >
+            cardType
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="MuiTableBody-root"
+      />
+    </table>
+  </div>
+</div>
+`;

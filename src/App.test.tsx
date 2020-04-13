@@ -1,6 +1,6 @@
 import React from "react";
 import App from "./App";
-import MasterContainer from "./containers/master.container";
+import MasterContainer from "./containers/master";
 import { shallow } from "enzyme";
 test("renders call MasterContainer", () => {
   const wrapper = shallow(<App />);

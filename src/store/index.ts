@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { userReducer } from "./user/user.reducers";
-import usersSaga from "./user/user.saga";
+import watchFetchRequest from "./user/user.saga";
 import { all, fork } from "redux-saga/effects";
 import { connectRouter } from "connected-react-router";
 import { History } from "history";
@@ -12,5 +12,5 @@ export const createRootReducer = (history: History) =>
   });
 
 export function* rootSaga() {
-  yield all([fork(usersSaga)]);
+  yield all([fork(watchFetchRequest)]);
 }
