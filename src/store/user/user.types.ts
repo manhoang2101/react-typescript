@@ -1,4 +1,4 @@
-import { EUserAction } from "./user.actions";
+import EUserAction from "./user.actions";
 import { BaseAction } from "../types";
 
 export interface IUser {

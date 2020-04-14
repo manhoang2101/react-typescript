@@ -12,8 +12,7 @@ export interface PropsAppButton extends WithStyles<typeof style> {
 
 export class AppButton extends React.Component<PropsAppButton> {
   render() {
-    const { classes } = this.props;
-    const appButtonClass = [[this.props.class], [classes.appButton]];
+    const appButtonClass = [[this.props.class]];
     return (
       <Button
         variant="contained"

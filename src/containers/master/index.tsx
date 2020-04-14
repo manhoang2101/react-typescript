@@ -2,11 +2,21 @@ import HeaderComponent from "../../components/master/header.component";
 import React from "react";
 import FooterComponent from "../../components/master/footer.component";
 import { AppRoutes } from "../../untils/routers";
-import { Switch, Route } from "react-router-dom";
-import styles from "src/untils/styles";
-import { WithStyles, withStyles } from "@material-ui/core";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import styles from "../../untils/styles";
+import {
+  WithStyles,
+  withStyles,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import clsx from "clsx";
-export interface PropsMaster extends WithStyles<typeof styles> {}
+import { IConfig } from "../../store/common/common.types";
+export interface PropsMaster extends WithStyles<typeof styles> {
+  fetchConfigAction: () => void;
+  config: IConfig;
+  pageLoadding: boolean;
+}
 export interface StatesMaster {
   OpenSidebar: boolean;
   HeightHeader: number;
@@ -25,6 +35,7 @@ export class MasterContainer extends React.Component<
     };
     this.handleOpenSidebar.bind(this);
     this.setHeightElement.bind(this);
+    this.props.fetchConfigAction();
   }
   handleOpenSidebar = (status: boolean) => {
     this.setState({
@@ -64,18 +75,23 @@ export class MasterContainer extends React.Component<
             [classes.contentShift]: this.state.OpenSidebar,
           })}
         >
-          <Switch key="Switch">
-            {AppRoutes.map((route) => (
-              <Route
-                exact
-                path={route.path}
-                key={route.lable}
-                pathMatch={route?.pathMatch}
-              >
-                {<route.component />}
-              </Route>
-            ))}
-          </Switch>
+          <Router>
+            <Switch key="Switch">
+              {AppRoutes.map((route) => (
+                <Route
+                  exact
+                  path={route.path}
+                  key={route.lable}
+                  pathMatch={route?.pathMatch}
+                >
+                  {<route.component />}
+                </Route>
+              ))}
+            </Switch>
+          </Router>
+          <Backdrop className={classes.backdrop} open={this.props.pageLoadding}>
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </main>
         <FooterComponent
           SetHeight={this.setHeightElement}

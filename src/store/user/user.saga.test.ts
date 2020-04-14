@@ -1,6 +1,6 @@
 import { takeEvery, put } from "redux-saga/effects";
 import watchFetchRequest, { fetchUsers } from "./user.saga";
-import { EUserAction } from "./user.actions";
+import EUserAction from "./user.actions";
 describe("SAGAS", () => {
   it('should dispatch action "FETCH_USERS" ', () => {
     const generator = watchFetchRequest();
@@ -38,9 +38,11 @@ describe("SAGAS", () => {
     };
     const generator = fetchUsers();
     generator.next();
+    generator.next();
     expect(generator.next(mockResponse).value).toEqual(
       put({ type: EUserAction.FETCH_USERS_SUCCESS, payload })
     );
+    generator.next();
     expect(generator.next().done).toBeTruthy();
   });
 });

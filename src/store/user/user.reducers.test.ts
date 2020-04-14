@@ -1,6 +1,6 @@
 import { userReducer, initialState } from "./user.reducers";
 import { UserActionTypes } from "./user.types";
-import { EUserAction } from "./user.actions";
+import EUserAction from "./user.actions";
 
 describe("User Reducers", () => {
   it(EUserAction.FETCH_USERS_SUCCESS, () => {

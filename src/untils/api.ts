@@ -13,7 +13,7 @@ export interface IOptionCallApi {
 }
 export const initOptionCallApi: IOptionCallApi = {
   method: Emethod.GET,
-  url: "http://localhost:3000",
+  url: "http://localhost:3001",
   path: "",
   data: {},
 };
@@ -48,6 +48,5 @@ export async function callApi(
   return response.json().then((res: IResponse) => checkRequest(res));
 }
 export const checkRequest = (res: IResponse) => {
-  console.log(res);
   return res;
 };

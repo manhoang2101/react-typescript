@@ -1,13 +1,12 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { BaseAction } from "../types";
 import { callApi, initOptionCallApi, IOptionCallApi } from "../../untils/api";
-import EUserAction from "./user.actions";
-import ECommonAction from "../common/common.actions";
+import ECommonAction from "./common.actions";
 
-export function* fetchUsers() {
+export function* fetchConfig() {
   const option: IOptionCallApi = {
     ...initOptionCallApi,
-    path: "assets/data/users.json",
+    path: "assets/data/config.json",
   };
   yield put({
     type: ECommonAction.UPDATE_LOADDING,
@@ -15,7 +14,7 @@ export function* fetchUsers() {
   });
   const res = yield call(callApi, option);
   const actonPut: BaseAction = {
-    type: EUserAction.FETCH_USERS_SUCCESS,
+    type: ECommonAction.FETCH_CONFIG_SUCCESS,
     payload: res.data,
   };
   yield put(actonPut);
@@ -25,6 +24,6 @@ export function* fetchUsers() {
   });
 }
 
-export default function* watchFetchUserRequest() {
-  yield takeEvery(EUserAction.FETCH_USERS, fetchUsers);
+export default function* watchFetchCommonRequest() {
+  yield takeEvery(ECommonAction.FETCH_CONFIG, fetchConfig);
 }

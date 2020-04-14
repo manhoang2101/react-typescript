@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IAppState } from "../../store/types";
 import UserContainer from "../../containers/user";
-import { EUserAction } from "../../store/user/user.actions";
+import EUserAction from "../../store/user/user.actions";
 import { withStyles } from "@material-ui/core";
 import style from "./style";
 

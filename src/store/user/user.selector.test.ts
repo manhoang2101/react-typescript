@@ -9,6 +9,10 @@ describe("Users Selectors", () => {
         users: [],
         user: null,
       },
+      commonReducer: {
+        config: {},
+        pageLoadding: false,
+      },
     };
     const user = userReducer(state);
     expect(user).toEqual({

@@ -1,5 +1,5 @@
 import { IUserState, UserActionTypes } from "./user.types";
-import { EUserAction } from "./user.actions";
+import EUserAction from "./user.actions";
 export const initialState: IUserState = {
   user: null,
   users: [],

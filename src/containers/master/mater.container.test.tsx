@@ -2,10 +2,9 @@ import MasterContainer from ".";
 import React from "react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
-import { BrowserRouter } from "react-router-dom";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import { withStyles } from "@material-ui/core";
-import styles from "src/untils/styles";
+import styles from "../../untils/styles";
 import { render } from "@testing-library/react";
 const mockStore = configureStore([]);
 describe("My Connected React-Redux MasterContainer", () => {
@@ -16,30 +15,35 @@ describe("My Connected React-Redux MasterContainer", () => {
     store = mockStore({
       myState: "sample text",
     });
+    const fetchConfigAction = jest.fn();
+    const props = {
+      config: {},
+      fetchConfigAction,
+      pageLoadding: false,
+    };
     Component = withStyles(styles)(MasterContainer);
     store.dispatch = jest.fn();
     warper = render(
       <Provider store={store}>
-        <BrowserRouter>
-          <Component />
-        </BrowserRouter>
+        <Component {...props} />
       </Provider>
     );
   });
-  it("should render with given state from Redux store", () => {
-    expect(warper).toMatchSnapshot();
-  });
-
   it("should handleOpenSidebar", () => {
-    const SetOpen = jest.fn();
+    const fetchConfigAction = jest.fn();
+    const props = {
+      config: {},
+      fetchConfigAction,
+      pageLoadding: false,
+    };
+    Component = withStyles(styles)(MasterContainer);
     const container = shallow(
       <Provider store={store}>
-        <BrowserRouter>
-          <MasterContainer />
-        </BrowserRouter>
+        <Component {...props} />
       </Provider>
     )
-      .find(MasterContainer)
+      .find(Component)
+      .dive()
       .dive()
       .dive()
       .instance();

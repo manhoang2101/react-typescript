@@ -6,7 +6,7 @@ import { shallow } from "enzyme";
 import { withStyles } from "@material-ui/core";
 import { render } from "@testing-library/react";
 import UserContainer from ".";
-import style from "src/pages/user/style";
+import style from "../../pages/user/style";
 const mockStore = configureStore([]);
 describe("My Connected React-Redux MasterContainer", () => {
   let store: any;

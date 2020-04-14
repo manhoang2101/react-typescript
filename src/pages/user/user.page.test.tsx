@@ -2,10 +2,9 @@ import configureStore from "redux-mock-store";
 import React from "react";
 import { UserPage, mapDispatchToProps } from ".";
 import { Provider } from "react-redux";
-import { mount, shallow } from "enzyme";
-import UserContainer from "src/containers/user";
+import { shallow } from "enzyme";
 import { render } from "@testing-library/react";
-import { EUserAction } from "src/store/user/user.actions";
+import EUserAction from "../../store/user/user.actions";
 
 const initialState = {
   users: [],

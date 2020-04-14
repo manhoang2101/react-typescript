@@ -18,5 +18,9 @@ const styles = (theme: Theme) =>
       }),
       marginLeft: drawerWidth,
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
   });
 export default styles;
