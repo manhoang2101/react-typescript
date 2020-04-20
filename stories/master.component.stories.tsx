@@ -8,5 +8,4 @@ export const Master = () => {
     <Component config={{}} fetchConfigAction={() => {}} pageLoadding={false} />
   );
 };
-
 export default { title: "Container/Master" };

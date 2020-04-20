@@ -1,7 +1,7 @@
 import React from "react";
 import AppTable from ".";
 import GenerateData from "../../../stories/generateData";
-import { ITableColumn, IRenderCell, Order } from "./type";
+import { ITableColumn } from "./type";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { shallow, mount } from "enzyme";
@@ -24,7 +24,7 @@ describe("<TableCell />", () => {
     [constSchema.birthday]: new Date(),
   };
   const generateData = new GenerateData(initialSchema);
-  const data = generateData.dataEXST();
+  const data = generateData.dataEXST(2);
   const columns: ITableColumn[] = [
     {
       label: "id",
@@ -649,48 +649,24 @@ describe("<TableCell />", () => {
       tr.simulate("click");
       expect(hendleOnClickRow).toHaveBeenCalled();
     });
-
-    test("should be has on click onClickRow has group", () => {
-      const columnGroup = [...columns];
-      columnGroup[1] = {
-        ...columnGroup[1],
-        pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
-          background: "yellow",
-        },
-        renderCell: () => "renderCell",
-      };
-      columnGroup[2] = {
-        ...columnGroup[2],
-        pid: "top1",
-      };
-      columnGroup[3] = { ...columnGroup[3], pid: "top2" };
-      columnGroup[4] = { ...columnGroup[4], pid: "top2" };
-      columnGroup.push({
-        key: "top1",
-        label: "Group 1",
-      });
-      columnGroup.push({
-        key: "top2",
-        label: "Group 2",
-      });
-      columnGroup[1] = {
-        ...columnGroup[1],
+    test("should be has on click onDoubleClickRow", () => {
+      const colspanColumns = columns;
+      const hendleOnDoubleClickRow = jest.fn();
+      colspanColumns[1] = {
+        ...colspanColumns[1],
         rowSpanCell: 2,
         renderCell: () => "renderCell",
       };
-      const hendleOnClickRow = jest.fn();
       const container = mount(
         <Component
           data={data}
-          columns={columnGroup}
-          onClickRow={hendleOnClickRow}
+          columns={colspanColumns}
+          onDoubleClickRow={hendleOnDoubleClickRow}
         />
       );
       const tr = container.find(".tr-cell").at(0);
-      tr.simulate("click");
-      expect(hendleOnClickRow).toHaveBeenCalled();
+      tr.simulate("dblclick");
+      expect(hendleOnDoubleClickRow).toHaveBeenCalled();
     });
   });
 
@@ -723,8 +699,8 @@ describe("<TableCell />", () => {
     });
 
     test("should call action", () => {
-      const handelOnChangePage = jest.fn();
-      const handelOnChangeRowsPerPage = jest.fn();
+      const handleOnChangePage = jest.fn();
+      const handleOnChangeRowsPerPage = jest.fn();
       const container = shallow(
         <Component
           data={data}
@@ -733,8 +709,8 @@ describe("<TableCell />", () => {
           paging={true}
           page={0}
           count={data.length}
-          onChangePage={handelOnChangePage}
-          onChangeRowsPerPage={handelOnChangeRowsPerPage}
+          onChangePage={handleOnChangePage}
+          onChangeRowsPerPage={handleOnChangeRowsPerPage}
           perPageOptions={[10, 20, 30]}
         />
       )
@@ -748,8 +724,8 @@ describe("<TableCell />", () => {
       };
       container.handleChangePage(null, 1);
       container.handleChangeRowsPerPage(event);
-      expect(handelOnChangePage).toHaveBeenCalled();
-      expect(handelOnChangeRowsPerPage).toHaveBeenCalled();
+      expect(handleOnChangePage).toHaveBeenCalled();
+      expect(handleOnChangeRowsPerPage).toHaveBeenCalled();
     });
   });
 });

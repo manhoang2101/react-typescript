@@ -26,6 +26,14 @@ export const themeStyle = createMuiTheme({
         paddingRight: defaultTheme.spacing(1),
       },
     },
+    MuiFormControl: {
+      root: {
+        margin: defaultTheme.spacing(1),
+      },
+    },
+    MuiFormHelperText: {
+      contained: { marginLeft: 0 },
+    },
   },
 });
 

@@ -89,11 +89,6 @@ describe("<AppDialog />", () => {
   });
   test("should show text of DialogContent on click onClose", () => {
     const handleClickClose = jest.fn();
-    const dialogTitle = () => (
-      <DialogTitle className="max-width-dialog-title">
-        Optional sizes FullWidth
-      </DialogTitle>
-    );
     const dialogActions = () => (
       <DialogActions>
         <Button
@@ -130,11 +125,6 @@ describe("<AppDialog />", () => {
   });
   test("should show text of DialogContent", () => {
     const handleClickClose = jest.fn();
-    const dialogTitle = () => (
-      <DialogTitle className="max-width-dialog-title">
-        Optional sizes FullWidth
-      </DialogTitle>
-    );
     const dialogActions = () => (
       <DialogActions>
         <Button

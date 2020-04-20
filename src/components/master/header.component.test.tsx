@@ -1,9 +1,8 @@
 import { withStyles } from "@material-ui/core";
 import style from "./style";
-import { shallow, mount } from "enzyme";
+import { shallow } from "enzyme";
 import React from "react";
 import { HeaderComponent } from "./header.component";
-import MenuComponent from "./menu.component";
 import { render } from "@testing-library/react";
 
 describe("<HeaderComponent />", () => {
@@ -15,9 +14,7 @@ describe("<HeaderComponent />", () => {
   });
   test("renders call SetHeight", () => {
     const SetHeight = jest.fn();
-    const { container } = render(
-      <Component SetHeight={SetHeight} Open={false} />
-    );
+    render(<Component SetHeight={SetHeight} Open={false} />);
     expect(SetHeight).toBeCalled();
   });
   test("renders call Open menu", () => {

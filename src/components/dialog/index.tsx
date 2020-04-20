@@ -8,8 +8,6 @@ import {
   Toolbar,
   IconButton,
   Typography,
-  Button,
-  makeStyles,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import style from "./style";

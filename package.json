@@ -55,7 +55,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "clear_jest": "jest --clearCache"
+    "clear_jest": "jest --clearCache",
+    "lint": "eslint \"src/**/*.{ts,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"

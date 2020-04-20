@@ -321,9 +321,32 @@ export const TableColumsSpanThear = () => {
       data={data}
       rowStyle={{ border: "1px solid #cccc" }}
       cellStyle={{ border: "1px solid #cccc" }}
-      onClickRow={(row) => console.log(row)}
     ></AppTable>
   );
 };
 
+export const TableOnClickRow = () => {
+  return (
+    <AppTable
+      columns={columsSpanThear}
+      data={data}
+      rowStyle={{ border: "1px solid #cccc" }}
+      cellStyle={{ border: "1px solid #cccc" }}
+      onClickRow={(row) => alert(`onClickRow :` + JSON.stringify(row))}
+    ></AppTable>
+  );
+};
+export const TableonDoubleClickRow = () => {
+  return (
+    <AppTable
+      columns={columsSpanThear}
+      data={data}
+      rowStyle={{ border: "1px solid #cccc" }}
+      cellStyle={{ border: "1px solid #cccc" }}
+      onDoubleClickRow={(row) =>
+        alert(`onDoubleClickRow :` + JSON.stringify(row))
+      }
+    ></AppTable>
+  );
+};
 export default { title: "Component/Table" };

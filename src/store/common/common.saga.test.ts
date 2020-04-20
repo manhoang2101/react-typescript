@@ -1,4 +1,4 @@
-import { takeEvery, put, call } from "redux-saga/effects";
+import { takeEvery, put } from "redux-saga/effects";
 import watchFetchRequest, { fetchConfig } from "./common.saga";
 import ECommonAction from "./common.actions";
 import { IConfig } from "./common.types";

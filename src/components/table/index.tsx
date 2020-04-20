@@ -18,7 +18,8 @@ import { ITableColumn, Order, IRowSpan, IRenderCell } from "./type";
 export interface PropsAppTable extends WithStyles<typeof style> {
   style?: React.CSSProperties;
   class?: string;
-  onClickRow?: (row: number) => void;
+  onClickRow?: (row: object, event?: any) => void;
+  onDoubleClickRow?: (row: object, event?: any) => void;
   paging?: boolean;
   data: any[];
   columns: ITableColumn[];
@@ -287,6 +288,14 @@ export class AppTable extends React.Component<PropsAppTable> {
     const per = parseInt(event.target.value);
     this.props.onChangeRowsPerPage && this.props.onChangeRowsPerPage(per);
   };
+  public handleOnClickRow(row: object, _event: any) {
+    const { onClickRow } = this.props;
+    onClickRow && onClickRow(row, _event);
+  }
+  public handleOnDoubleClickRow(row: object, _event: any) {
+    const { onDoubleClickRow } = this.props;
+    onDoubleClickRow && onDoubleClickRow(row, _event);
+  }
   public generateData() {
     if (this.props.paging === true) {
       const { page = 0, rowsPerPage = 0 } = this.props;
@@ -303,6 +312,7 @@ export class AppTable extends React.Component<PropsAppTable> {
       classes,
       data,
       onClickRow,
+      onDoubleClickRow,
       page,
       count,
       perPageOptions,
@@ -351,9 +361,14 @@ export class AppTable extends React.Component<PropsAppTable> {
                 this.generateData().map((item: any, index: number) => (
                   <TableRow
                     key={index}
-                    onClick={() => onClickRow && onClickRow(item)}
+                    onClick={(event) => this.handleOnClickRow(item, event)}
+                    onDoubleClick={(event) =>
+                      this.handleOnDoubleClickRow(item, event)
+                    }
                     style={this.props.rowStyle}
-                    className={`tr-cell ${onClickRow && classes.hasClickRow}`}
+                    className={`tr-cell ${
+                      (onClickRow || onDoubleClickRow) && classes.hasClickRow
+                    }`}
                   >
                     {this._groupColums.map((column) =>
                       this.renderCell(item, column, index)

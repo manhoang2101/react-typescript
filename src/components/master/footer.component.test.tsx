@@ -14,7 +14,7 @@ describe("<FooterComponent />", () => {
   });
   test("renders call SetHeight", () => {
     const SetHeight = jest.fn();
-    const { container } = render(<Component SetHeight={SetHeight} />);
+    render(<Component SetHeight={SetHeight} />);
     expect(SetHeight).toBeCalled();
   });
 });

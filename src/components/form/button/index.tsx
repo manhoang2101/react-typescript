@@ -6,6 +6,7 @@ export interface PropsAppButton extends WithStyles<typeof style> {
   style?: Object;
   class?: string;
   onClick?: () => void;
+  onDoubleClick?: () => void;
   text?: string;
   color?: "inherit" | "primary" | "secondary" | "default" | undefined;
 }
@@ -19,6 +20,7 @@ export class AppButton extends React.Component<PropsAppButton> {
         color={this.props.color}
         style={this.props.style}
         onClick={this.props.onClick}
+        onDoubleClick={this.props.onDoubleClick}
         className={appButtonClass.join(" ")}
       >
         {this.props.text}

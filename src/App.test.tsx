@@ -1,10 +1,8 @@
 import configureStore from "redux-mock-store";
 import React from "react";
 import { Provider } from "react-redux";
-import { shallow } from "enzyme";
 import { render } from "@testing-library/react";
 import App from "./App";
-import { MasterContainer } from "./containers/master";
 
 const initialState = {
   commonReducer: {
