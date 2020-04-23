@@ -9,7 +9,7 @@ export function* fetchConfig() {
     path: "assets/data/config.json",
   };
   yield put({
-    type: ECommonAction.UPDATE_LOADDING,
+    type: ECommonAction.UPDATE_LOADING,
     payload: true,
   });
   const res = yield call(callApi, option);
@@ -19,7 +19,7 @@ export function* fetchConfig() {
   };
   yield put(actonPut);
   yield put({
-    type: ECommonAction.UPDATE_LOADDING,
+    type: ECommonAction.UPDATE_LOADING,
     payload: false,
   });
 }

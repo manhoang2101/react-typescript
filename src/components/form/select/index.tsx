@@ -27,15 +27,15 @@ export interface ISelectItemState {
   style?: any;
 }
 export interface OptionSelect {
-  emtyOption?: ISelectItemState;
+  emptyOption?: ISelectItemState;
   selectAll?: ISelectItemState;
-  lables?: {
+  labels?: {
     others: string;
   };
 }
 interface AppSelectState {
   options: OptionSelect;
-  seletedAll: boolean;
+  selectedAll: boolean;
   oldSelected?: string[];
   values?: string[];
   selectItems?: ISelectItemState[];
@@ -65,7 +65,7 @@ export interface AppSelectProps extends WithStyles<typeof style> {
   placeholder?: string;
   selectItems: ISelectItem[];
   variant?: "filled" | "standard" | "outlined";
-  emtySelectOption?: boolean;
+  emptySelectOption?: boolean;
   options?: OptionSelect;
   multiple?: boolean;
   optionSelectAll?: boolean;
@@ -73,25 +73,25 @@ export interface AppSelectProps extends WithStyles<typeof style> {
 class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
   state: AppSelectState = {
     options: {
-      emtyOption: {
+      emptyOption: {
         label: "-- Choose a option --",
-        value: "choose-emty",
+        value: "choose-empty",
       },
       selectAll: {
         label: "Choose All",
         value: "choose-all",
       },
-      lables: {
+      labels: {
         others: "others",
       },
     },
-    seletedAll: false,
+    selectedAll: false,
     values: [],
   };
   constructor(props: Readonly<AppSelectProps>) {
     super(props);
     const {
-      emtySelectOption,
+      emptySelectOption,
       selectItems,
       options: propOption,
       value,
@@ -102,10 +102,10 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
       options: { ...stateOption, ...propOption },
       values: (typeof value === "string" && [value]) || value,
       selectItems:
-        (emtySelectOption &&
+        (emptySelectOption &&
           stateOption &&
-          stateOption?.emtyOption && [
-            stateOption?.emtyOption,
+          stateOption?.emptyOption && [
+            stateOption?.emptyOption,
             ...selectItems,
           ]) ||
         selectItems,
@@ -118,18 +118,18 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
       multiple,
       optionSelectAll,
       selectItems,
-      emtySelectOption,
+      emptySelectOption,
     } = this.props;
-    const { seletedAll, options, values } = this.state;
+    const { selectedAll: selectedAll, options, values } = this.state;
     let { value } = _event.target;
 
     if (optionSelectAll && multiple) {
       const all =
         value.length === selectItems.length ||
         value.includes(options?.selectAll?.value);
-      if (all && !seletedAll) {
+      if (all && !selectedAll) {
         this.setState({
-          seletedAll: true,
+          selectedAll: true,
         });
         value = [
           options?.selectAll?.value,
@@ -137,7 +137,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
         ];
       } else {
         this.setState({
-          seletedAll: false,
+          selectedAll: false,
         });
         if (
           values?.includes(options?.selectAll?.value as string) &&
@@ -154,9 +154,9 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
     value =
       (typeof value === "object" &&
         value.length === 0 &&
-        emtySelectOption && [options?.emtyOption?.value]) ||
+        emptySelectOption && [options?.emptyOption?.value]) ||
       value;
-    const notSelect = [options?.emtyOption?.value, options?.selectAll?.value];
+    const notSelect = [options?.emptyOption?.value, options?.selectAll?.value];
     this.setState({ values: value });
     value =
       typeof value === "object"
@@ -166,22 +166,24 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
   };
 
   handleRenderValue = (_selected: any): any => {
-    const { value, selectItems, emtySelectOption } = this.props;
+    const { value, selectItems, emptySelectOption } = this.props;
     const { options } = this.state;
-    const lable = selectItems
+    const label = selectItems
       .filter((item) => value.includes(item.value))
       .map((item) => item.label);
     return (
-      (lable.length === 0 && emtySelectOption && options?.emtyOption?.label) ||
-      (lable.length <= 2 && lable.join(", ")) || (
+      (label.length === 0 &&
+        emptySelectOption &&
+        options?.emptyOption?.label) ||
+      (label.length <= 2 && label.join(", ")) || (
         <Tooltip
           className="data-test-handleRenderValue"
-          title={lable.join(", ")}
-          aria-label={lable.join(", ")}
+          title={label.join(", ")}
+          aria-label={label.join(", ")}
           placement="top"
         >
-          <span>{`${lable.slice(0, 2).join(", ")} ( + ${lable.length - 2} ${
-            options.lables?.others
+          <span>{`${label.slice(0, 2).join(", ")} ( + ${label.length - 2} ${
+            options.labels?.others
           })`}</span>
         </Tooltip>
       )
@@ -210,10 +212,10 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
       disabled,
       style,
       multiple,
-      emtySelectOption,
+      emptySelectOption,
       optionSelectAll,
     } = this.props;
-    const { options, seletedAll, values } = this.state;
+    const { options, selectedAll: selectedAll, values } = this.state;
 
     return (
       <FormControl className={classes.formControl} variant={variant}>
@@ -235,13 +237,13 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
           onClose={this.handleBlur}
           {...((multiple && { renderValue: this.handleRenderValue }) || {})}
         >
-          {emtySelectOption && !multiple && (
+          {emptySelectOption && !multiple && (
             <MenuItem
-              key={options?.emtyOption?.value}
-              value={options?.emtyOption?.value}
-              style={options?.emtyOption?.style}
+              key={options?.emptyOption?.value}
+              value={options?.emptyOption?.value}
+              style={options?.emptyOption?.style}
             >
-              <em>{options?.emtyOption?.label}</em>
+              <em>{options?.emptyOption?.label}</em>
             </MenuItem>
           )}
           {optionSelectAll && multiple && (
@@ -250,7 +252,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
               value={options?.selectAll?.value}
               style={options?.selectAll?.style}
             >
-              <Checkbox checked={seletedAll} />
+              <Checkbox checked={selectedAll} />
               <ListItemText primary={options.selectAll?.label} />
             </MenuItem>
           )}

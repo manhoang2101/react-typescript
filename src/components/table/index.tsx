@@ -40,7 +40,7 @@ export interface PropsAppTable extends WithStyles<typeof style> {
   order?: Order;
   orderBy?: string;
   rowCount?: number;
-  columsSort?: string[];
+  columnsSort?: string[];
   rowStyle?: React.CSSProperties;
   cellStyle?: React.CSSProperties;
 }
@@ -48,38 +48,36 @@ export interface PropsAppTable extends WithStyles<typeof style> {
 export class AppTable extends React.Component<PropsAppTable> {
   private _columSpan = 0;
   private _pColumns: any[] = [];
-  private _groupColums: (ITableColumn & { childrens: ITableColumn[] })[];
+  private _groupColumns: (ITableColumn & { children: ITableColumn[] })[];
   private _rowSpans: IRowSpan[] = [];
   constructor(props: Readonly<PropsAppTable>) {
     super(props);
     this._pColumns = this.props.columns.filter((item) => item.pid?.trim());
-    this._groupColums = this.props.columns
+    this._groupColumns = this.props.columns
       .filter((column) => !column?.pid?.trim())
       .map((column) => ({
         ...column,
-        childrens: this.props.columns.filter(
-          (item) => item?.pid === column.key
-        ),
+        children: this.props.columns.filter((item) => item?.pid === column.key),
       }));
     this.handleChangePage.bind(this);
     this.handleChangeRowsPerPage.bind(this);
   }
-  private renderThearParent(
-    column: ITableColumn & { childrens: ITableColumn[] },
+  private renderTheadParent(
+    column: ITableColumn & { children: ITableColumn[] },
     index: number
   ) {
     const { classes } = this.props;
     return (
       <TableCell
         className={`${
-          column.childrens.length > 0 && classes.topHeaderHasChildren
-        } ${classes.topHeader} ${column.key} ${classes.tdThear} td-thear`}
+          column.children.length > 0 && classes.topHeaderHasChildren
+        } ${classes.topHeader} ${column.key} ${classes.tdThead} td-thear`}
         key={`thear-${index}`}
-        colSpan={column.childrens.length}
-        rowSpan={column.childrens.length === 0 ? 2 : 1}
-        style={column.styleThear && column.styleThear}
+        colSpan={column.children.length}
+        rowSpan={column.children.length === 0 ? 2 : 1}
+        style={column.styleThead && column.styleThead}
       >
-        {(column.renderThear && column.renderThear(column)) || column.label}
+        {(column.renderThead && column.renderThead(column)) || column.label}
       </TableCell>
     );
   }
@@ -87,36 +85,42 @@ export class AppTable extends React.Component<PropsAppTable> {
     const { onRequestSort } = this.props;
     return onRequestSort && onRequestSort(column);
   }
-  private renderThear(
-    column: ITableColumn & { childrens: ITableColumn[] },
+  private renderThead(
+    column: ITableColumn & { children: ITableColumn[] },
     index: number
   ) {
-    const { classes, sort, columsSort, order, orderBy } = this.props;
-    if (column?.childrens?.length > 0) {
-      return column.childrens?.map((children, index) => {
+    const {
+      classes,
+      sort,
+      columnsSort: columnsSort,
+      order,
+      orderBy,
+    } = this.props;
+    if (column?.children?.length > 0) {
+      return column.children?.map((children, index) => {
         const data = !this._columSpan && (
           <TableCell
             key={`thear-${index}`}
-            style={children.styleThear && children.styleThear}
-            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThear} td-thear`}
-            colSpan={children.columSpanThear}
+            style={children.styleThead && children.styleThead}
+            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThead} td-thear`}
+            colSpan={children.columSpanThead}
           >
-            {(sort && columsSort?.includes(children.key) && (
+            {(sort && columnsSort?.includes(children.key) && (
               <TableSortLabel
                 direction={order}
                 className={`sort-${children.key} sort-column`}
               >
-                {(children.renderThear && children.renderThear(children)) ||
+                {(children.renderThead && children.renderThead(children)) ||
                   children.label}
               </TableSortLabel>
             )) ||
-              (children.renderThear && children.renderThear(children)) ||
+              (children.renderThead && children.renderThead(children)) ||
               children.label}
           </TableCell>
         );
         if (!this._columSpan)
           this._columSpan =
-            (children.columSpanThear && children.columSpanThear - 1) || 0;
+            (children.columSpanThead && children.columSpanThead - 1) || 0;
         else {
           this._columSpan--;
         }
@@ -127,18 +131,18 @@ export class AppTable extends React.Component<PropsAppTable> {
         (!this._columSpan && (
           <TableCell
             key={`thear-${index}`}
-            style={column.styleThear && column.styleThear}
-            className={`${column.key} ${classes.tdThear} td-thear`}
-            colSpan={column.columSpanThear}
+            style={column.styleThead && column.styleThead}
+            className={`${column.key} ${classes.tdThead} td-thear`}
+            colSpan={column.columSpanThead}
           >
-            {(sort && columsSort?.includes(column.key) && (
+            {(sort && columnsSort?.includes(column.key) && (
               <TableSortLabel
                 direction={order}
                 active={orderBy === column.key}
                 onClick={() => this.createSortHandler(column.key)}
                 className={`sort-${column.key} sort-column`}
               >
-                {(column.renderThear && column.renderThear(column)) ||
+                {(column.renderThead && column.renderThead(column)) ||
                   column.label}
                 {orderBy === column.key ? (
                   <span className={classes.visuallyHidden}>
@@ -149,14 +153,14 @@ export class AppTable extends React.Component<PropsAppTable> {
                 ) : null}
               </TableSortLabel>
             )) ||
-              (column.renderThear && column.renderThear(column)) ||
+              (column.renderThead && column.renderThead(column)) ||
               column.label}
           </TableCell>
         )) ||
         null;
       if (!this._columSpan)
         this._columSpan =
-          (column.columSpanThear && column.columSpanThear - 1) || 0;
+          (column.columSpanThead && column.columSpanThead - 1) || 0;
       else {
         this._columSpan--;
       }
@@ -165,11 +169,11 @@ export class AppTable extends React.Component<PropsAppTable> {
   }
   private renderCell(
     row: any,
-    column: ITableColumn & { childrens: ITableColumn[] },
+    column: ITableColumn & { children: ITableColumn[] },
     index: number
   ) {
-    if (column?.childrens?.length > 0) {
-      return column.childrens?.map((children) => {
+    if (column?.children?.length > 0) {
+      return column.children?.map((children) => {
         const check: IRowSpan[] = this._rowSpans.filter(
           (row) => row.key === children.key
         );
@@ -326,32 +330,32 @@ export class AppTable extends React.Component<PropsAppTable> {
             <TableHead>
               {this._pColumns.length > 0 && (
                 <TableRow style={this.props.rowStyle} className={`tr-thear`}>
-                  {this._groupColums.map(
+                  {this._groupColumns.map(
                     (
-                      column: ITableColumn & { childrens: ITableColumn[] },
+                      column: ITableColumn & { children: ITableColumn[] },
                       index: number
-                    ) => this.renderThearParent(column, index)
+                    ) => this.renderTheadParent(column, index)
                   )}
                 </TableRow>
               )}
 
               {this._pColumns.length > 0 && (
                 <TableRow style={this.props.rowStyle} className={`tr-thear`}>
-                  {this._groupColums
-                    .filter((group) => group?.childrens.length > 0)
-                    .map((column, index) => this.renderThear(column, index))}
+                  {this._groupColumns
+                    .filter((group) => group?.children.length > 0)
+                    .map((column, index) => this.renderThead(column, index))}
                 </TableRow>
               )}
 
               {this._pColumns.length === 0 && (
                 <TableRow style={this.props.rowStyle} className={`tr-thear`}>
-                  {this._groupColums
-                    .filter((group) => group?.childrens)
+                  {this._groupColumns
+                    .filter((group) => group?.children)
                     .map(
                       (
-                        column: ITableColumn & { childrens: ITableColumn[] },
+                        column: ITableColumn & { children: ITableColumn[] },
                         index: number
-                      ) => this.renderThear(column, index)
+                      ) => this.renderThead(column, index)
                     )}
                 </TableRow>
               )}
@@ -370,7 +374,7 @@ export class AppTable extends React.Component<PropsAppTable> {
                       (onClickRow || onDoubleClickRow) && classes.hasClickRow
                     }`}
                   >
-                    {this._groupColums.map((column) =>
+                    {this._groupColumns.map((column) =>
                       this.renderCell(item, column, index)
                     )}
                   </TableRow>

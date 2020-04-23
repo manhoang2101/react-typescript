@@ -16,18 +16,18 @@ describe("User Reducers", () => {
         API: "localhost",
         PORT: "3000",
       },
-      pageLoadding: false,
+      pageLoading: false,
     };
     expect(commonReducer(initialCommonState, action)).toEqual(expected);
   });
-  it(ECommonAction.UPDATE_LOADDING, () => {
+  it(ECommonAction.UPDATE_LOADING, () => {
     const action: CommonActionTypes = {
-      type: ECommonAction.UPDATE_LOADDING,
+      type: ECommonAction.UPDATE_LOADING,
       payload: true,
     };
     const expected = {
       config: {},
-      pageLoadding: true,
+      pageLoading: true,
     };
     expect(commonReducer(initialCommonState, action)).toEqual(expected);
   });

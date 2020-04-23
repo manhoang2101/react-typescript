@@ -7,7 +7,7 @@ import App from "./App";
 const initialState = {
   commonReducer: {
     config: {},
-    pageLoadding: false,
+    pageLoading: false,
   },
   userReducer: {
     users: [],

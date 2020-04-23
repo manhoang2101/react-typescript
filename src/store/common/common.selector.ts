@@ -4,12 +4,12 @@ import { ICommonState } from "./common.types";
 
 export const commonReducer = (state: IAppState) => state.commonReducer;
 
-export const selectorLoaddding = createSelector(
+export const selectorLoading = createSelector(
   commonReducer,
-  (state: ICommonState) => state.pageLoadding
+  (state: ICommonState) => state.pageLoading
 );
 
-export const selectorCongifg = createSelector(
+export const selectorConfig = createSelector(
   commonReducer,
   (state: ICommonState) => state.config
 );

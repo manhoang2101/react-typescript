@@ -1,7 +1,7 @@
 import { CommonActionTypes, ICommonState } from "./common.types";
 import ECommonAction from "./common.actions";
 export const initialCommonState: ICommonState = {
-  pageLoadding: false,
+  pageLoading: false,
   config: {},
 };
 export function commonReducer(
@@ -9,10 +9,10 @@ export function commonReducer(
   action: CommonActionTypes
 ): ICommonState {
   switch (action.type) {
-    case ECommonAction.UPDATE_LOADDING: {
+    case ECommonAction.UPDATE_LOADING: {
       return {
         ...state,
-        pageLoadding: action.payload,
+        pageLoading: action.payload,
       };
     }
     case ECommonAction.FETCH_CONFIG_SUCCESS: {

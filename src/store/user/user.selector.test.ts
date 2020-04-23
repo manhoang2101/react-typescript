@@ -11,7 +11,7 @@ describe("Users Selectors", () => {
       },
       commonReducer: {
         config: {},
-        pageLoadding: false,
+        pageLoading: false,
       },
     };
     const user = userReducer(state);

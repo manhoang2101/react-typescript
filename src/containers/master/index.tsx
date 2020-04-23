@@ -15,7 +15,7 @@ import { IConfig } from "../../store/common/common.types";
 export interface PropsMaster extends WithStyles<typeof styles> {
   fetchConfigAction: () => void;
   config: IConfig;
-  pageLoadding: boolean;
+  pageLoading: boolean;
 }
 export interface StatesMaster {
   OpenSidebar: boolean;
@@ -81,7 +81,7 @@ export class MasterContainer extends React.Component<
                 <Route
                   exact
                   path={route.path}
-                  key={route.lable}
+                  key={route.label}
                   pathMatch={route?.pathMatch}
                 >
                   {<route.component />}
@@ -89,7 +89,7 @@ export class MasterContainer extends React.Component<
               ))}
             </Switch>
           </Router>
-          <Backdrop className={classes.backdrop} open={this.props.pageLoadding}>
+          <Backdrop className={classes.backdrop} open={this.props.pageLoading}>
             <CircularProgress color="inherit" />
           </Backdrop>
         </main>

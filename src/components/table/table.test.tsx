@@ -49,8 +49,8 @@ describe("<TableCell />", () => {
   ];
   const Component = withStyles(style)(AppTable);
   // ! test case function
-  describe("should be function renderThearParent", () => {
-    test("should be show lable header", () => {
+  describe("should be function renderTheadParent", () => {
+    test("should be show label header", () => {
       const { container } = render(
         <Component
           data={data}
@@ -66,7 +66,7 @@ describe("<TableCell />", () => {
       expect(trs.length).toBe(data.length);
     });
     describe("should be group", () => {
-      test("should be show lable group header", () => {
+      test("should be show label group header", () => {
         const columnGroup = [...columns];
         columnGroup[1] = { ...columnGroup[1], pid: "top1" };
         columnGroup[2] = { ...columnGroup[2], pid: "top1" };
@@ -105,7 +105,7 @@ describe("<TableCell />", () => {
         expect(ths?.item(3)?.textContent).toBe("birthday");
       });
 
-      test("should be show lable group header has styleThear", () => {
+      test("should be show label group header has styleThead", () => {
         const columnGroup = [...columns];
         columnGroup[1] = { ...columnGroup[1], pid: "top1" };
         columnGroup[2] = { ...columnGroup[2], pid: "top1" };
@@ -114,14 +114,14 @@ describe("<TableCell />", () => {
         columnGroup.push({
           key: "top1",
           label: "Group 1",
-          styleThear: {
+          styleThead: {
             background: "#cccccc",
           },
         });
         columnGroup.push({
           key: "top2",
           label: "Group 2",
-          styleThear: {
+          styleThead: {
             background: "#000000",
             color: "yellow",
           },
@@ -145,7 +145,7 @@ describe("<TableCell />", () => {
         expect(css2).toBe("background: rgb(0, 0, 0); color: yellow;");
       });
 
-      test("should be show lable group header has renderThear()", () => {
+      test("should be show label group header has renderThead()", () => {
         const columnGroup = [...columns];
         columnGroup[1] = { ...columnGroup[1], pid: "top1" };
         columnGroup[2] = { ...columnGroup[2], pid: "top1" };
@@ -154,12 +154,12 @@ describe("<TableCell />", () => {
         columnGroup.push({
           key: "top1",
           label: "Group 1",
-          renderThear: () => "renderThear Group 1",
+          renderThead: () => "renderThead Group 1",
         });
         columnGroup.push({
           key: "top2",
           label: "Group 2",
-          renderThear: () => "renderThear Group 2",
+          renderThead: () => "renderThead Group 2",
         });
         const { container } = render(
           <Component
@@ -174,15 +174,15 @@ describe("<TableCell />", () => {
           ?.getElementsByTagName("tr");
         const trGroup = trs?.item(0);
         let ths = trGroup?.getElementsByTagName("th");
-        expect(ths?.item(1)?.textContent).toBe("renderThear Group 1");
-        expect(ths?.item(2)?.textContent).toBe("renderThear Group 2");
+        expect(ths?.item(1)?.textContent).toBe("renderThead Group 1");
+        expect(ths?.item(2)?.textContent).toBe("renderThead Group 2");
       });
     });
   });
-  describe("should be function renderThear", () => {
+  describe("should be function renderThead", () => {
     test("should be colSpan header", () => {
       const columnSolSpan = [...columns];
-      columnSolSpan[1] = { ...columnSolSpan[1], columSpanThear: 2 };
+      columnSolSpan[1] = { ...columnSolSpan[1], columSpanThead: 2 };
       const { container } = render(
         <Component
           data={data}
@@ -196,7 +196,7 @@ describe("<TableCell />", () => {
 
     test("should be colSpan has Group header", () => {
       const columnGroup = [...columns];
-      columnGroup[1] = { ...columnGroup[1], pid: "top1", columSpanThear: 2 };
+      columnGroup[1] = { ...columnGroup[1], pid: "top1", columSpanThead: 2 };
       columnGroup[2] = { ...columnGroup[2], pid: "top1" };
       columnGroup[3] = { ...columnGroup[3], pid: "top2" };
       columnGroup[4] = { ...columnGroup[4], pid: "top2" };
@@ -219,11 +219,11 @@ describe("<TableCell />", () => {
       expect(colSpan.length).toBe(1);
     });
 
-    test("should be styleThear header", () => {
+    test("should be styleThead header", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
-        styleThear: {
+        styleThead: {
           background: "yellow",
         },
       };
@@ -240,13 +240,13 @@ describe("<TableCell />", () => {
       expect(style).toBe("background: yellow;");
     });
 
-    test("should be colSpan has Group, styleThear header", () => {
+    test("should be colSpan has Group, styleThead header", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
+        columSpanThead: 2,
+        styleThead: {
           background: "yellow",
         },
       };
@@ -277,11 +277,11 @@ describe("<TableCell />", () => {
       expect(style).toBe("background: yellow;");
     });
 
-    test("should be renderThear header", () => {
+    test("should be renderThead header", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
-        renderThear: () => "renderThear",
+        renderThead: () => "renderThead",
       };
       const { container } = render(
         <Component
@@ -291,12 +291,12 @@ describe("<TableCell />", () => {
         />
       );
       const innerHTML = container.querySelector(".name.td-thear")?.innerHTML;
-      expect(innerHTML).toBe("renderThear");
+      expect(innerHTML).toBe("renderThead");
     });
 
-    test("should be header has renderThear", () => {
+    test("should be header has renderThead", () => {
       const columnGroup = [...columns];
-      columnGroup[1] = { ...columnGroup[1], renderThear: () => "renderThear" };
+      columnGroup[1] = { ...columnGroup[1], renderThead: () => "renderThead" };
       const { container } = render(
         <Component
           data={[data[0]]}
@@ -310,15 +310,15 @@ describe("<TableCell />", () => {
         ?.getElementsByTagName("tr")
         .item(0)
         ?.getElementsByTagName("th");
-      expect(ths?.item(1)?.textContent).toBe("renderThear");
+      expect(ths?.item(1)?.textContent).toBe("renderThead");
     });
 
-    test("should be colSpan has Group, renderThear header", () => {
+    test("should be colSpan has Group, renderThead header", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        renderThear: () => "renderThear",
+        renderThead: () => "renderThead",
       };
       columnGroup[2] = {
         ...columnGroup[2],
@@ -347,19 +347,19 @@ describe("<TableCell />", () => {
         ?.getElementsByTagName("tr")
         .item(1)
         ?.getElementsByTagName("th");
-      expect(ths?.item(0)?.textContent).toBe("renderThear");
+      expect(ths?.item(0)?.textContent).toBe("renderThead");
     });
 
-    test("should be header has Sorting renderThear", () => {
+    test("should be header has Sorting renderThead", () => {
       const columnGroup = [...columns];
-      columnGroup[1] = { ...columnGroup[1], renderThear: () => "renderThear" };
+      columnGroup[1] = { ...columnGroup[1], renderThead: () => "renderThead" };
       const { container } = render(
         <Component
           data={data}
           columns={columns}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name", "address"]}
+          columnsSort={["name", "address"]}
           order={"desc"}
           orderBy={"name"}
         />
@@ -375,7 +375,7 @@ describe("<TableCell />", () => {
           columns={columns}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name", "address"]}
+          columnsSort={["name", "address"]}
           order={"asc"}
           orderBy={"name"}
         />
@@ -384,15 +384,15 @@ describe("<TableCell />", () => {
       expect(sortingColumns.length).toBe(2);
     });
 
-    test("should be header has Sorting renderThear", () => {
+    test("should be header has Sorting renderThead", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
-        renderThear: () => "renderThear",
+        renderThead: () => "renderThead",
       };
       columnGroup[2] = {
         ...columnGroup[2],
-        renderThear: () => "renderThear",
+        renderThead: () => "renderThead",
       };
       const { container } = render(
         <Component
@@ -400,7 +400,7 @@ describe("<TableCell />", () => {
           columns={columnGroup}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name", "address"]}
+          columnsSort={["name", "address"]}
           order={"asc"}
           orderBy={"name"}
         />
@@ -414,8 +414,8 @@ describe("<TableCell />", () => {
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
+        columSpanThead: 2,
+        styleThead: {
           background: "yellow",
         },
       };
@@ -439,23 +439,23 @@ describe("<TableCell />", () => {
           columns={columnGroup}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name"]}
+          columnsSort={["name"]}
         />
       );
       const name = container.querySelectorAll(".sort-name");
       expect(name.length).toBe(1);
     });
 
-    test("should be colSpan has Group header has Sorting as renderThear ", () => {
+    test("should be colSpan has Group header has Sorting as renderThead ", () => {
       const columnGroup = [...columns];
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
+        columSpanThead: 2,
+        styleThead: {
           background: "yellow",
         },
-        renderThear: () => "renderThear",
+        renderThead: () => "renderThead",
       };
       columnGroup[2] = {
         ...columnGroup[2],
@@ -477,7 +477,7 @@ describe("<TableCell />", () => {
           columns={columnGroup}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name"]}
+          columnsSort={["name"]}
         />
       );
       const name = container.querySelectorAll(".sort-name");
@@ -492,7 +492,7 @@ describe("<TableCell />", () => {
           columns={columns}
           onClickRow={(row) => console.log(row)}
           sort={true}
-          columsSort={["name"]}
+          columnsSort={["name"]}
           onRequestSort={hendleOnSorted}
         />
       );
@@ -526,8 +526,8 @@ describe("<TableCell />", () => {
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
+        columSpanThead: 2,
+        styleThead: {
           background: "yellow",
         },
         columSpanCell: 2,
@@ -592,8 +592,8 @@ describe("<TableCell />", () => {
       columnGroup[1] = {
         ...columnGroup[1],
         pid: "top1",
-        columSpanThear: 2,
-        styleThear: {
+        columSpanThead: 2,
+        styleThead: {
           background: "yellow",
         },
         renderCell: () => "renderCell",

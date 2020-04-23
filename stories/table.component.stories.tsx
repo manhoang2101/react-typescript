@@ -52,7 +52,7 @@ const columnsGroupHeader: ITableColumn[] = [
   {
     label: "Group 1",
     key: "top1",
-    styleThear: {
+    styleThead: {
       background: "#000",
       color: "yellow",
     },
@@ -115,7 +115,7 @@ const columnsRowspan: ITableColumn[] = [
   {
     label: "Group 1",
     key: "top1",
-    styleThear: {
+    styleThead: {
       background: "#000",
       color: "yellow",
     },
@@ -170,7 +170,7 @@ const columnsPaging: ITableColumn[] = [
     key: "birthday",
   },
 ];
-const columsSpanThear: ITableColumn[] = [
+const columnsSpanThead: ITableColumn[] = [
   {
     label: "id",
     key: "id",
@@ -178,7 +178,7 @@ const columsSpanThear: ITableColumn[] = [
   {
     label: "name",
     key: "name",
-    columSpanThear: 2,
+    columSpanThead: 2,
   },
   {
     label: "address",
@@ -204,7 +204,7 @@ export const TableGroupHeader = () => {
       columns={columnsGroupHeader}
       data={data}
       sort={true}
-      columsSort={["name", "address"]}
+      columnsSort={["name", "address"]}
     ></AppTable>
   );
 };
@@ -305,7 +305,7 @@ export const TableHasSort = () => {
       data={onData}
       rowStyle={{ border: "1px solid #cccc" }}
       cellStyle={{ border: "1px solid #cccc" }}
-      columsSort={["name", "phone"]}
+      columnsSort={["name", "phone"]}
       sort={true}
       order={order}
       orderBy={orderBy}
@@ -314,10 +314,10 @@ export const TableHasSort = () => {
   );
 };
 
-export const TableColumsSpanThear = () => {
+export const TableColumnsSpanThead = () => {
   return (
     <AppTable
-      columns={columsSpanThear}
+      columns={columnsSpanThead}
       data={data}
       rowStyle={{ border: "1px solid #cccc" }}
       cellStyle={{ border: "1px solid #cccc" }}
@@ -328,7 +328,7 @@ export const TableColumsSpanThear = () => {
 export const TableOnClickRow = () => {
   return (
     <AppTable
-      columns={columsSpanThear}
+      columns={columnsSpanThead}
       data={data}
       rowStyle={{ border: "1px solid #cccc" }}
       cellStyle={{ border: "1px solid #cccc" }}
@@ -339,7 +339,7 @@ export const TableOnClickRow = () => {
 export const TableonDoubleClickRow = () => {
   return (
     <AppTable
-      columns={columsSpanThear}
+      columns={columnsSpanThead}
       data={data}
       rowStyle={{ border: "1px solid #cccc" }}
       cellStyle={{ border: "1px solid #cccc" }}

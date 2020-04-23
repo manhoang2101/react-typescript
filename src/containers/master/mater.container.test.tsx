@@ -21,7 +21,7 @@ describe("My Connected React-Redux MasterContainer", () => {
     const props = {
       config: {},
       fetchConfigAction,
-      pageLoadding: false,
+      pageLoading: false,
     };
     Component = withStyles(styles)(MasterContainer);
     const container = shallow(

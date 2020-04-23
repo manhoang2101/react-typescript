@@ -3,10 +3,10 @@ import { UserPage } from "../pages/user";
 export interface IAppRoute {
   path: string;
   component: React.Component;
-  lable?: string;
+  label?: string;
   pathMatch?: string;
 }
 export const AppRoutes = [
-  { path: "/", component: HomePage, lable: "Home", pathMatch: "full" },
-  { path: "/users", component: UserPage, lable: "Users", pathMatch: false },
+  { path: "/", component: HomePage, label: "Home", pathMatch: "full" },
+  { path: "/users", component: UserPage, label: "Users", pathMatch: false },
 ];

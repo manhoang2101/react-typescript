@@ -26,7 +26,7 @@ const style = (theme: Theme) =>
       fontWeight: 600,
       padding: "7px",
     },
-    tdThear: {
+    tdThead: {
       border: "2px solid #ccc",
       background: colors.grey[100],
       textAlign: "center",

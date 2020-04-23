@@ -18,7 +18,7 @@ describe("<AppSelect />", () => {
     expect(container).toMatchSnapshot();
   });
   describe("handleChange", () => {
-    test("should call handleChange() not multiple and optionSelectAll  and emtySelectOption", () => {
+    test("should call handleChange() not multiple and optionSelectAll  and emptySelectOption", () => {
       const handleChange = jest.fn();
       const items: ISelectItem[] = [
         { label: "Radio1", value: "Radio1" },
@@ -41,7 +41,7 @@ describe("<AppSelect />", () => {
       component.handleChange(event);
       expect(handleChange).toHaveBeenCalled();
     });
-    test("should call handleChange() not multiple and optionSelectAll  has emtySelectOption", () => {
+    test("should call handleChange() not multiple and optionSelectAll  has emptySelectOption", () => {
       const handleChange = jest.fn();
       const items: ISelectItem[] = [
         { label: "Radio1", value: "Radio1" },
@@ -54,19 +54,19 @@ describe("<AppSelect />", () => {
           selectItems={items}
           onChange={handleChange}
           id="DE"
-          emtySelectOption
+          emptySelectOption
           value={""}
         />
       );
       let component = wrapper.dive().dive().instance();
-      expect(component.props.emtySelectOption).toBe(true);
+      expect(component.props.emptySelectOption).toBe(true);
       const event = {
         target: { value: ["1", "2", "3"] },
       };
       component.handleChange(event);
       expect(handleChange).toHaveBeenCalled();
     });
-    test("should call handleChange() has multiple and  not optionSelectAll  has emtySelectOption", () => {
+    test("should call handleChange() has multiple and  not optionSelectAll  has emptySelectOption", () => {
       const handleChange = jest.fn();
       const items: ISelectItem[] = [
         { label: "Radio1", value: "Radio1" },
@@ -79,26 +79,26 @@ describe("<AppSelect />", () => {
           selectItems={items}
           onChange={handleChange}
           id="DE"
-          emtySelectOption
+          emptySelectOption
           multiple
           value={["1"]}
           options={{
-            emtyOption: {
+            emptyOption: {
               label: "-- Choose a option --",
-              value: "choose-emty",
+              value: "choose-empty",
             },
             selectAll: {
               label: "Choose All",
               value: "choose-all",
             },
-            lables: {
+            labels: {
               others: "others",
             },
           }}
         />
       );
       let component = wrapper.dive().dive().instance();
-      expect(component.props.emtySelectOption).toBe(true);
+      expect(component.props.emptySelectOption).toBe(true);
       expect(component.props.multiple).toBe(true);
       const event = {
         target: { value: [] },
@@ -106,7 +106,7 @@ describe("<AppSelect />", () => {
       component.handleChange(event);
       expect(handleChange).toHaveBeenCalled();
     });
-    test("should call handleChange() has multiple and  has optionSelectAll  has emtySelectOption", () => {
+    test("should call handleChange() has multiple and  has optionSelectAll  has emptySelectOption", () => {
       const handleChange = jest.fn();
       const items: ISelectItem[] = [
         { label: "Radio1", value: "Radio1" },
@@ -119,19 +119,19 @@ describe("<AppSelect />", () => {
           selectItems={items}
           onChange={handleChange}
           id="DE"
-          emtySelectOption={true}
+          emptySelectOption={true}
           multiple={true}
           value={["1"]}
           options={{
-            emtyOption: {
+            emptyOption: {
               label: "-- Choose a option --",
-              value: "choose-emty",
+              value: "choose-empty",
             },
             selectAll: {
               label: "Choose All",
               value: "choose-all",
             },
-            lables: {
+            labels: {
               others: "others",
             },
           }}
@@ -139,7 +139,7 @@ describe("<AppSelect />", () => {
         />
       );
       let component = wrapper.dive().dive().instance();
-      expect(component.props.emtySelectOption).toBe(true);
+      expect(component.props.emptySelectOption).toBe(true);
       expect(component.props.multiple).toBe(true);
       expect(component.props.optionSelectAll).toBe(true);
       const event = {
@@ -161,19 +161,19 @@ describe("<AppSelect />", () => {
           selectItems={items}
           onChange={handleChange}
           id="DE"
-          emtySelectOption={true}
+          emptySelectOption={true}
           multiple={true}
           value={[]}
           options={{
-            emtyOption: {
+            emptyOption: {
               label: "-- Choose a option --",
-              value: "choose-emty",
+              value: "choose-empty",
             },
             selectAll: {
               label: "Choose All",
               value: "choose-all",
             },
-            lables: {
+            labels: {
               others: "others",
             },
           }}
@@ -200,19 +200,19 @@ describe("<AppSelect />", () => {
           selectItems={items}
           onChange={handleChange}
           id="DE"
-          emtySelectOption={true}
+          emptySelectOption={true}
           multiple={true}
           value={[]}
           options={{
-            emtyOption: {
+            emptyOption: {
               label: "-- Choose a option --",
-              value: "choose-emty",
+              value: "choose-empty",
             },
             selectAll: {
               label: "Choose All",
               value: "choose-all",
             },
-            lables: {
+            labels: {
               others: "others",
             },
           }}
@@ -247,15 +247,15 @@ describe("<AppSelect />", () => {
           multiple={true}
           value={["Radio1", "Radio2", "Radio3", "Radio4"]}
           options={{
-            emtyOption: {
+            emptyOption: {
               label: "-- Choose a option --",
-              value: "choose-emty",
+              value: "choose-empty",
             },
             selectAll: {
               label: "Choose All",
               value: "choose-all",
             },
-            lables: {
+            labels: {
               others: "others",
             },
           }}
@@ -267,7 +267,7 @@ describe("<AppSelect />", () => {
         target: { value: ["Radio1", "Radio2", "Radio3"] },
       };
       component.state.values = ["choose-all", "Radio1", "Radio2", "Radio3"];
-      component.state.seletedAll = true;
+      component.state.selectedAll = true;
       component.handleChange(event);
       expect(handleChange).toHaveBeenCalledWith([]);
     });
@@ -292,15 +292,15 @@ describe("<AppSelect />", () => {
         multiple={true}
         value={["Radio1", "Radio2", "Radio3", "Radio4"]}
         options={{
-          emtyOption: {
+          emptyOption: {
             label: "-- Choose a option --",
-            value: "choose-emty",
+            value: "choose-empty",
           },
           selectAll: {
             label: "Choose All",
             value: "choose-all",
           },
-          lables: {
+          labels: {
             others: "others",
           },
         }}
@@ -330,15 +330,15 @@ describe("<AppSelect />", () => {
         multiple={true}
         value={["Radio1", "Radio2", "Radio3", "Radio4"]}
         options={{
-          emtyOption: {
+          emptyOption: {
             label: "-- Choose a option --",
-            value: "choose-emty",
+            value: "choose-empty",
           },
           selectAll: {
             label: "Choose All",
             value: "choose-all",
           },
-          lables: {
+          labels: {
             others: "others",
           },
         }}
@@ -366,17 +366,17 @@ describe("<AppSelect />", () => {
         multiple={true}
         value={[]}
         optionSelectAll={true}
-        emtySelectOption={true}
+        emptySelectOption={true}
         options={{
-          emtyOption: {
+          emptyOption: {
             label: "-- Choose a option --",
-            value: "choose-emty",
+            value: "choose-empty",
           },
           selectAll: {
             label: "Choose All",
             value: "choose-all",
           },
-          lables: {
+          labels: {
             others: "others",
           },
         }}
@@ -402,17 +402,17 @@ describe("<AppSelect />", () => {
         multiple={true}
         value={["Radio1", "Radio2", "Radio3"]}
         optionSelectAll={true}
-        emtySelectOption={true}
+        emptySelectOption={true}
         options={{
-          emtyOption: {
+          emptyOption: {
             label: "-- Choose a option --",
-            value: "choose-emty",
+            value: "choose-empty",
           },
           selectAll: {
             label: "Choose All",
             value: "choose-all",
           },
-          lables: {
+          labels: {
             others: "others",
           },
         }}
@@ -425,8 +425,8 @@ describe("<AppSelect />", () => {
       "Radio3",
       "Radio4",
     ]);
-    const lable = shallow(data);
-    expect(lable.dive().text()).toBe(`Radio1, Radio2 ( + 1 others)`);
+    const label = shallow(data);
+    expect(label.dive().text()).toBe(`Radio1, Radio2 ( + 1 others)`);
   });
   test("should call handleRenderValue item <= 2", () => {
     const handleChange = jest.fn();
@@ -444,17 +444,17 @@ describe("<AppSelect />", () => {
         multiple={true}
         value={["Radio1", "Radio2"]}
         optionSelectAll={true}
-        emtySelectOption={true}
+        emptySelectOption={true}
         options={{
-          emtyOption: {
+          emptyOption: {
             label: "-- Choose a option --",
-            value: "choose-emty",
+            value: "choose-empty",
           },
           selectAll: {
             label: "Choose All",
             value: "choose-all",
           },
-          lables: {
+          labels: {
             others: "others",
           },
         }}

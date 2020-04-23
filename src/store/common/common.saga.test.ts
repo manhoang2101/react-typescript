@@ -17,7 +17,7 @@ describe("SAGAS", () => {
     };
     const mockResponse = {
       status: 200,
-      token: "sfdsfdsfdsfet4tregrfsdfsd",
+      token: "token",
       meta: { count: 3, description: "", more: {} },
       data: payload,
     };

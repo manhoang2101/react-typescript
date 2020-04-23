@@ -3,13 +3,13 @@ import React from "react";
 export interface ITableColumn {
   label: string;
   key: string;
-  renderThear?: Function;
+  renderThead?: Function;
   renderCell?: Function;
-  styleThear?: React.CSSProperties;
+  styleThead?: React.CSSProperties;
   styleCell?: React.CSSProperties;
   pid?: string;
-  rowSpanThear?: number;
-  columSpanThear?: number;
+  rowSpanThead?: number;
+  columSpanThead?: number;
   rowSpanCell?: number;
   columSpanCell?: number;
 }

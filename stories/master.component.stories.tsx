@@ -5,7 +5,7 @@ import styles from "../src/untils/styles";
 const Component = withStyles(styles)(MasterContainer);
 export const Master = () => {
   return (
-    <Component config={{}} fetchConfigAction={() => {}} pageLoadding={false} />
+    <Component config={{}} fetchConfigAction={() => {}} pageLoading={false} />
   );
 };
 export default { title: "Container/Master" };

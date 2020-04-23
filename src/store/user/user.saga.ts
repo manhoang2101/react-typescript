@@ -10,7 +10,7 @@ export function* fetchUsers() {
     path: "assets/data/users.json",
   };
   yield put({
-    type: ECommonAction.UPDATE_LOADDING,
+    type: ECommonAction.UPDATE_LOADING,
     payload: true,
   });
   const res = yield call(callApi, option);
@@ -20,7 +20,7 @@ export function* fetchUsers() {
   };
   yield put(actonPut);
   yield put({
-    type: ECommonAction.UPDATE_LOADDING,
+    type: ECommonAction.UPDATE_LOADING,
     payload: false,
   });
 }

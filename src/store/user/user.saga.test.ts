@@ -19,20 +19,20 @@ describe("SAGAS", () => {
       },
       {
         id: 2,
-        name: "Lucas Torreira",
+        name: "Lucas Terceira",
         cardNumber: "XXXX-XXXX-XXXX-1369",
         cardType: "Master",
       },
       {
         id: 3,
-        name: "Edison Cavani",
+        name: "Edison Cavan",
         cardNumber: "XXXX-XXXX-XXXX-8888",
         cardType: "Visa",
       },
     ];
     const mockResponse = {
       status: 200,
-      token: "sfdsfdsfdsfet4tregrfsdfsd",
+      token: "token",
       meta: { count: 3, description: "", more: {} },
       data: payload,
     };

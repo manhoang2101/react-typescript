@@ -18,12 +18,12 @@ export const Default = () => {
       name={"Default"}
       label={`Select`}
       value={value}
-      id="sdfsdfd-d"
+      id="test"
     />
   );
 };
-export const HasEmty = () => {
-  const [value, setChecked] = useState("choose-emty");
+export const HasEmpty = () => {
+  const [value, setChecked] = useState("choose-empty");
   const items: ISelectItem[] = [
     { label: "Radio1", value: "Radio1" },
     { label: "Radio2", value: "Radio2" },
@@ -42,16 +42,16 @@ export const HasEmty = () => {
       value={value}
       id="sdfsdfd-d"
       options={{
-        emtyOption: {
+        emptyOption: {
           label: "---chon mot phan tu---",
-          value: "choose-emty",
+          value: "choose-empty",
         },
         selectAll: {
           label: "choose all option",
-          value: "choose-emty",
+          value: "choose-empty",
         },
       }}
-      emtySelectOption={true}
+      emptySelectOption={true}
     />
   );
 };
@@ -79,7 +79,7 @@ export const HasMultiple = () => {
           label: "Chon tat ca",
           value: "choose-all-option",
         },
-        lables: {
+        label: {
           others: "khác",
         },
       }}
@@ -119,7 +119,7 @@ export const HasMultipleAll = () => {
   );
 };
 export const HasMultipleAllHasEmty = () => {
-  const [values, setChecked] = useState<any>(["choose-emty"]);
+  const [values, setChecked] = useState<any>(["choose-empty"]);
   const items: ISelectItem[] = [
     { label: "Radio1", value: "Radio1" },
     { label: "Radio2", value: "Radio2" },
@@ -137,11 +137,11 @@ export const HasMultipleAllHasEmty = () => {
       label={`Select`}
       value={values}
       id="sdfsdfd-d"
-      emtySelectOption={true}
+      emptySelectOption={true}
       options={{
-        emtyOption: {
+        emptyOption: {
           label: "---chon mot phan tu---",
-          value: "choose-emty",
+          value: "choose-empty",
         },
         selectAll: {
           label: "Chon tat ca",

@@ -1,7 +1,7 @@
 import {
   commonReducer,
-  selectorLoaddding,
-  selectorCongifg,
+  selectorLoading,
+  selectorConfig,
 } from "./common.selector";
 import { IAppState } from "../types";
 import { ICommonState } from "./common.types";
@@ -16,35 +16,35 @@ describe("Users Selectors", () => {
       },
       commonReducer: {
         config: {},
-        pageLoadding: false,
+        pageLoading: false,
       },
     };
     const common = commonReducer(state);
     expect(common).toEqual({
       config: {},
-      pageLoadding: false,
+      pageLoading: false,
     });
   });
-  describe("selectorLoaddding", () => {
-    it("should return loaddding", () => {
+  describe("selectorLoading", () => {
+    it("should return loading", () => {
       const mockParameters: ICommonState = {
         config: {},
-        pageLoadding: false,
+        pageLoading: false,
       };
-      const selected = selectorLoaddding.resultFunc(mockParameters);
+      const selected = selectorLoading.resultFunc(mockParameters);
       expect(selected).toEqual(false);
     });
   });
-  describe("selectorCongifg", () => {
-    it("should return congifg", () => {
+  describe("selectorConfig", () => {
+    it("should return config", () => {
       const mockParameters = {
         config: {
           API: "localhost",
           POST: "3000",
         },
-        pageLoadding: false,
+        pageLoading: false,
       };
-      const selected = selectorCongifg.resultFunc(mockParameters);
+      const selected = selectorConfig.resultFunc(mockParameters);
       expect(selected).toEqual({ API: "localhost", POST: "3000" });
     });
   });
