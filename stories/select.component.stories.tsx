@@ -40,10 +40,10 @@ export const HasEmpty = () => {
       name={"Default"}
       label={`Select`}
       value={value}
-      id="sdfsdfd-d"
+      id="test"
       options={{
         emptyOption: {
-          label: "---chon mot phan tu---",
+          label: "---choose an option---",
           value: "choose-empty",
         },
         selectAll: {
@@ -73,13 +73,13 @@ export const HasMultiple = () => {
       name={"Default"}
       label={`Select`}
       value={values}
-      id="sdfsdfd-d"
+      id="test"
       options={{
         selectAll: {
           label: "Chon tat ca",
           value: "choose-all-option",
         },
-        label: {
+        labels: {
           others: "khác",
         },
       }}
@@ -106,7 +106,7 @@ export const HasMultipleAll = () => {
       name={"Default"}
       label={`Select`}
       value={values}
-      id="sdfsdfd-d"
+      id="test"
       options={{
         selectAll: {
           label: "Chon tat ca",
@@ -118,7 +118,7 @@ export const HasMultipleAll = () => {
     />
   );
 };
-export const HasMultipleAllHasEmty = () => {
+export const HasMultipleAllHasEmpty = () => {
   const [values, setChecked] = useState<any>(["choose-empty"]);
   const items: ISelectItem[] = [
     { label: "Radio1", value: "Radio1" },
@@ -136,11 +136,11 @@ export const HasMultipleAllHasEmty = () => {
       name={"Default"}
       label={`Select`}
       value={values}
-      id="sdfsdfd-d"
+      id="test"
       emptySelectOption={true}
       options={{
         emptyOption: {
-          label: "---chon mot phan tu---",
+          label: "--Chon mot phan tu---",
           value: "choose-empty",
         },
         selectAll: {
@@ -171,7 +171,7 @@ export const HasMultipleError = () => {
       name={"Default"}
       label={`Select`}
       value={values}
-      id="sdfsdfd-d"
+      id="test"
       options={{
         selectAll: {
           label: "Chon tat ca",
