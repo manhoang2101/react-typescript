@@ -14,7 +14,7 @@ export class FooterComponent extends React.Component<PropsAppHeader> {
     }
   };
   render() {
-    return <div ref={this.refCallback}> </div>;
+    return <div ref={this.refCallback}> Footer</div>;
   }
 }
 export default withStyles(style)(FooterComponent);
