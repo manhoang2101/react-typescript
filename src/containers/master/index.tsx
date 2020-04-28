@@ -11,7 +11,7 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import clsx from "clsx";
-import { IConfig } from "../../store/common/common.types";
+import { IConfig } from "../../stories/common/common.types";
 export interface PropsMaster extends WithStyles<typeof styles> {
   fetchConfigAction: () => void;
   config: IConfig;

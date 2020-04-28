@@ -12,15 +12,24 @@ export interface IUserState {
   user?: IUser | null;
 }
 
-export interface fetchUsersAction extends BaseAction {
+export interface FetchUsersAction extends BaseAction {
   type: typeof EUserAction.FETCH_USERS;
 }
-export interface fetchUsersSuccessAction extends BaseAction {
+export interface FetchUsersSuccessAction extends BaseAction {
   type: typeof EUserAction.FETCH_USERS_SUCCESS;
   payload: IUser[];
 }
 
+export interface SetUser extends BaseAction {
+  type: typeof EUserAction.SET_USER;
+  payload: IUser;
+}
+export interface AddUser extends BaseAction {
+  type: typeof EUserAction.ADD_USER;
+  payload: IUser;
+}
 export type UserActionTypes =
-  | fetchUsersAction
-  | fetchUsersSuccessAction
-  | BaseAction;
+  | SetUser
+  | AddUser
+  | FetchUsersAction
+  | FetchUsersSuccessAction;

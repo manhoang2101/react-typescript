@@ -3,7 +3,7 @@ import AppSelect, { ISelectItem } from "../src/components/form/select";
 export const Default = () => {
   const [value, setChecked] = useState("");
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
@@ -25,7 +25,7 @@ export const Default = () => {
 export const HasEmpty = () => {
   const [value, setChecked] = useState("choose-empty");
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
@@ -58,7 +58,7 @@ export const HasEmpty = () => {
 export const HasMultiple = () => {
   const [values, setChecked] = useState<any>([]);
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
@@ -91,7 +91,7 @@ export const HasMultiple = () => {
 export const HasMultipleAll = () => {
   const [values, setChecked] = useState<any>([]);
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
@@ -121,7 +121,7 @@ export const HasMultipleAll = () => {
 export const HasMultipleAllHasEmpty = () => {
   const [values, setChecked] = useState<any>(["choose-empty"]);
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
@@ -156,7 +156,7 @@ export const HasMultipleAllHasEmpty = () => {
 export const HasMultipleError = () => {
   const [values, setChecked] = useState<any>([]);
   const items: ISelectItem[] = [
-    { label: "Radio1", value: "Radio1" },
+    { label: "Select1", value: "Select1" },
     { label: "Radio2", value: "Radio2" },
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },

@@ -7,14 +7,14 @@ import { withStyles } from "@material-ui/core";
 import styles from "../../untils/styles";
 const mockStore = configureStore([]);
 describe("My Connected React-Redux MasterContainer", () => {
-  let store: any;
+  let stories: any;
   let Component: any;
   beforeEach(() => {
-    store = mockStore({
+    stories = mockStore({
       myState: "sample text",
     });
     Component = withStyles(styles)(MasterContainer);
-    store.dispatch = jest.fn();
+    stories.dispatch = jest.fn();
   });
   it("should handleOpenSidebar", () => {
     const fetchConfigAction = jest.fn();
@@ -25,7 +25,7 @@ describe("My Connected React-Redux MasterContainer", () => {
     };
     Component = withStyles(styles)(MasterContainer);
     const container = shallow(
-      <Provider store={store}>
+      <Provider store={stories}>
         <Component {...props} />
       </Provider>
     )

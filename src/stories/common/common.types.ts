@@ -13,8 +13,8 @@ export interface UpdateLoading extends BaseAction {
   type: typeof ECommonAction.UPDATE_LOADING;
   payload: boolean;
 }
-export interface fetchConfigSuccess extends BaseAction {
+export interface FetchConfigSuccess extends BaseAction {
   type: typeof ECommonAction.FETCH_CONFIG_SUCCESS;
   payload: IConfig;
 }
-export type CommonActionTypes = UpdateLoading | fetchConfigSuccess;
+export type CommonActionTypes = UpdateLoading | FetchConfigSuccess;
