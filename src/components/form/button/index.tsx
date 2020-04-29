@@ -2,7 +2,7 @@ import Button from "@material-ui/core/Button";
 import React from "react";
 import style from "./style";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
-export interface PropsAppButton extends WithStyles<typeof style> {
+export interface IAppButtonProps extends WithStyles<typeof style> {
   style?: Object;
   class?: string;
   onClick?: () => void;
@@ -11,7 +11,7 @@ export interface PropsAppButton extends WithStyles<typeof style> {
   color?: "inherit" | "primary" | "secondary" | "default" | undefined;
 }
 
-export class AppButton extends React.Component<PropsAppButton> {
+export class AppButton extends React.Component<IAppButtonProps> {
   render() {
     const appButtonClass = [[this.props.class]];
     return (

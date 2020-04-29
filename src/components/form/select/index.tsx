@@ -26,15 +26,15 @@ export interface ISelectItemState {
   disabled?: boolean;
   style?: any;
 }
-export interface OptionSelect {
+export interface IOptionSelect {
   emptyOption?: ISelectItemState;
   selectAll?: ISelectItemState;
   labels?: {
     others: string;
   };
 }
-interface AppSelectState {
-  options: OptionSelect;
+interface IAppSelectState {
+  options: IOptionSelect;
   selectedAll: boolean;
   oldSelected?: string[];
   values?: string[];
@@ -50,7 +50,7 @@ const MenuProps = {
     },
   },
 };
-export interface AppSelectProps extends WithStyles<typeof style> {
+export interface IAppSelectProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
   onChange?: (value: string) => void;
@@ -66,12 +66,12 @@ export interface AppSelectProps extends WithStyles<typeof style> {
   selectItems: ISelectItem[];
   variant?: "filled" | "standard" | "outlined";
   emptySelectOption?: boolean;
-  options?: OptionSelect;
+  options?: IOptionSelect;
   multiple?: boolean;
   optionSelectAll?: boolean;
 }
-class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
-  state: AppSelectState = {
+class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
+  state: IAppSelectState = {
     options: {
       emptyOption: {
         label: "-- Choose a option --",
@@ -88,7 +88,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
     selectedAll: false,
     values: [],
   };
-  constructor(props: Readonly<AppSelectProps>) {
+  constructor(props: Readonly<IAppSelectProps>) {
     super(props);
     const {
       emptySelectOption,

@@ -11,12 +11,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import style from "./style";
-interface PropsSidebar extends WithStyles<typeof style> {
+interface ISidebarProps extends WithStyles<typeof style> {
   Open: boolean;
   HandleDrawerClose?: () => void;
 }
 
-class SidebarComponent extends React.Component<PropsSidebar> {
+class SidebarComponent extends React.Component<ISidebarProps> {
   render() {
     const { classes, HandleDrawerClose, Open } = this.props;
     return (

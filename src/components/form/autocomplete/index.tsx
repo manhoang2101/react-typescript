@@ -1,14 +1,13 @@
 import React, { ChangeEvent } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import style from "./style";
 import { Observable } from "rxjs";
 import { WithStyles, withStyles, Checkbox, Chip } from "@material-ui/core";
-export interface Option {
+export interface IOption {
   value: string;
   label: string;
   style?: Object;
@@ -16,7 +15,7 @@ export interface Option {
 export interface AppAutocompleteProps extends WithStyles<typeof style> {
   style?: Object;
   onChangeInput?: (value: string, event?: any) => Observable<boolean>;
-  options: Option[];
+  options: IOption[];
   option?: any;
   loading?: boolean;
   open?: boolean;
@@ -26,10 +25,10 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
   onClose?: () => void;
   onOpen?: () => void;
   renderOption?: () => string | JSX.Element;
-  onChangeOption?: (options: Option[], event: any) => void;
+  onChangeOption?: (options: IOption[], event: any) => void;
   variant?: "filled" | "standard" | "outlined" | undefined;
   disabled?: boolean;
-  filterOptions?: () => Option[];
+  filterOptions?: () => IOption[];
   error?: boolean;
   helperText?: string;
   minLengthCallChangeInput?: number;
@@ -89,7 +88,7 @@ class AppAutocomplete extends React.Component<
     onClose && onClose();
   };
 
-  handleRenderOption = (option: Option, state: any): string | JSX.Element => {
+  handleRenderOption = (option: IOption, state: any): string | JSX.Element => {
     const { renderOption, multiple } = this.props;
     const { selected } = state;
     return (
@@ -143,8 +142,8 @@ class AppAutocomplete extends React.Component<
           popupIndicator: classes.popupIndicator,
           clearIndicator: classes.clearIndicator,
         }}
-        renderTags={(values: Option[], getTagProps) =>
-          values.map((option: Option, index: number) => (
+        renderTags={(values: IOption[], getTagProps) =>
+          values.map((option: IOption, index: number) => (
             <Chip
               variant="outlined"
               label={option.label}
@@ -165,14 +164,6 @@ class AppAutocomplete extends React.Component<
               InputProps={{
                 ...params.InputProps,
                 className: classes.textField,
-                endAdornment: (
-                  <React.Fragment>
-                    {loading ? (
-                      <CircularProgress color="inherit" size={20} />
-                    ) : null}
-                    {params.InputProps.endAdornment}
-                  </React.Fragment>
-                ),
               }}
               error={error}
               helperText={helperText}

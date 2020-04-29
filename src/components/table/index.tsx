@@ -15,7 +15,7 @@ import React from "react";
 import style from "./style";
 import { ITableColumn, Order, IRowSpan, IRenderCell } from "./type";
 
-export interface PropsAppTable extends WithStyles<typeof style> {
+export interface IAppSidebarProps extends WithStyles<typeof style> {
   style?: React.CSSProperties;
   class?: string;
   onClickRow?: (row: object, event?: any) => void;
@@ -45,12 +45,12 @@ export interface PropsAppTable extends WithStyles<typeof style> {
   cellStyle?: React.CSSProperties;
 }
 
-export class AppTable extends React.Component<PropsAppTable> {
+export class AppTable extends React.Component<IAppSidebarProps> {
   private _columSpan = 0;
   private _pColumns: any[] = [];
   private _groupColumns: (ITableColumn & { children: ITableColumn[] })[];
   private _rowSpans: IRowSpan[] = [];
-  constructor(props: Readonly<PropsAppTable>) {
+  constructor(props: Readonly<IAppSidebarProps>) {
     super(props);
     this._pColumns = this.props.columns.filter((item) => item.pid?.trim());
     this._groupColumns = this.props.columns
