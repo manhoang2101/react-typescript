@@ -30,7 +30,7 @@ describe("<AppCheckBox />", () => {
         onChange={handleChange}
       />
     );
-    const input = container.querySelectorAll(".data-test-FormHelperText");
+    const input = container.querySelectorAll(".App-FormHelperText");
     expect(input?.item(0).textContent).toBe(`Loi`);
   });
 });

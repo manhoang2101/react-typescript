@@ -19,34 +19,32 @@ export const HasLabel = () => {
     setChecked1(checked);
   };
   return (
-    <>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <AppCheckBox
-              checked={checked}
-              onChange={handleOnChange}
-              name="HasLabel"
-            />
-          }
-          label="Secondary"
-        />
-      </FormGroup>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <AppCheckBox
-              checked={checked1}
-              onChange={handleOnChange1}
-              name="HasLabel"
-            />
-          }
-          label="Secondary"
-          labelPlacement="start"
-        />
-      </FormGroup>
-    </>
+    <AppCheckBox
+      checked={checked}
+      onChange={handleOnChange}
+      name="HasLabel"
+      label={`AppCheckBox`}
+    />
   );
 };
-
+export const HasError = () => {
+  const [checked, setChecked] = useState(false);
+  const [checked1, setChecked1] = useState(false);
+  const handleOnChange = (checked) => {
+    setChecked(checked);
+  };
+  const handleOnChange1 = (checked) => {
+    setChecked1(checked);
+  };
+  return (
+    <AppCheckBox
+      checked={checked}
+      onChange={handleOnChange}
+      name="HasLabel"
+      error
+      helperText={`Error!`}
+      label={`AppCheckBox`}
+    />
+  );
+};
 export default { title: "Component/Form/Checkbox" };
