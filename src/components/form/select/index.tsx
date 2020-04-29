@@ -218,7 +218,11 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
     const { options, selectedAll: selectedAll, values } = this.state;
 
     return (
-      <FormControl className={classes.formControl} variant={variant}>
+      <FormControl
+        className={classes.formControl}
+        variant={variant}
+        error={error}
+      >
         <InputLabel id={`label-${id}`}>{label}</InputLabel>
         <Select
           labelId={`label-${id}`}

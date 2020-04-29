@@ -3,6 +3,7 @@ import {
   WithStyles,
   Checkbox,
   withStyles,
+  FormControlLabel,
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
@@ -10,11 +11,17 @@ import style from "./style";
 
 export interface AppCheckBoxProps extends WithStyles<typeof style> {
   style?: Object;
-  checked: boolean;
-  onChange?: (value: boolean, event?: any) => void;
+  checked?: boolean;
+  label?: string;
+  value?: string;
+  onChange?: (
+    selected: boolean,
+    event?: React.ChangeEvent<HTMLInputElement>
+  ) => void;
   name?: string;
   helperText?: string;
   error?: boolean;
+  isGroup?: boolean;
 }
 class AppCheckBox extends React.Component<AppCheckBoxProps> {
   constructor(props: Readonly<AppCheckBoxProps>) {
@@ -29,21 +36,53 @@ class AppCheckBox extends React.Component<AppCheckBoxProps> {
     onChange && onChange(checked, _event);
   };
   render() {
-    const { checked, name, style, helperText, error } = this.props;
+    const {
+      checked,
+      name,
+      style,
+      label,
+      value,
+      error,
+      isGroup,
+      helperText,
+    } = this.props;
     return (
-      <FormControl>
-        <Checkbox
-          checked={checked}
-          onChange={this.handleChange}
-          name={name}
-          style={style}
+      (isGroup && (
+        <FormControlLabel
+          control={
+            <Checkbox
+              className={`App-Checkbox`}
+              checked={checked}
+              onChange={this.handleChange}
+              name={name}
+              value={value}
+              style={style}
+            />
+          }
+          label={label}
         />
-        {error && (
-          <FormHelperText error className="data-test-FormHelperText">
-            {helperText}
-          </FormHelperText>
-        )}
-      </FormControl>
+      )) || (
+        <FormControl error={error}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                className={`App-Checkbox`}
+                checked={checked}
+                onChange={this.handleChange}
+                name={name}
+                value={value}
+                style={style}
+              />
+            }
+            label={label}
+          />
+          {error && (
+            <FormHelperText className={`App-FormHelperText`}>
+              {helperText}
+            </FormHelperText>
+          )}
+        </FormControl>
+      )
     );
   }
 }
