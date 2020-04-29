@@ -1,9 +1,9 @@
-import { IUserState, IUser } from "../../store/user/user.types";
+import { IUserState, IUser } from "../../stories/user/user.types";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { IAppState } from "../../store/types";
+import { IAppState } from "../../stories/types";
 import UserContainer from "../../containers/user";
-import EUserAction from "../../store/user/user.actions";
+import EUserAction from "../../stories/user/user.actions";
 import { withStyles } from "@material-ui/core";
 import style from "./style";
 

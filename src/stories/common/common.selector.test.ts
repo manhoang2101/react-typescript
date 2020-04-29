@@ -8,16 +8,9 @@ import { ICommonState } from "./common.types";
 
 describe("Users Selectors", () => {
   describe("commonReducer", () => {
-    const state: IAppState = {
-      router: jest.fn(),
-      userReducer: {
-        users: [],
-        user: null,
-      },
-      commonReducer: {
-        config: {},
-        pageLoading: false,
-      },
+    const state: ICommonState = {
+      config: {},
+      pageLoading: false,
     };
     const common = commonReducer(state);
     expect(common).toEqual({

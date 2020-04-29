@@ -1,8 +1,7 @@
 import { IUserState } from "./user.types";
 import { createSelector } from "reselect";
-import { IAppState } from "../types";
 
-export const userReducer = (state: IAppState) => state.userReducer;
+export const userReducer = (state: IUserState) => state;
 
 export const selectorUser = createSelector(
   userReducer,

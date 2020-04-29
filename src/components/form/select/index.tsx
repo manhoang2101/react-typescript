@@ -228,7 +228,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
           labelId={`label-${id}`}
           id={id}
           error={error}
-          value={values}
+          defaultValue={values}
           name={name}
           onChange={this.handleChange}
           placeholder={placeholder}

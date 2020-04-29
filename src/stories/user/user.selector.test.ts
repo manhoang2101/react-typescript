@@ -1,18 +1,11 @@
 import { selectorUser, selectorUsers, userReducer } from "./user.selector";
-import { IAppState } from "../types";
+import { IUserState } from "./user.types";
 
 describe("Users Selectors", () => {
   describe("userReducer", () => {
-    const state: IAppState = {
-      router: jest.fn(),
-      userReducer: {
-        users: [],
-        user: null,
-      },
-      commonReducer: {
-        config: {},
-        pageLoading: false,
-      },
+    const state: IUserState = {
+      users: [],
+      user: null,
     };
     const user = userReducer(state);
     expect(user).toEqual({

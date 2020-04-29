@@ -71,8 +71,8 @@ export class AppTable extends React.Component<PropsAppTable> {
       <TableCell
         className={`${
           column.children.length > 0 && classes.topHeaderHasChildren
-        } ${classes.topHeader} ${column.key} ${classes.tdThead} td-thear`}
-        key={`thear-${index}`}
+        } ${classes.topHeader} ${column.key} ${classes.tdThead} td-thead`}
+        key={`thead-${index}`}
         colSpan={column.children.length}
         rowSpan={column.children.length === 0 ? 2 : 1}
         style={column.styleThead && column.styleThead}
@@ -89,20 +89,14 @@ export class AppTable extends React.Component<PropsAppTable> {
     column: ITableColumn & { children: ITableColumn[] },
     index: number
   ) {
-    const {
-      classes,
-      sort,
-      columnsSort: columnsSort,
-      order,
-      orderBy,
-    } = this.props;
+    const { classes, sort, columnsSort, order, orderBy } = this.props;
     if (column?.children?.length > 0) {
       return column.children?.map((children, index) => {
         const data = !this._columSpan && (
           <TableCell
-            key={`thear-${index}`}
+            key={`thead-${index}`}
             style={children.styleThead && children.styleThead}
-            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThead} td-thear`}
+            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThead} td-thead`}
             colSpan={children.columSpanThead}
           >
             {(sort && columnsSort?.includes(children.key) && (
@@ -130,9 +124,9 @@ export class AppTable extends React.Component<PropsAppTable> {
       const data =
         (!this._columSpan && (
           <TableCell
-            key={`thear-${index}`}
+            key={`thead-${index}`}
             style={column.styleThead && column.styleThead}
-            className={`${column.key} ${classes.tdThead} td-thear`}
+            className={`${column.key} ${classes.tdThead} td-thead`}
             colSpan={column.columSpanThead}
           >
             {(sort && columnsSort?.includes(column.key) && (
@@ -329,7 +323,7 @@ export class AppTable extends React.Component<PropsAppTable> {
           <Table className={classes.table} aria-label="simple">
             <TableHead>
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns.map(
                     (
                       column: ITableColumn & { children: ITableColumn[] },
@@ -340,7 +334,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns
                     .filter((group) => group?.children.length > 0)
                     .map((column, index) => this.renderThead(column, index))}
@@ -348,7 +342,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length === 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns
                     .filter((group) => group?.children)
                     .map(

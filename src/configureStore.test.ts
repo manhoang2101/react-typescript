@@ -8,8 +8,8 @@ describe("should call configureStore", () => {
       users: [],
     };
     const history = createBrowserHistory();
-    const store = configureStore(history);
-    const state = store.getState();
+    const stories = configureStore(history);
+    const state = stories.getState();
     const { userReducer } = state;
     expect(userReducer).toEqual(initUserReducer);
   });

@@ -10,11 +10,11 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./untils/theme";
 const history = createBrowserHistory();
-const store = configureStore(history);
+const stories = configureStore(history);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <Provider store={store}>
+    <Provider store={stories}>
       <App />
     </Provider>
     <CssBaseline />

@@ -13,7 +13,7 @@ export interface IOptionCallApi {
 }
 export const initOptionCallApi: IOptionCallApi = {
   method: Emethod.GET,
-  url: "http://localhost:3001",
+  url: "http://localhost:3000",
   path: "",
   data: {},
 };

@@ -1,0 +1,19 @@
+{
+  "status": 200,
+  "token": "token",
+  "meta": {
+    "count": 3,
+    "description": "",
+    "more": {}
+  },
+  "data": {
+    "palette": {
+      "primary": {
+        "light": "#36a000",
+        "main": "#36a100",
+        "dark": "#35a000",
+        "contrastText": "#34a000"
+      }
+    }
+  }
+}

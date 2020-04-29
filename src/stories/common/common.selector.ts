@@ -1,8 +1,7 @@
 import { createSelector } from "reselect";
-import { IAppState } from "../types";
 import { ICommonState } from "./common.types";
 
-export const commonReducer = (state: IAppState) => state.commonReducer;
+export const commonReducer = (state: ICommonState) => state;
 
 export const selectorLoading = createSelector(
   commonReducer,

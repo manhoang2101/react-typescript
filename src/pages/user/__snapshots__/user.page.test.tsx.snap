@@ -13,28 +13,28 @@ exports[`UserPage render component 1`] = `
         class="MuiTableHead-root"
       >
         <tr
-          class="MuiTableRow-root tr-thear MuiTableRow-head"
+          class="MuiTableRow-root tr-thead MuiTableRow-head"
         >
           <th
-            class="MuiTableCell-root MuiTableCell-head id AppTable-tdThead-6 td-thear"
+            class="MuiTableCell-root MuiTableCell-head id AppTable-tdThead-6 td-thead"
             scope="col"
           >
             id
           </th>
           <th
-            class="MuiTableCell-root MuiTableCell-head name AppTable-tdThead-6 td-thear"
+            class="MuiTableCell-root MuiTableCell-head name AppTable-tdThead-6 td-thead"
             scope="col"
           >
             Name
           </th>
           <th
-            class="MuiTableCell-root MuiTableCell-head cardNumber AppTable-tdThead-6 td-thear"
+            class="MuiTableCell-root MuiTableCell-head cardNumber AppTable-tdThead-6 td-thead"
             scope="col"
           >
             cardNumber
           </th>
           <th
-            class="MuiTableCell-root MuiTableCell-head cardType AppTable-tdThead-6 td-thear"
+            class="MuiTableCell-root MuiTableCell-head cardType AppTable-tdThead-6 td-thead"
             scope="col"
           >
             cardType

@@ -1,4 +1,3 @@
-import { colors } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { responsiveFontSizes } from "@material-ui/core/styles";
 import { orange } from "@material-ui/core/colors";
