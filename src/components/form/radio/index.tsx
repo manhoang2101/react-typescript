@@ -41,7 +41,7 @@ class AppRadio extends React.Component<AppRadioProps> {
   render() {
     const { name, style, id, value, label, error, helperText } = this.props;
     return (
-      <FormControl variant="outlined">
+      <FormControl variant="outlined" error={error}>
         <FormLabel component="legend">{label}</FormLabel>
         <RadioGroup
           aria-label={label}
@@ -57,6 +57,7 @@ class AppRadio extends React.Component<AppRadioProps> {
               value={item.value}
               control={
                 <Radio
+                  className={`App-RadioGroup`}
                   color={item.color}
                   disabled={item.disabled}
                   style={item.style}
