@@ -17,7 +17,7 @@ export interface IRadioItem {
   style?: any;
   color?: "default" | "primary" | "secondary";
 }
-export interface AppRadioProps extends WithStyles<typeof style> {
+export interface IAppRadioProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
   onChange?: (value: string) => void;
@@ -29,8 +29,8 @@ export interface AppRadioProps extends WithStyles<typeof style> {
   helperText?: string;
 }
 
-class AppRadio extends React.Component<AppRadioProps> {
-  constructor(props: Readonly<AppRadioProps>) {
+class AppRadio extends React.Component<IAppRadioProps> {
+  constructor(props: Readonly<IAppRadioProps>) {
     super(props);
     this.handleChange.bind(this);
   }

@@ -2,7 +2,7 @@ import React from "react";
 import { WithStyles, TextField, withStyles } from "@material-ui/core";
 import style from "./style";
 
-export interface AppTextFieldProps extends WithStyles<typeof style> {
+export interface IAppTextFieldProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
   onChange?: (value: string) => void;
@@ -22,13 +22,13 @@ interface AppTextFieldState {
   onFocus: boolean;
 }
 class AppTextField extends React.Component<
-  AppTextFieldProps,
+  IAppTextFieldProps,
   AppTextFieldState
 > {
   state = {
     onFocus: false,
   };
-  constructor(props: Readonly<AppTextFieldProps>) {
+  constructor(props: Readonly<IAppTextFieldProps>) {
     super(props);
     this.handleChange.bind(this);
   }

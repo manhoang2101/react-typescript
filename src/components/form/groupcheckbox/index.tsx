@@ -8,9 +8,9 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import style from "./style";
-import AppCheckBox, { AppCheckBoxProps } from "../checkbox";
+import AppCheckBox, { IAppCheckBoxProps } from "../checkbox";
 
-export interface AppGroupCheckBoxProps extends WithStyles<typeof style> {
+export interface IAppGroupCheckBoxProps extends WithStyles<typeof style> {
   style?: Object;
   checked: boolean;
   onChange?: (
@@ -25,16 +25,16 @@ export interface AppGroupCheckBoxProps extends WithStyles<typeof style> {
   error?: boolean;
   label?: string;
   required?: boolean;
-  checkItems: Partial<AppCheckBoxProps>[];
+  checkItems: Partial<IAppCheckBoxProps>[];
 }
-export interface AppGroupCheckBoxState {
-  selectItem?: Partial<AppCheckBoxProps>[];
+export interface IAppGroupCheckBoxState {
+  selectItem?: Partial<IAppCheckBoxProps>[];
 }
-class AppGroupCheckBox extends React.Component<
-  AppGroupCheckBoxProps,
-  AppGroupCheckBoxState
+class IAppGroupCheckBox extends React.Component<
+  IAppGroupCheckBoxProps,
+  IAppGroupCheckBoxState
 > {
-  constructor(props: Readonly<AppGroupCheckBoxProps>) {
+  constructor(props: Readonly<IAppGroupCheckBoxProps>) {
     super(props);
     this.state = {
       selectItem: [],
@@ -59,7 +59,6 @@ class AppGroupCheckBox extends React.Component<
     this.setState({
       selectItem: values,
     });
-    console.log(values);
     onChange && onChange(values, _event);
   };
   render() {
@@ -84,4 +83,4 @@ class AppGroupCheckBox extends React.Component<
     );
   }
 }
-export default withStyles(style)(AppGroupCheckBox);
+export default withStyles(style)(IAppGroupCheckBox);

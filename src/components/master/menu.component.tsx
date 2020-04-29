@@ -3,7 +3,7 @@ import { Menu, MenuItem, IconButton, Badge } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-export interface PropsMenu {
+export interface IAppMenuProps {
   AnchorEl?: HTMLElement | null;
   MobileMoreAnchorEl?: HTMLElement | null;
   HandleMenuClose?: () => void;
@@ -15,7 +15,7 @@ export interface PropsMenu {
   MobileMenuId: string;
   StoryOpen?: boolean;
 }
-const MenuComponent = (props: PropsMenu) => {
+const MenuComponent = (props: IAppMenuProps) => {
   const isMenuOpen = Boolean(Boolean(props.AnchorEl) || props.StoryOpen);
   const isMobileMenuOpen = Boolean(props.MobileMoreAnchorEl);
   const renderMenu = (

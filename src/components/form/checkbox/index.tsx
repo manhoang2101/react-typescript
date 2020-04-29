@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import style from "./style";
 
-export interface AppCheckBoxProps extends WithStyles<typeof style> {
+export interface IAppCheckBoxProps extends WithStyles<typeof style> {
   style?: Object;
   checked?: boolean;
   label?: string;
@@ -23,8 +23,8 @@ export interface AppCheckBoxProps extends WithStyles<typeof style> {
   error?: boolean;
   isGroup?: boolean;
 }
-class AppCheckBox extends React.Component<AppCheckBoxProps> {
-  constructor(props: Readonly<AppCheckBoxProps>) {
+class AppCheckBox extends React.Component<IAppCheckBoxProps> {
+  constructor(props: Readonly<IAppCheckBoxProps>) {
     super(props);
     this.handleChange.bind(this);
   }
