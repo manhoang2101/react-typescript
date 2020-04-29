@@ -1,21 +1,13 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import style from "./style";
 import { Observable } from "rxjs";
-import {
-  WithStyles,
-  withStyles,
-  Checkbox,
-  Chip,
-  FormControl,
-  FormHelperText,
-} from "@material-ui/core";
-import { error } from "console";
+import { WithStyles, withStyles, Checkbox, Chip } from "@material-ui/core";
 export interface Option {
   value: string;
   label: string;
@@ -45,6 +37,7 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
 export interface AppAutocompleteStates {
   open: boolean;
   loading: boolean;
+  onSelect: boolean;
 }
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -53,27 +46,25 @@ class AppAutocomplete extends React.Component<
   AppAutocompleteProps,
   AppAutocompleteStates
 > {
-  state: AppAutocompleteStates = {
-    open: false,
-    loading: false,
-  };
   constructor(props: Readonly<AppAutocompleteProps>) {
     super(props);
     const { open, loading } = this.props;
     this.state = {
       open: (open && open) || false,
       loading: (loading && loading) || false,
+      onSelect: false,
     };
-    this.handleOnChangeInput.bind(this);
-    this.handleOnChangeOption.bind(this);
   }
-  handleOnChangeInput = (_event: object, value: string, _reason: string) => {
+  handleOnChangeInput = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { onChangeInput, minLengthCallChangeInput } = this.props;
+    const { value } = event.target;
     const minChar = (minLengthCallChangeInput && minLengthCallChangeInput) || 1;
     if (minChar && value.length < minChar) return true;
     this.setState({ loading: true });
     onChangeInput &&
-      onChangeInput(value, _event).subscribe((_res) => {
+      onChangeInput(value, event).subscribe((_res) => {
         this.setState({
           loading: false,
         });
@@ -133,61 +124,62 @@ class AppAutocomplete extends React.Component<
     } = this.props;
     const { open, loading } = this.state;
     return (
-      <FormControl>
-        <Autocomplete
-          defaultValue={option}
-          autoComplete={!async}
-          multiple={multiple}
-          id="App-Autocomplete"
-          options={options}
-          getOptionLabel={(option) => option.label}
-          filterOptions={filterOptions}
-          style={{ width: 300 }}
-          open={open}
-          disabled={disabled}
-          onClose={this.handleClose}
-          onOpen={this.handleOpen}
-          popupIcon={<KeyboardArrowDownIcon />}
-          onInputChange={this.handleOnChangeInput}
-          renderTags={(values: Option[], getTagProps) =>
-            values.map((option: Option, index: number) => (
-              <Chip
-                variant="outlined"
-                label={option.label}
-                {...getTagProps({ index })}
-              />
-            ))
-          }
-          renderOption={this.handleRenderOption}
-          onChange={this.handleOnChangeOption}
-          renderInput={(params) =>
-            (async && (
-              <TextField
-                {...params}
-                label={label}
-                variant={variant}
-                InputProps={{
-                  ...params.InputProps,
-                  className: classes.TextField,
-                  endAdornment: (
-                    <React.Fragment>
-                      {loading ? (
-                        <CircularProgress color="inherit" size={20} />
-                      ) : null}
-                      {params.InputProps.endAdornment}
-                    </React.Fragment>
-                  ),
-                }}
-              />
-            )) || <TextField {...params} label={label} variant={variant} />
-          }
-        />
-        {error && (
-          <FormHelperText error className="data-test-FormHelperText">
-            {helperText}
-          </FormHelperText>
-        )}
-      </FormControl>
+      <Autocomplete
+        defaultValue={option}
+        autoComplete={!async}
+        multiple={multiple}
+        className="App-Autocomplete"
+        options={options}
+        getOptionLabel={(option) => option.label}
+        filterOptions={filterOptions}
+        style={{ width: 300 }}
+        open={open}
+        disabled={disabled}
+        onClose={this.handleClose}
+        onOpen={this.handleOpen}
+        popupIcon={<ExpandMoreIcon></ExpandMoreIcon>}
+        forcePopupIcon={true}
+        classes={{
+          popupIndicator: classes.popupIndicator,
+          clearIndicator: classes.clearIndicator,
+        }}
+        renderTags={(values: Option[], getTagProps) =>
+          values.map((option: Option, index: number) => (
+            <Chip
+              variant="outlined"
+              label={option.label}
+              {...getTagProps({ index })}
+            />
+          ))
+        }
+        loading={loading}
+        renderOption={this.handleRenderOption}
+        onChange={this.handleOnChangeOption}
+        renderInput={(params) =>
+          (async && (
+            <TextField
+              {...params}
+              label={label}
+              variant={variant}
+              onChange={this.handleOnChangeInput}
+              InputProps={{
+                ...params.InputProps,
+                className: classes.textField,
+                endAdornment: (
+                  <React.Fragment>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                ),
+              }}
+              error={error}
+              helperText={helperText}
+            />
+          )) || <TextField {...params} label={label} variant={variant} />
+        }
+      />
     );
   }
 }

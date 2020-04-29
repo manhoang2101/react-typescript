@@ -2,18 +2,40 @@ import { createStyles } from "@material-ui/core";
 
 const style = () =>
   createStyles({
-    TextField: {
+    textField: {
       paddingRight: 25,
     },
-
-    MuiAutocomplete: {
-      input: {
-        paddingRight: 25,
+    popupIndicator: {
+      borderRadius: 0,
+      "&:hover": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
       },
+      "&:focus": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
+      },
+      "&:active": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
+      },
+      color: "rgb(204, 204, 204)",
     },
-    KeyboardArrowDownIcon: {
-      paddingLeft: 0,
-      borderLeft: `1px solid #ccc`,
+    clearIndicator: {
+      borderRadius: 0,
+      "&:hover": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
+      },
+      "&:focus": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
+      },
+      "&:active": {
+        background: `transparent`,
+        color: `rgb(153, 153, 153)`,
+      },
+      color: "rgb(204, 204, 204)",
     },
   });
 

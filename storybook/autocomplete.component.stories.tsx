@@ -38,8 +38,9 @@ interface CountryType {
 export const Asynchronous = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<Option[]>([]);
-  const handelChange = (t) => {
-    setOpen(t);
+  const [option, setOption] = React.useState<Option>();
+  const handelOnChangeOption = (t) => {
+    setOption(t);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
     return Observable.create((observer) => {
@@ -48,10 +49,12 @@ export const Asynchronous = () => {
       )
         .then((response) => response.json())
         .then((countries) => {
-          const data = Object.keys(countries).map((key) => ({
-            value: countries[key].item[0]["country"],
-            label: countries[key].item[0]["name"],
-          }));
+          const data = Object.keys(countries)
+            .map((key) => ({
+              value: countries[key].item[0]["country"],
+              label: countries[key].item[0]["name"],
+            }))
+            .filter((item) => (option && option.value !== item.value) || true);
           observer.next(true);
           setOptions(data);
           observer.complete();
@@ -63,8 +66,9 @@ export const Asynchronous = () => {
     <AppAutocomplete
       async
       options={options}
+      option={option}
       open={open}
-      onChangeOption={handelChange}
+      onChangeOption={handelOnChangeOption}
       onChangeInput={handelChangeInput}
       label="Asynchronous"
     ></AppAutocomplete>
@@ -73,8 +77,9 @@ export const Asynchronous = () => {
 export const AsynchronousMultiple = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<Option[]>([]);
+  const [option, setOption] = React.useState<Option[]>([]);
   const handelChange = (t) => {
-    setOpen(t);
+    setOption(t);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
     return Observable.create((observer) => {
@@ -83,13 +88,19 @@ export const AsynchronousMultiple = () => {
       )
         .then((response) => response.json())
         .then((countries) => {
-          const data = Object.keys(countries).map((key) => ({
-            value: countries[key].item[0]["country"],
-            label: countries[key].item[0]["name"],
-          }));
-          observer.next(true);
+          const data = Object.keys(countries)
+            .map((key) => ({
+              value: countries[key].item[0]["country"],
+              label: countries[key].item[0]["name"],
+            }))
+            .filter(
+              (item) =>
+                option.filter((item1) => item.value === item1.value).length ===
+                0
+            );
           setOptions(data);
-          observer.complete();
+          observer.next(true);
+          observer.complete(true);
         })
         .catch((err) => observer.error(err));
     });
@@ -109,8 +120,9 @@ export const AsynchronousMultiple = () => {
 export const HasValidate = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<Option[]>([]);
-  const handelChange = (t) => {
-    setOpen(t);
+  const [option, setOption] = React.useState<Option[]>([]);
+  const handelOnChangeOption = (t) => {
+    setOption(t);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
     return Observable.create((observer) => {
@@ -119,12 +131,18 @@ export const HasValidate = () => {
       )
         .then((response) => response.json())
         .then((countries) => {
-          const data = Object.keys(countries).map((key) => ({
-            value: countries[key].item[0]["country"],
-            label: countries[key].item[0]["name"],
-          }));
-          observer.next(true);
+          const data = Object.keys(countries)
+            .map((key) => ({
+              value: countries[key].item[0]["country"],
+              label: countries[key].item[0]["name"],
+            }))
+            .filter(
+              (item) =>
+                option.filter((item1) => item.value === item1.value).length ===
+                0
+            );
           setOptions(data);
+          observer.next(true);
           observer.complete();
         })
         .catch((err) => observer.error(err));
@@ -138,7 +156,7 @@ export const HasValidate = () => {
       async
       options={options}
       open={open}
-      onChangeOption={handelChange}
+      onChangeOption={handelOnChangeOption}
       onChangeInput={handelChangeInput}
       label="AsynchronousMultiple"
     ></AppAutocomplete>
