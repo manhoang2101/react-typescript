@@ -17,22 +17,22 @@ import style from "./style";
 import MenuComponent from "./menu.component";
 import SidebarComponent from "./sidebar.component";
 import { menuId, mobileMenuId } from "./constants";
-export interface PropsAppHeader extends WithStyles<typeof style> {
+export interface IAppHeaderProps extends WithStyles<typeof style> {
   Open: boolean;
   SetOpen?: (type: boolean) => void;
   SetHeight?: (type: string, height: number) => void;
 }
-export interface StatesAppHeader {
+export interface IAppHeaderStates {
   anchorEl: null | HTMLElement;
   mobileMoreAnchorEl: null | HTMLElement;
 }
 
 export class HeaderComponent extends React.Component<
-  PropsAppHeader,
-  StatesAppHeader
+  IAppHeaderProps,
+  IAppHeaderStates
 > {
   containerRef: any;
-  constructor(props: Readonly<PropsAppHeader>) {
+  constructor(props: Readonly<IAppHeaderProps>) {
     super(props);
     this.state = {
       anchorEl: null,

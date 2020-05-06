@@ -7,33 +7,24 @@ import { render } from "@testing-library/react";
 
 describe("<AppRadio />", () => {
   const Component = withStyles(style)(AppRadio);
-  test("toMatchSnapshot()", () => {
+
+  test("should call handleOnChange()", () => {
     const items: IRadioItem[] = [
       { label: "Radio1", value: "Radio1", color: "primary" },
       { label: "Radio2", value: "Radio2" },
       { label: "Radio3", value: "Radio3" },
       { label: "Radio4", value: "Radio4" },
     ];
-    const container = shallow(<Component radioItems={items} />);
-    expect(container).toMatchSnapshot();
-  });
-  test("should call handleChange()", () => {
-    const items: IRadioItem[] = [
-      { label: "Radio1", value: "Radio1", color: "primary" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
-    ];
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const { container } = render(
-      <Component radioItems={items} onChange={handleChange} />
+      <Component radioItems={items} onChange={handleOnChange} />
     );
     const input = container.querySelector("input");
     input?.click();
-    expect(handleChange).toBeCalled();
+    expect(handleOnChange).toBeCalled();
   });
   test("should call show Error", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const items: IRadioItem[] = [
       { label: "Radio1", value: "Radio1", color: "primary" },
       { label: "Radio2", value: "Radio2" },
@@ -45,7 +36,7 @@ describe("<AppRadio />", () => {
         radioItems={items}
         error
         helperText={`Loi`}
-        onChange={handleChange}
+        onChange={handleOnChange}
       />
     );
     const input = container.querySelectorAll(".data-test-FormHelperText");

@@ -7,30 +7,35 @@ import { render } from "@testing-library/react";
 
 describe("<AppCheckBox />", () => {
   const Component = withStyles(style)(AppCheckBox);
-  test("toMatchSnapshot()", () => {
-    const container = shallow(<Component checked={false} />);
-    expect(container).toMatchSnapshot();
-  });
-  test("should call handleChange()", () => {
-    const handleChange = jest.fn();
+  test("should call handleOnChange()", () => {
+    const handleOnChange = jest.fn();
     const { container } = render(
-      <Component checked={false} onChange={handleChange} />
+      <Component checked={false} onChange={handleOnChange} />
     );
     const input = container.querySelector("input");
     input?.click();
-    expect(handleChange).toBeCalled();
+    expect(handleOnChange).toBeCalled();
+  });
+  test("should call checkbox of group", () => {
+    const handleOnChange = jest.fn();
+    const { container } = render(
+      <Component checked={false} onChange={handleOnChange} isGroup />
+    );
+    const input = container.querySelectorAll(".App-FormControlLabel");
+
+    expect(input.length).toBe(1);
   });
   test("should call show Error", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const { container } = render(
       <Component
         error
         helperText={`Loi`}
         checked={false}
-        onChange={handleChange}
+        onChange={handleOnChange}
       />
     );
-    const input = container.querySelectorAll(".data-test-FormHelperText");
+    const input = container.querySelectorAll(".App-FormHelperText");
     expect(input?.item(0).textContent).toBe(`Loi`);
   });
 });

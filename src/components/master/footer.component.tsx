@@ -2,10 +2,10 @@ import React from "react";
 import { WithStyles, withStyles } from "@material-ui/core";
 import style from "./style";
 
-export interface PropsAppHeader extends WithStyles<typeof style> {
+export interface IAppFooterProps extends WithStyles<typeof style> {
   SetHeight?: (type: string, height: number) => void;
 }
-export class FooterComponent extends React.Component<PropsAppHeader> {
+export class FooterComponent extends React.Component<IAppFooterProps> {
   refCallback = (element: HTMLElement | null) => {
     if (element) {
       const bounding = element.getBoundingClientRect();
@@ -14,7 +14,7 @@ export class FooterComponent extends React.Component<PropsAppHeader> {
     }
   };
   render() {
-    return <div ref={this.refCallback}> Footer</div>;
+    return <div ref={this.refCallback}> </div>;
   }
 }
 export default withStyles(style)(FooterComponent);

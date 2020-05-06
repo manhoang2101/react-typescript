@@ -2,10 +2,11 @@ import React from "react";
 import { WithStyles, TextField, withStyles } from "@material-ui/core";
 import style from "./style";
 
-export interface AppTextFieldProps extends WithStyles<typeof style> {
+export interface IAppTextFieldProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
-  onChange?: (value: string) => void;
+  onChange?: (event: any, value: string) => void;
+  onClick?: (value: string) => void;
   onFocus?: (event: any) => void;
   onBlur?: (event: any) => void;
   name?: string;
@@ -22,29 +23,34 @@ interface AppTextFieldState {
   onFocus: boolean;
 }
 class AppTextField extends React.Component<
-  AppTextFieldProps,
+  IAppTextFieldProps,
   AppTextFieldState
 > {
   state = {
     onFocus: false,
   };
-  constructor(props: Readonly<AppTextFieldProps>) {
+  constructor(props: Readonly<IAppTextFieldProps>) {
     super(props);
-    this.handleChange.bind(this);
+    this.handleOnChange.bind(this);
   }
-  handleChange = (_event: any) => {
+  handleOnChange = (_event: any) => {
     const { onChange } = this.props;
-    onChange && onChange(_event.target.value);
+    const { value } = _event.target;
+    onChange && onChange(_event, value);
   };
-  handleFocus = (_event: any) => {
+  handleOnFocus = (_event: any) => {
     this.setState({ onFocus: true });
     const { onFocus } = this.props;
     onFocus && onFocus(_event);
   };
-  handleBlur = (_event: any) => {
+  handleOnBlur = (_event: any) => {
     this.setState({ onFocus: false });
     const { onBlur } = this.props;
     onBlur && onBlur(_event);
+  };
+  handleOnClick = (_event: any) => {
+    const { onClick } = this.props;
+    onClick && onClick(_event);
   };
   render() {
     const {
@@ -62,10 +68,11 @@ class AppTextField extends React.Component<
     } = this.props;
     return (
       <TextField
+        onClick={this.handleOnClick}
         defaultValue={value}
-        onChange={this.handleChange}
-        onFocus={this.handleFocus}
-        onBlur={this.handleBlur}
+        onChange={this.handleOnChange}
+        onFocus={this.handleOnFocus}
+        onBlur={this.handleOnBlur}
         name={name}
         style={style}
         label={label}

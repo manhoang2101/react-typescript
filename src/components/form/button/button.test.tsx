@@ -7,10 +7,6 @@ import { render } from "@testing-library/react";
 
 describe("<AppButton />", () => {
   const Component = withStyles(style)(AppButton);
-  test("toMatchSnapshot()", () => {
-    const container = shallow(<Component text={`AppButton`} />);
-    expect(container).toMatchSnapshot();
-  });
 
   test("should show text()", () => {
     const { container } = render(<Component text={`AppButton`} />);

@@ -9,31 +9,28 @@ import UserContainer from ".";
 import style from "../../pages/user/style";
 const mockStore = configureStore([]);
 describe("My Connected React-Redux MasterContainer", () => {
-  let store: any;
+  let stories: any;
   let warper: any;
   let Component: any;
   beforeEach(() => {
-    store = mockStore({
+    stories = mockStore({
       myState: "sample text",
     });
     Component = withStyles(style)(UserContainer);
-    store.dispatch = jest.fn();
+    stories.dispatch = jest.fn();
     warper = render(
-      <Provider store={store}>
+      <Provider store={stories}>
         <BrowserRouter>
           <Component />
         </BrowserRouter>
       </Provider>
     );
   });
-  it("should render with given state from Redux store", () => {
-    expect(warper).toMatchSnapshot();
-  });
 
   it("should onSelectUser", () => {
     const setUser = jest.fn();
     const container = shallow(
-      <Provider store={store}>
+      <Provider store={stories}>
         <BrowserRouter>
           <Component
             fetchUsersAction={jest.fn}
@@ -57,7 +54,7 @@ describe("My Connected React-Redux MasterContainer", () => {
   it("should addUser", () => {
     const addUser = jest.fn();
     const container = shallow(
-      <Provider store={store}>
+      <Provider store={stories}>
         <BrowserRouter>
           <Component
             fetchUsersAction={jest.fn}

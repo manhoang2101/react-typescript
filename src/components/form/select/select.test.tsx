@@ -7,29 +7,20 @@ import { render } from "@testing-library/react";
 
 describe("<AppSelect />", () => {
   const Component = withStyles(style)(AppSelect);
-  test("toMatchSnapshot()", () => {
-    const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
-    ];
-    const container = shallow(<Component selectItems={items} id="DE" />);
-    expect(container).toMatchSnapshot();
-  });
-  describe("handleChange", () => {
-    test("should call handleChange() not multiple and optionSelectAll  and emptySelectOption", () => {
-      const handleChange = jest.fn();
+
+  describe("handleOnChange", () => {
+    test("should call handleOnChange() not multiple and optionSelectAll  and emptySelectOption", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           value={"100"}
         />
@@ -38,21 +29,21 @@ describe("<AppSelect />", () => {
       const event = {
         target: { value: "100" },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalled();
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalled();
     });
-    test("should call handleChange() not multiple and optionSelectAll  has emptySelectOption", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() not multiple and optionSelectAll  has emptySelectOption", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           emptySelectOption
           value={""}
@@ -63,21 +54,21 @@ describe("<AppSelect />", () => {
       const event = {
         target: { value: ["1", "2", "3"] },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalled();
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalled();
     });
-    test("should call handleChange() has multiple and  not optionSelectAll  has emptySelectOption", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() has multiple and  not optionSelectAll  has emptySelectOption", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           emptySelectOption
           multiple
@@ -103,21 +94,21 @@ describe("<AppSelect />", () => {
       const event = {
         target: { value: [] },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalled();
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalled();
     });
-    test("should call handleChange() has multiple and  has optionSelectAll  has emptySelectOption", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() has multiple and  has optionSelectAll  has emptySelectOption", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           emptySelectOption={true}
           multiple={true}
@@ -145,21 +136,21 @@ describe("<AppSelect />", () => {
       const event = {
         target: { value: [] },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalled();
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalled();
     });
-    test("should call handleChange() select an option", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() select an option", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           emptySelectOption={true}
           multiple={true}
@@ -182,23 +173,23 @@ describe("<AppSelect />", () => {
       );
       let component = wrapper.dive().dive().instance();
       const event = {
-        target: { value: ["Radio3"] },
+        target: { value: ["Select3"] },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalledWith(["Radio3"]);
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalledWith(event, ["Select3"]);
     });
-    test("should call handleChange() select all", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() select all", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           emptySelectOption={true}
           multiple={true}
@@ -221,31 +212,31 @@ describe("<AppSelect />", () => {
       );
       let component = wrapper.dive().dive().instance();
       const event = {
-        target: { value: ["Radio1", "Radio2", "Radio3", "Radio4"] },
+        target: { value: ["Select1", "Select2", "Select3", "Select4"] },
       };
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalledWith([
-        "Radio1",
-        "Radio2",
-        "Radio3",
-        "Radio4",
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalledWith(event, [
+        "Select1",
+        "Select2",
+        "Select3",
+        "Select4",
       ]);
     });
-    test("should call handleChange() Un select all", () => {
-      const handleChange = jest.fn();
+    test("should call handleOnChange() Un select all", () => {
+      const handleOnChange = jest.fn();
       const items: ISelectItem[] = [
-        { label: "Radio1", value: "Radio1" },
-        { label: "Radio2", value: "Radio2" },
-        { label: "Radio3", value: "Radio3" },
-        { label: "Radio4", value: "Radio4" },
+        { label: "Select1", value: "Select1" },
+        { label: "Select2", value: "Select2" },
+        { label: "Select3", value: "Select3" },
+        { label: "Select4", value: "Select4" },
       ];
       let wrapper = shallow(
         <Component
           selectItems={items}
-          onChange={handleChange}
+          onChange={handleOnChange}
           id="DE"
           multiple={true}
-          value={["Radio1", "Radio2", "Radio3", "Radio4"]}
+          value={["Select1", "Select2", "Select3", "Select4"]}
           options={{
             emptyOption: {
               label: "-- Choose a option --",
@@ -264,33 +255,33 @@ describe("<AppSelect />", () => {
       );
       let component = wrapper.dive().dive().instance();
       const event = {
-        target: { value: ["Radio1", "Radio2", "Radio3"] },
+        target: { value: ["Select1", "Select2", "Select3"] },
       };
-      component.state.values = ["choose-all", "Radio1", "Radio2", "Radio3"];
+      component.state.values = ["choose-all", "Select1", "Select2", "Select3"];
       component.state.selectedAll = true;
-      component.handleChange(event);
-      expect(handleChange).toHaveBeenCalledWith([]);
+      component.handleOnChange(event);
+      expect(handleOnChange).toHaveBeenCalledWith(event, []);
     });
   });
-  test("should call handleFocus() Un select all", () => {
-    const handleChange = jest.fn();
-    const handleFocus = jest.fn();
-    const handleBlur = jest.fn();
+  test("should call handleOnFocus() Un select all", () => {
+    const handleOnChange = jest.fn();
+    const handleOnFocus = jest.fn();
+    const handleOnBlur = jest.fn();
     const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
+      { label: "Select1", value: "Select1" },
+      { label: "Select2", value: "Select2" },
+      { label: "Select3", value: "Select3" },
+      { label: "Select4", value: "Select4" },
     ];
     let wrapper = shallow(
       <Component
         selectItems={items}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onChange={handleOnChange}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
         id="DE"
         multiple={true}
-        value={["Radio1", "Radio2", "Radio3", "Radio4"]}
+        value={["Select1", "Select2", "Select3", "Select4"]}
         options={{
           emptyOption: {
             label: "-- Choose a option --",
@@ -309,26 +300,26 @@ describe("<AppSelect />", () => {
     );
     let component = wrapper.dive().dive().instance();
     const event: React.ChangeEvent<{}> = {};
-    component.handleFocus(event);
-    component.handleBlur(event);
-    expect(handleBlur).toHaveBeenCalledWith(event);
-    expect(handleBlur).toHaveBeenCalledWith(event);
+    component.handleOnFocus(event);
+    component.handleOnBlur(event);
+    expect(handleOnBlur).toHaveBeenCalledWith(event);
+    expect(handleOnBlur).toHaveBeenCalledWith(event);
   });
   test("should call error ", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
+      { label: "Select1", value: "Select1" },
+      { label: "Select2", value: "Select2" },
+      { label: "Select3", value: "Select3" },
+      { label: "Select4", value: "Select4" },
     ];
     const { container } = render(
       <Component
         selectItems={items}
-        onChange={handleChange}
+        onChange={handleOnChange}
         id="DE"
         multiple={true}
-        value={["Radio1", "Radio2", "Radio3", "Radio4"]}
+        value={["Select1", "Select2", "Select3", "Select4"]}
         options={{
           emptyOption: {
             label: "-- Choose a option --",
@@ -347,21 +338,21 @@ describe("<AppSelect />", () => {
         helperText={`Has error appear!`}
       />
     );
-    const text = container.querySelector(".data-test-FormHelperText");
+    const text = container.querySelector(".App-FormHelperText");
     expect(text?.textContent).toBe(`Has error appear!`);
   });
   test("should call handleRenderValue item = [] ", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
+      { label: "Select1", value: "Select1" },
+      { label: "Select2", value: "Select2" },
+      { label: "Select3", value: "Select3" },
+      { label: "Select4", value: "Select4" },
     ];
     const wrapper = shallow(
       <Component
         selectItems={items}
-        onChange={handleChange}
+        onChange={handleOnChange}
         id="DE"
         multiple={true}
         value={[]}
@@ -387,20 +378,20 @@ describe("<AppSelect />", () => {
     expect(data).toBe(`-- Choose a option --`);
   });
   test("should call handleRenderValue item > 2", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
+      { label: "Select1", value: "Select1" },
+      { label: "Select2", value: "Select2" },
+      { label: "Select3", value: "Select3" },
+      { label: "Select4", value: "Select4" },
     ];
     const wrapper = shallow(
       <Component
         selectItems={items}
-        onChange={handleChange}
+        onChange={handleOnChange}
         id="DE"
         multiple={true}
-        value={["Radio1", "Radio2", "Radio3"]}
+        value={["Select1", "Select2", "Select3"]}
         optionSelectAll={true}
         emptySelectOption={true}
         options={{
@@ -420,29 +411,29 @@ describe("<AppSelect />", () => {
     );
     const component = wrapper.dive().dive().instance();
     const data = component.handleRenderValue([
-      "Radio1",
-      "Radio2",
-      "Radio3",
-      "Radio4",
+      "Select1",
+      "Select2",
+      "Select3",
+      "Select4",
     ]);
     const label = shallow(data);
-    expect(label.dive().text()).toBe(`Radio1, Radio2 ( + 1 others)`);
+    expect(label.dive().text()).toBe(`Select1, Select2 ( + 1 others)`);
   });
   test("should call handleRenderValue item <= 2", () => {
-    const handleChange = jest.fn();
+    const handleOnChange = jest.fn();
     const items: ISelectItem[] = [
-      { label: "Radio1", value: "Radio1" },
-      { label: "Radio2", value: "Radio2" },
-      { label: "Radio3", value: "Radio3" },
-      { label: "Radio4", value: "Radio4" },
+      { label: "Select1", value: "Select1" },
+      { label: "Select2", value: "Select2" },
+      { label: "Select3", value: "Select3" },
+      { label: "Select4", value: "Select4" },
     ];
     const wrapper = shallow(
       <Component
         selectItems={items}
-        onChange={handleChange}
+        onChange={handleOnChange}
         id="DE"
         multiple={true}
-        value={["Radio1", "Radio2"]}
+        value={["Select1", "Select2"]}
         optionSelectAll={true}
         emptySelectOption={true}
         options={{
@@ -461,14 +452,14 @@ describe("<AppSelect />", () => {
       />
     );
     const component = wrapper.dive().dive().instance();
-    const data = component.handleRenderValue(["Radio1", "Radio2"]);
-    expect(data).toBe(`Radio1, Radio2`);
+    const data = component.handleRenderValue(["Select1", "Select2"]);
+    expect(data).toBe(`Select1, Select2`);
   });
-  // test("should call handleBlur()", () => {
-  //   const handleBlur = jest.fn();
-  //   let wrapper = shallow(<Component onBlur={handleBlur} />);
+  // test("should call handleOnBlur()", () => {
+  //   const handleOnBlur = jest.fn();
+  //   let wrapper = shallow(<Component onBlur={handleOnBlur} />);
   //   let component = wrapper.dive().dive().instance();
-  //   component.handleBlur(null);
-  //   expect(handleBlur).toHaveBeenCalled();
+  //   component.handleOnBlur(null);
+  //   expect(handleOnBlur).toHaveBeenCalled();
   // });
 });

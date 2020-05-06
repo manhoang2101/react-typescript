@@ -26,15 +26,15 @@ export interface ISelectItemState {
   disabled?: boolean;
   style?: any;
 }
-export interface OptionSelect {
+export interface IOptionSelect {
   emptyOption?: ISelectItemState;
   selectAll?: ISelectItemState;
   labels?: {
     others: string;
   };
 }
-interface AppSelectState {
-  options: OptionSelect;
+interface IAppSelectState {
+  options: IOptionSelect;
   selectedAll: boolean;
   oldSelected?: string[];
   values?: string[];
@@ -50,10 +50,10 @@ const MenuProps = {
     },
   },
 };
-export interface AppSelectProps extends WithStyles<typeof style> {
+export interface IAppSelectProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
-  onChange?: (value: string) => void;
+  onChange?: (event: any, value: string) => void;
   onFocus?: (event: any) => void;
   onBlur?: (event: any) => void;
   name?: string;
@@ -66,12 +66,12 @@ export interface AppSelectProps extends WithStyles<typeof style> {
   selectItems: ISelectItem[];
   variant?: "filled" | "standard" | "outlined";
   emptySelectOption?: boolean;
-  options?: OptionSelect;
+  options?: IOptionSelect;
   multiple?: boolean;
   optionSelectAll?: boolean;
 }
-class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
-  state: AppSelectState = {
+class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
+  state: IAppSelectState = {
     options: {
       emptyOption: {
         label: "-- Choose a option --",
@@ -88,7 +88,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
     selectedAll: false,
     values: [],
   };
-  constructor(props: Readonly<AppSelectProps>) {
+  constructor(props: Readonly<IAppSelectProps>) {
     super(props);
     const {
       emptySelectOption,
@@ -110,9 +110,9 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
           ]) ||
         selectItems,
     };
-    this.handleChange.bind(this);
+    this.handleOnChange.bind(this);
   }
-  handleChange = (_event: any) => {
+  handleOnChange = (_event: any) => {
     const {
       onChange,
       multiple,
@@ -162,7 +162,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
       typeof value === "object"
         ? value.filter((item: any) => !notSelect.includes(item))
         : value;
-    onChange && onChange(value);
+    onChange && onChange(_event, value);
   };
 
   handleRenderValue = (_selected: any): any => {
@@ -177,7 +177,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
         options?.emptyOption?.label) ||
       (label.length <= 2 && label.join(", ")) || (
         <Tooltip
-          className="data-test-handleRenderValue"
+          className="App-Tooltip"
           title={label.join(", ")}
           aria-label={label.join(", ")}
           placement="top"
@@ -189,11 +189,11 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
       )
     );
   };
-  handleFocus = (event: React.ChangeEvent<{}>) => {
+  handleOnFocus = (event: React.ChangeEvent<{}>) => {
     const { onFocus } = this.props;
     onFocus && onFocus(event);
   };
-  handleBlur = (event: React.ChangeEvent<{}>) => {
+  handleOnBlur = (event: React.ChangeEvent<{}>) => {
     const { onBlur } = this.props;
     onBlur && onBlur(event);
   };
@@ -218,23 +218,30 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
     const { options, selectedAll: selectedAll, values } = this.state;
 
     return (
-      <FormControl className={classes.formControl} variant={variant}>
-        <InputLabel id={`label-${id}`}>{label}</InputLabel>
+      <FormControl
+        className={classes.formControl}
+        variant={variant}
+        error={error}
+      >
+        <InputLabel className={`App-InputLabel`} id={`label-${id}`}>
+          {label}
+        </InputLabel>
         <Select
+          className={`App-Select`}
           labelId={`label-${id}`}
           id={id}
           error={error}
-          value={values}
+          defaultValue={values}
           name={name}
-          onChange={this.handleChange}
+          onChange={this.handleOnChange}
           placeholder={placeholder}
           disabled={disabled}
           style={style}
           multiple={multiple}
           input={<Input />}
           MenuProps={MenuProps}
-          onOpen={this.handleFocus}
-          onClose={this.handleBlur}
+          onOpen={this.handleOnFocus}
+          onClose={this.handleOnBlur}
           {...((multiple && { renderValue: this.handleRenderValue }) || {})}
         >
           {emptySelectOption && !multiple && (
@@ -269,7 +276,7 @@ class AppSelect extends React.Component<AppSelectProps, AppSelectState> {
           ))}
         </Select>
         {error && (
-          <FormHelperText error className="data-test-FormHelperText">
+          <FormHelperText error className="App-FormHelperText">
             {helperText}
           </FormHelperText>
         )}

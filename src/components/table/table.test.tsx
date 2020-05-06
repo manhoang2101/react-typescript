@@ -1,6 +1,6 @@
 import React from "react";
 import AppTable from ".";
-import GenerateData from "../../../stories/generateData";
+import GenerateData from "../../../storybook/generateData";
 import { ITableColumn } from "./type";
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
@@ -190,7 +190,7 @@ describe("<TableCell />", () => {
           onClickRow={(row) => console.log(row)}
         />
       );
-      const colSpan = container.querySelectorAll('.td-thear[colspan="2"]');
+      const colSpan = container.querySelectorAll('.td-thead[colspan="2"]');
       expect(colSpan.length).toBe(1);
     });
 
@@ -215,7 +215,7 @@ describe("<TableCell />", () => {
           onClickRow={(row) => console.log(row)}
         />
       );
-      const colSpan = container.querySelectorAll('.name.td-thear[colspan="2"]');
+      const colSpan = container.querySelectorAll('.name.td-thead[colspan="2"]');
       expect(colSpan.length).toBe(1);
     });
 
@@ -235,7 +235,7 @@ describe("<TableCell />", () => {
         />
       );
       const style = container
-        .querySelector(".name.td-thear")
+        .querySelector(".name.td-thead")
         ?.getAttribute("style");
       expect(style).toBe("background: yellow;");
     });
@@ -272,7 +272,7 @@ describe("<TableCell />", () => {
         />
       );
       const style = container
-        .querySelector(".name.td-thear")
+        .querySelector(".name.td-thead")
         ?.getAttribute("style");
       expect(style).toBe("background: yellow;");
     });
@@ -290,7 +290,7 @@ describe("<TableCell />", () => {
           onClickRow={(row) => console.log(row)}
         />
       );
-      const innerHTML = container.querySelector(".name.td-thear")?.innerHTML;
+      const innerHTML = container.querySelector(".name.td-thead")?.innerHTML;
       expect(innerHTML).toBe("renderThead");
     });
 
@@ -485,7 +485,7 @@ describe("<TableCell />", () => {
     });
 
     test("should be on click sort", () => {
-      const hendleOnSorted = jest.fn();
+      const handleOnSorted = jest.fn();
       const container = mount(
         <Component
           data={data}
@@ -493,11 +493,11 @@ describe("<TableCell />", () => {
           onClickRow={(row) => console.log(row)}
           sort={true}
           columnsSort={["name"]}
-          onRequestSort={hendleOnSorted}
+          onRequestSort={handleOnSorted}
         />
       );
       container.find(".sort-name").at(0).simulate("click");
-      expect(hendleOnSorted).toHaveBeenCalled();
+      expect(handleOnSorted).toHaveBeenCalled();
     });
   });
   describe("should be function renderCell", () => {
@@ -632,7 +632,7 @@ describe("<TableCell />", () => {
 
     test("should be has on click onClickRow", () => {
       const colspanColumns = columns;
-      const hendleOnClickRow = jest.fn();
+      const handleOnClickRow = jest.fn();
       colspanColumns[1] = {
         ...colspanColumns[1],
         rowSpanCell: 2,
@@ -642,16 +642,16 @@ describe("<TableCell />", () => {
         <Component
           data={data}
           columns={colspanColumns}
-          onClickRow={hendleOnClickRow}
+          onClickRow={handleOnClickRow}
         />
       );
       const tr = container.find(".tr-cell").at(0);
       tr.simulate("click");
-      expect(hendleOnClickRow).toHaveBeenCalled();
+      expect(handleOnClickRow).toHaveBeenCalled();
     });
     test("should be has on click onDoubleClickRow", () => {
       const colspanColumns = columns;
-      const hendleOnDoubleClickRow = jest.fn();
+      const handleOnDoubleClickRow = jest.fn();
       colspanColumns[1] = {
         ...colspanColumns[1],
         rowSpanCell: 2,
@@ -661,12 +661,12 @@ describe("<TableCell />", () => {
         <Component
           data={data}
           columns={colspanColumns}
-          onDoubleClickRow={hendleOnDoubleClickRow}
+          onDoubleClickRow={handleOnDoubleClickRow}
         />
       );
       const tr = container.find(".tr-cell").at(0);
       tr.simulate("dblclick");
-      expect(hendleOnDoubleClickRow).toHaveBeenCalled();
+      expect(handleOnDoubleClickRow).toHaveBeenCalled();
     });
   });
 
@@ -722,8 +722,8 @@ describe("<TableCell />", () => {
           value: 1,
         },
       };
-      container.handleChangePage(null, 1);
-      container.handleChangeRowsPerPage(event);
+      container.handleOnChangePage(null, 1);
+      container.handleOnChangeRowsPerPage(event);
       expect(handleOnChangePage).toHaveBeenCalled();
       expect(handleOnChangeRowsPerPage).toHaveBeenCalled();
     });

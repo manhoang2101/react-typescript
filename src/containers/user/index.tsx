@@ -1,4 +1,4 @@
-import { IUserState, IUser } from "../../store/user/user.types";
+import { IUserState, IUser } from "../../stories/user/user.types";
 import React from "react";
 import { WithStyles } from "@material-ui/core";
 import style from "../../pages/user/style";

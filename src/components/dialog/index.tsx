@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-export interface PropsAppDialog extends WithStyles<typeof style> {
+export interface IAppDialogProps extends WithStyles<typeof style> {
   style?: Object;
   class?: string;
   onClick?: () => void;
@@ -32,7 +32,7 @@ export interface PropsAppDialog extends WithStyles<typeof style> {
   dialogTitle?: any;
   dialogContent: any;
 }
-class AppDialog extends React.Component<PropsAppDialog> {
+class AppDialog extends React.Component<IAppDialogProps> {
   render() {
     const {
       fullWidth,

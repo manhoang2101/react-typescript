@@ -1,38 +1,61 @@
-import { colors } from "@material-ui/core";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { responsiveFontSizes } from "@material-ui/core/styles";
-// A custom theme for this app
-const defaultTheme = createMuiTheme();
 export const themeStyle = createMuiTheme({
+  spacing: 5,
   palette: {
-    type: "light",
     primary: {
-      main: colors.blue[500],
+      main: "#009c52",
     },
     secondary: {
-      main: colors.pink[500],
-    },
-    error: {
-      main: colors.red[500],
+      main: "#37474f",
     },
     background: {
-      default: "#fffff",
+      default: "#FFFFFF",
+    },
+    action: {
+      disabled: "#78909c",
+      selected: "#d3dfe9",
+    },
+    text: {
+      primary: "#263238",
+      secondary: "#455a64",
+      disabled: "#648191",
+    },
+  },
+  props: {
+    MuiCardHeader: {
+      titleTypographyProps: {
+        variant: "h6",
+      },
+      subheaderTypographyProps: {
+        variant: "caption",
+      },
     },
   },
   overrides: {
-    MuiDialogTitle: {
-      root: {
-        paddingLeft: defaultTheme.spacing(1),
-        paddingRight: defaultTheme.spacing(1),
+    MuiInput: {
+      underline: {
+        "&$disabled:before": {
+          borderBottomStyle: "dashed",
+          borderBottomColor: "#a1b3be",
+        },
       },
     },
-    MuiFormControl: {
-      root: {
-        margin: defaultTheme.spacing(1),
+    MuiInputLabel: {
+      shrink: {
+        fontWeight: "bold",
       },
     },
-    MuiFormHelperText: {
-      contained: { marginLeft: 0 },
+    MuiFormLabel: {
+      root: {
+        "&$disabled": {
+          color: "#455a64",
+        },
+      },
+      asterisk: {
+        color: "#f00000",
+        fontSize: 22,
+      },
     },
   },
 });

@@ -15,7 +15,7 @@ import React from "react";
 import style from "./style";
 import { ITableColumn, Order, IRowSpan, IRenderCell } from "./type";
 
-export interface PropsAppTable extends WithStyles<typeof style> {
+export interface IAppSidebarProps extends WithStyles<typeof style> {
   style?: React.CSSProperties;
   class?: string;
   onClickRow?: (row: object, event?: any) => void;
@@ -45,12 +45,12 @@ export interface PropsAppTable extends WithStyles<typeof style> {
   cellStyle?: React.CSSProperties;
 }
 
-export class AppTable extends React.Component<PropsAppTable> {
+export class AppTable extends React.Component<IAppSidebarProps> {
   private _columSpan = 0;
   private _pColumns: any[] = [];
   private _groupColumns: (ITableColumn & { children: ITableColumn[] })[];
   private _rowSpans: IRowSpan[] = [];
-  constructor(props: Readonly<PropsAppTable>) {
+  constructor(props: Readonly<IAppSidebarProps>) {
     super(props);
     this._pColumns = this.props.columns.filter((item) => item.pid?.trim());
     this._groupColumns = this.props.columns
@@ -59,8 +59,8 @@ export class AppTable extends React.Component<PropsAppTable> {
         ...column,
         children: this.props.columns.filter((item) => item?.pid === column.key),
       }));
-    this.handleChangePage.bind(this);
-    this.handleChangeRowsPerPage.bind(this);
+    this.handleOnChangePage.bind(this);
+    this.handleOnChangeRowsPerPage.bind(this);
   }
   private renderTheadParent(
     column: ITableColumn & { children: ITableColumn[] },
@@ -71,8 +71,8 @@ export class AppTable extends React.Component<PropsAppTable> {
       <TableCell
         className={`${
           column.children.length > 0 && classes.topHeaderHasChildren
-        } ${classes.topHeader} ${column.key} ${classes.tdThead} td-thear`}
-        key={`thear-${index}`}
+        } ${classes.topHeader} ${column.key} ${classes.tdThead} td-thead`}
+        key={`thead-${index}`}
         colSpan={column.children.length}
         rowSpan={column.children.length === 0 ? 2 : 1}
         style={column.styleThead && column.styleThead}
@@ -89,20 +89,14 @@ export class AppTable extends React.Component<PropsAppTable> {
     column: ITableColumn & { children: ITableColumn[] },
     index: number
   ) {
-    const {
-      classes,
-      sort,
-      columnsSort: columnsSort,
-      order,
-      orderBy,
-    } = this.props;
+    const { classes, sort, columnsSort, order, orderBy } = this.props;
     if (column?.children?.length > 0) {
       return column.children?.map((children, index) => {
         const data = !this._columSpan && (
           <TableCell
-            key={`thear-${index}`}
+            key={`thead-${index}`}
             style={children.styleThead && children.styleThead}
-            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThead} td-thear`}
+            className={`${children.key} ${classes.topHeaderGroup} ${classes.tdThead} td-thead`}
             colSpan={children.columSpanThead}
           >
             {(sort && columnsSort?.includes(children.key) && (
@@ -130,9 +124,9 @@ export class AppTable extends React.Component<PropsAppTable> {
       const data =
         (!this._columSpan && (
           <TableCell
-            key={`thear-${index}`}
+            key={`thead-${index}`}
             style={column.styleThead && column.styleThead}
-            className={`${column.key} ${classes.tdThead} td-thear`}
+            className={`${column.key} ${classes.tdThead} td-thead`}
             colSpan={column.columSpanThead}
           >
             {(sort && columnsSort?.includes(column.key) && (
@@ -285,10 +279,10 @@ export class AppTable extends React.Component<PropsAppTable> {
       return data;
     }
   }
-  public handleChangePage = (_event: any, row: number) => {
+  public handleOnChangePage = (_event: any, row: number) => {
     this.props.onChangePage && this.props.onChangePage(row);
   };
-  public handleChangeRowsPerPage = (event: any) => {
+  public handleOnChangeRowsPerPage = (event: any) => {
     const per = parseInt(event.target.value);
     this.props.onChangeRowsPerPage && this.props.onChangeRowsPerPage(per);
   };
@@ -329,7 +323,7 @@ export class AppTable extends React.Component<PropsAppTable> {
           <Table className={classes.table} aria-label="simple">
             <TableHead>
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns.map(
                     (
                       column: ITableColumn & { children: ITableColumn[] },
@@ -340,7 +334,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length > 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns
                     .filter((group) => group?.children.length > 0)
                     .map((column, index) => this.renderThead(column, index))}
@@ -348,7 +342,7 @@ export class AppTable extends React.Component<PropsAppTable> {
               )}
 
               {this._pColumns.length === 0 && (
-                <TableRow style={this.props.rowStyle} className={`tr-thear`}>
+                <TableRow style={this.props.rowStyle} className={`tr-thead`}>
                   {this._groupColumns
                     .filter((group) => group?.children)
                     .map(
@@ -390,8 +384,8 @@ export class AppTable extends React.Component<PropsAppTable> {
             count={(count && count) || 0}
             rowsPerPage={rowsPerPage || 10}
             page={page || 0}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+            onChangePage={this.handleOnChangePage}
+            onChangeRowsPerPage={this.handleOnChangeRowsPerPage}
           />
         )}
       </>

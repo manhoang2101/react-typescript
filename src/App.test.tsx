@@ -15,14 +15,14 @@ const initialState = {
   },
 };
 const mockStore = configureStore();
-let store: any;
+let stories: any;
 describe("App", () => {
   beforeEach(() => {
-    store = mockStore(initialState);
+    stories = mockStore(initialState);
   });
   test("render component", () => {
     const { container } = render(
-      <Provider store={store}>
+      <Provider store={stories}>
         <App />
       </Provider>
     );

@@ -4,29 +4,22 @@ import { UserPage, mapDispatchToProps } from ".";
 import { Provider } from "react-redux";
 import { shallow } from "enzyme";
 import { render } from "@testing-library/react";
-import EUserAction from "../../store/user/user.actions";
+import EUserAction from "../../stories/user/user.actions";
 
 const initialState = {
   users: [],
   user: null,
 };
 const mockStore = configureStore();
-let store: any;
+let stories: any;
 describe("UserPage", () => {
   beforeEach(() => {
-    store = mockStore(initialState);
+    stories = mockStore(initialState);
   });
-  test("render component", () => {
-    const { container } = render(
-      <Provider store={store}>
-        <UserPage />
-      </Provider>
-    );
-    expect(container).toMatchSnapshot();
-  });
+
   test("UserPage as component", () => {
     const container = shallow(
-      <Provider store={store}>
+      <Provider store={stories}>
         <UserPage />
       </Provider>
     );
