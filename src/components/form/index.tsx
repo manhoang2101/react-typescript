@@ -1,14 +1,7 @@
 import React from "react";
 import style from "./style";
-import { useFormik, FormikValues, withFormik } from "formik";
-import {
-  Formik,
-  FormikHelpers,
-  FormikProps,
-  Form,
-  Field,
-  FieldProps,
-} from "formik";
+import { FormikValues } from "formik";
+import { Formik, FormikHelpers, Form } from "formik";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 
 export interface IAppFormProps extends WithStyles<typeof style> {
@@ -37,14 +30,7 @@ export class AppFrom extends React.Component<IAppFormProps> {
   };
 
   render() {
-    const {
-      initialValues,
-      formSchema,
-      render,
-      initialStatus,
-      initialErrors,
-      initialTouched,
-    } = this.props;
+    const { initialValues, formSchema, render, initialStatus } = this.props;
     return (
       <Formik
         initialValues={initialValues}
