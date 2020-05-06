@@ -18,20 +18,23 @@ export interface IAppTextFieldProps extends WithStyles<typeof style> {
   helperText?: string;
   id?: string;
   placeholder?: string;
+  inputProps?: any;
 }
 interface AppTextFieldState {
   onFocus: boolean;
+  defaultValue?: any;
 }
 class AppTextField extends React.Component<
   IAppTextFieldProps,
   AppTextFieldState
 > {
-  state = {
-    onFocus: false,
-  };
   constructor(props: Readonly<IAppTextFieldProps>) {
     super(props);
-    this.handleOnChange.bind(this);
+    const { value } = this.props;
+    this.state = {
+      onFocus: false,
+      defaultValue: value,
+    };
   }
   handleOnChange = (_event: any) => {
     const { onChange } = this.props;
@@ -65,11 +68,15 @@ class AppTextField extends React.Component<
       helperText,
       id,
       placeholder,
+      inputProps,
+      classes,
     } = this.props;
+    const { defaultValue } = this.state;
     return (
       <TextField
+        className={classes.AppTextField}
         onClick={this.handleOnClick}
-        defaultValue={value}
+        defaultValue={defaultValue}
         onChange={this.handleOnChange}
         onFocus={this.handleOnFocus}
         onBlur={this.handleOnBlur}
@@ -79,8 +86,8 @@ class AppTextField extends React.Component<
         variant={variant}
         disabled={disabled}
         type={type}
-        error={error}
-        helperText={helperText}
+        error={!!error}
+        helperText={!!error && helperText}
         id={id}
         placeholder={placeholder}
         InputLabelProps={{
@@ -89,6 +96,7 @@ class AppTextField extends React.Component<
               ? true
               : false,
         }}
+        InputProps={{ ...inputProps }}
       />
     );
   }

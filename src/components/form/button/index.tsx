@@ -7,8 +7,9 @@ export interface IAppButtonProps extends WithStyles<typeof style> {
   class?: string;
   onClick?: () => void;
   onDoubleClick?: () => void;
-  type?: string;
+  type?: "button" | "reset" | "submit" | undefined;
   text?: string;
+  variant?: "text" | "outlined" | "contained" | undefined;
   color?: "inherit" | "primary" | "secondary" | "default" | undefined;
 }
 
@@ -17,12 +18,13 @@ export class AppButton extends React.Component<IAppButtonProps> {
     const appButtonClass = [[this.props.class]];
     return (
       <Button
-        variant="contained"
+        variant={this.props.variant}
         color={this.props.color}
         style={this.props.style}
         onClick={this.props.onClick}
         onDoubleClick={this.props.onDoubleClick}
         className={appButtonClass.join(" ")}
+        type={this.props.type}
       >
         {this.props.text}
       </Button>

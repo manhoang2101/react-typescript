@@ -11,6 +11,7 @@ import {
   Checkbox,
   ListItemText,
   Tooltip,
+  FormGroup,
 } from "@material-ui/core";
 import style from "./style";
 export interface ISelectItem {
@@ -39,6 +40,7 @@ interface IAppSelectState {
   oldSelected?: string[];
   values?: string[];
   selectItems?: ISelectItemState[];
+  defaultValue?: any;
 }
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -53,7 +55,7 @@ const MenuProps = {
 export interface IAppSelectProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
-  onChange?: (event: any, value: string) => void;
+  onChange?: (event: any, value: any) => void;
   onFocus?: (event: any) => void;
   onBlur?: (event: any) => void;
   name?: string;
@@ -109,6 +111,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
             ...selectItems,
           ]) ||
         selectItems,
+      defaultValue: value,
     };
     this.handleOnChange.bind(this);
   }
@@ -122,7 +125,6 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
     } = this.props;
     const { selectedAll: selectedAll, options, values } = this.state;
     let { value } = _event.target;
-
     if (optionSelectAll && multiple) {
       const all =
         value.length === selectItems.length ||
@@ -139,6 +141,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
         this.setState({
           selectedAll: false,
         });
+
         if (
           values?.includes(options?.selectAll?.value as string) &&
           !value?.includes(options?.selectAll?.value as string)
@@ -151,6 +154,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
         }
       }
     }
+
     value =
       (typeof value === "object" &&
         value.length === 0 &&
@@ -162,7 +166,14 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       typeof value === "object"
         ? value.filter((item: any) => !notSelect.includes(item))
         : value;
-    onChange && onChange(_event, value);
+    const event = {
+      ..._event,
+      target: {
+        ..._event.target,
+        value: value,
+      },
+    };
+    onChange && onChange(event, value);
   };
 
   handleRenderValue = (_selected: any): any => {
@@ -215,72 +226,74 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       emptySelectOption,
       optionSelectAll,
     } = this.props;
-    const { options, selectedAll: selectedAll, values } = this.state;
+    const { options, selectedAll, defaultValue, values } = this.state;
 
     return (
-      <FormControl
-        className={classes.formControl}
-        variant={variant}
-        error={error}
-      >
-        <InputLabel className={`App-InputLabel`} id={`label-${id}`}>
-          {label}
-        </InputLabel>
-        <Select
-          className={`App-Select`}
-          labelId={`label-${id}`}
-          id={id}
-          error={error}
-          defaultValue={values}
-          name={name}
-          onChange={this.handleOnChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          style={style}
-          multiple={multiple}
-          input={<Input />}
-          MenuProps={MenuProps}
-          onOpen={this.handleOnFocus}
-          onClose={this.handleOnBlur}
-          {...((multiple && { renderValue: this.handleRenderValue }) || {})}
+      <FormGroup>
+        <FormControl
+          className={classes.formControl}
+          variant={variant}
+          error={!!error}
         >
-          {emptySelectOption && !multiple && (
-            <MenuItem
-              key={options?.emptyOption?.value}
-              value={options?.emptyOption?.value}
-              style={options?.emptyOption?.style}
-            >
-              <em>{options?.emptyOption?.label}</em>
-            </MenuItem>
-          )}
-          {optionSelectAll && multiple && (
-            <MenuItem
-              key={options?.selectAll?.value}
-              value={options?.selectAll?.value}
-              style={options?.selectAll?.style}
-            >
-              <Checkbox checked={selectedAll} />
-              <ListItemText primary={options.selectAll?.label} />
-            </MenuItem>
-          )}
-          {selectItems.map((item) => (
-            <MenuItem key={item.value} value={item.value} style={item.style}>
-              {(multiple && (
-                <>
-                  <Checkbox checked={value.includes(item.value)} />
-                  <ListItemText primary={item.label} />
-                </>
-              )) ||
-                item.label}
-            </MenuItem>
-          ))}
-        </Select>
-        {error && (
-          <FormHelperText error className="App-FormHelperText">
+          <InputLabel className={`App-InputLabel`} id={`label-${id}`}>
+            {label}
+          </InputLabel>
+          <Select
+            className={`App-Select`}
+            labelId={`label-${id}`}
+            id={id}
+            error={!!error}
+            defaultValue={defaultValue}
+            value={values}
+            onChange={this.handleOnChange}
+            placeholder={placeholder}
+            disabled={disabled}
+            style={{ ...style, minWidth: 120 }}
+            multiple={multiple}
+            input={<Input name={name} className={classes.formControl} />}
+            MenuProps={MenuProps}
+            onOpen={this.handleOnFocus}
+            onClose={this.handleOnBlur}
+            {...((multiple && { renderValue: this.handleRenderValue }) || {})}
+          >
+            {emptySelectOption && !multiple && (
+              <MenuItem
+                key={options?.emptyOption?.value}
+                value={options?.emptyOption?.value}
+                style={options?.emptyOption?.style}
+              >
+                <em>{options?.emptyOption?.label}</em>
+              </MenuItem>
+            )}
+            {optionSelectAll && multiple && (
+              <MenuItem
+                key={options?.selectAll?.value}
+                value={options?.selectAll?.value}
+                style={options?.selectAll?.style}
+              >
+                <Checkbox checked={selectedAll} />
+                <ListItemText primary={options.selectAll?.label} />
+              </MenuItem>
+            )}
+            {selectItems.map((item) => (
+              <MenuItem key={item.value} value={item.value} style={item.style}>
+                {(multiple && (
+                  <>
+                    <Checkbox checked={value.includes(item.value)} />
+                    <ListItemText primary={item.label} />
+                  </>
+                )) ||
+                  item.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {!!error && (
+          <FormHelperText error={!!error} className="App-FormHelperText">
             {helperText}
           </FormHelperText>
         )}
-      </FormControl>
+      </FormGroup>
     );
   }
 }

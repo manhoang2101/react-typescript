@@ -4,6 +4,7 @@ const style = () =>
   createStyles({
     formControl: {
       minWidth: 120,
+      display: "block",
     },
   });
 

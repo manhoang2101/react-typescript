@@ -8,6 +8,7 @@ import {
   RadioGroup,
   FormControlLabel,
   FormHelperText,
+  FormGroup,
 } from "@material-ui/core";
 import style from "./style";
 export interface IRadioItem {
@@ -40,38 +41,40 @@ class AppRadio extends React.Component<IAppRadioProps> {
   render() {
     const { name, style, id, value, label, error, helperText } = this.props;
     return (
-      <FormControl variant="outlined" error={error}>
-        <FormLabel component="legend">{label}</FormLabel>
-        <RadioGroup
-          aria-label={label}
-          name={name}
-          value={value}
-          onChange={this.handleOnChange}
-          id={id}
-          style={style}
-        >
-          {this.props.radioItems.map((item, index) => (
-            <FormControlLabel
-              key={index}
-              value={item.value}
-              control={
-                <Radio
-                  className={`App-RadioGroup`}
-                  color={item.color}
-                  disabled={item.disabled}
-                  style={item.style}
-                />
-              }
-              label={item.label}
-            />
-          ))}
-        </RadioGroup>
-        {error && (
-          <FormHelperText error className="data-test-FormHelperText">
+      <FormGroup>
+        <FormControl error={!!error}>
+          <FormLabel component="legend">{label}</FormLabel>
+          <RadioGroup
+            aria-label={label}
+            name={name}
+            value={value}
+            onChange={this.handleOnChange}
+            id={id}
+            style={style}
+          >
+            {this.props.radioItems.map((item, index) => (
+              <FormControlLabel
+                key={index}
+                value={item.value}
+                control={
+                  <Radio
+                    className={`App-RadioGroup`}
+                    color={item.color}
+                    disabled={item.disabled}
+                    style={item.style}
+                  />
+                }
+                label={item.label}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+        {!!error && (
+          <FormHelperText error={!!error} className="data-test-FormHelperText">
             {helperText}
           </FormHelperText>
         )}
-      </FormControl>
+      </FormGroup>
     );
   }
 }

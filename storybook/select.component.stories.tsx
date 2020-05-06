@@ -8,7 +8,7 @@ export const Default = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (value) => {
+  const handleOnChange = (_event, value) => {
     setChecked(value);
   };
   return (
@@ -30,7 +30,7 @@ export const HasEmpty = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (value) => {
+  const handleOnChange = (_event, value) => {
     setChecked(value);
   };
   return (
@@ -63,7 +63,7 @@ export const HasMultiple = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (values) => {
+  const handleOnChange = (_event, values) => {
     setChecked(values);
   };
   return (
@@ -96,7 +96,7 @@ export const HasMultipleAll = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (values) => {
+  const handleOnChange = (_event, values) => {
     setChecked(values);
   };
   return (
@@ -126,7 +126,7 @@ export const HasMultipleAllHasEmpty = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (values) => {
+  const handleOnChange = (_event, values) => {
     setChecked(values);
   };
   return (
@@ -161,7 +161,7 @@ export const HasMultipleError = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (values) => {
+  const handleOnChange = (_event, values) => {
     setChecked(values);
   };
   return (

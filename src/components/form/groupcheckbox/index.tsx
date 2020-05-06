@@ -71,35 +71,50 @@ class AppGroupCheckBox extends React.Component<
           false,
       })),
     });
-    onChange && onChange(_event, values);
+    const event = {
+      ..._event,
+      target: {
+        ..._event?.target,
+        value: values,
+      },
+    };
+    console.log(event);
+    onChange && onChange(event, values);
   };
 
   render() {
     const { name, style, label, error, required, helperText } = this.props;
     const { checkItems } = this.state;
     return (
-      <FormControl
-        required={required}
-        error={error}
-        component="fieldset"
-        name={name}
-        className={`App-GroupCheckBox`}
-        style={style}
-      >
-        <FormLabel component="legend" className={`App-FormLabel`}>
-          {label}
-        </FormLabel>
-        <FormGroup>
-          {checkItems.map((item, key) => (
-            <AppCheckBox key={key} {...item} onChange={this.handleOnChange} />
-          ))}
-        </FormGroup>
-        {error && (
-          <FormHelperText className={`App-FormHelperText`}>
+      <FormGroup>
+        <FormControl
+          required={required}
+          error={!!error}
+          component="fieldset"
+          name={name}
+          className={`App-GroupCheckBox`}
+          style={style}
+        >
+          <FormLabel component="legend" className={`App-FormLabel`}>
+            {label}
+          </FormLabel>
+          <FormGroup>
+            {checkItems.map((item, key) => (
+              <AppCheckBox
+                key={key}
+                {...item}
+                name={name}
+                onChange={this.handleOnChange}
+              />
+            ))}
+          </FormGroup>
+        </FormControl>
+        {!!error && (
+          <FormHelperText error={!!error} className={`App-FormHelperText`}>
             {helperText}
           </FormHelperText>
         )}
-      </FormControl>
+      </FormGroup>
     );
   }
 }

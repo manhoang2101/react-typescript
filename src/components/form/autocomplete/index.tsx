@@ -151,7 +151,7 @@ class AppAutocomplete extends React.Component<
             ...params.InputProps,
             className: classes.textField,
           }}
-          error={error}
+          error={!!error}
           helperText={helperText}
         />
       )) || (
