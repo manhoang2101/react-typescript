@@ -39,6 +39,7 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
   error?: boolean;
   helperText?: string;
   minLengthCallChangeInput?: number;
+  name?: string;
 }
 export interface AppAutocompleteStates {
   open: boolean;
@@ -88,7 +89,15 @@ class AppAutocomplete extends React.Component<
     values: any
   ) => {
     const { onChangeOption } = this.props;
-    onChangeOption && onChangeOption(_event, values);
+    const event = {
+      ..._event,
+      target: {
+        ..._event.target,
+        value: values,
+      },
+    };
+
+    onChangeOption && onChangeOption(event, values);
   };
   private handleOpen = () => {
     const { onOpen } = this.props;
@@ -136,6 +145,7 @@ class AppAutocomplete extends React.Component<
       helperText,
       variant,
       renderTextField,
+      name,
     } = this.props;
 
     return (
@@ -153,6 +163,7 @@ class AppAutocomplete extends React.Component<
           }}
           error={!!error}
           helperText={helperText}
+          name={name}
         />
       )) || (
         <TextField
@@ -160,6 +171,9 @@ class AppAutocomplete extends React.Component<
           {...params}
           label={label}
           variant={variant}
+          name={name}
+          error={!!error}
+          helperText={helperText}
         />
       )
     );
@@ -180,7 +194,6 @@ class AppAutocomplete extends React.Component<
   };
   private handleGetOptionSelected = (selected: IOption) => {
     const { getOptionSelected, multiple, option } = this.props;
-
     return (
       !multiple ||
       (getOptionSelected && getOptionSelected(selected)) ||

@@ -5,6 +5,7 @@ import AppButton from "../src/components/form/button";
 import AppTextField from "../src/components/form/textfield";
 import AppGroupCheckBox from "../src/components/form/groupcheckbox";
 import AppSelect, { ISelectItem } from "../src/components/form/select";
+import AppAutocomplete, { IOption } from "../src/components/form/autocomplete";
 import * as Yup from "yup";
 export const Basic = () => {
   const radioItem: IRadioItem[] = [
@@ -33,17 +34,25 @@ export const Basic = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
+  const options: IOption[] = [
+    { label: "Select1", value: "Select1" },
+    { label: "Select2", value: "Select2" },
+    { label: "Select3", value: "Select3" },
+    { label: "Select4", value: "Select4" },
+  ];
   const SignupSchema = Yup.object().shape({
     AppRadio: Yup.string().required("this is field Required"),
     TextField: Yup.string().required("this is field Required"),
     AppGroupCheckBox: Yup.string().required("this is field Required"),
     AppSelect: Yup.string().required("this is field Required"),
+    AppAutocomplete: Yup.string().required("this is field Required"),
   });
   const initialValues = {
     AppRadio: "",
     TextField: "",
     AppGroupCheckBox: "",
     AppSelect: [],
+    AppAutocomplete: [],
   };
 
   return (
@@ -104,6 +113,23 @@ export const Basic = () => {
             }
             helperText={formik.errors.AppSelect}
           />
+          <br />
+          <AppAutocomplete
+            multiple
+            label="AppAutocomplete *"
+            name={`AppAutocomplete`}
+            async={false}
+            options={options}
+            onChangeOption={(_e, v) =>
+              formik.setFieldValue("AppAutocomplete", v)
+            }
+            option={formik.values.AppAutocomplete}
+            error={
+              formik.errors.AppAutocomplete !== undefined &&
+              formik.touched.AppAutocomplete
+            }
+            helperText={formik.errors.AppAutocomplete}
+          ></AppAutocomplete>
           <br />
           <AppButton
             type="submit"
