@@ -39,6 +39,7 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
   error?: boolean;
   helperText?: string;
   minLengthCallChangeInput?: number;
+  onBlur?: (event?: any) => void;
   name?: string;
 }
 export interface AppAutocompleteStates {
@@ -162,7 +163,7 @@ class AppAutocomplete extends React.Component<
             className: classes.textField,
           }}
           error={!!error}
-          helperText={helperText}
+          helperText={!!error && helperText}
           name={name}
         />
       )) || (
@@ -173,7 +174,7 @@ class AppAutocomplete extends React.Component<
           variant={variant}
           name={name}
           error={!!error}
-          helperText={helperText}
+          helperText={!!error && helperText}
         />
       )
     );
@@ -208,10 +209,11 @@ class AppAutocomplete extends React.Component<
     return (getOptionLabel && getOptionLabel(option)) || option.label;
   };
   render() {
-    const { async, multiple, classes, options, disabled } = this.props;
+    const { async, multiple, classes, options, disabled, onBlur } = this.props;
     const { open, loading, defaultValue } = this.state;
     return (
       <Autocomplete
+        onBlur={onBlur}
         autoComplete={!async}
         multiple={multiple}
         defaultValue={defaultValue}

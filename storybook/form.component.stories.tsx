@@ -101,6 +101,7 @@ export const Basic = () => {
           <br />
           <AppSelect
             optionSelectAll
+            onBlurInput={formik.handleBlur}
             onChange={formik.handleChange}
             multiple
             selectItems={selectItem}
@@ -129,6 +130,7 @@ export const Basic = () => {
               formik.touched.AppAutocomplete
             }
             helperText={formik.errors.AppAutocomplete}
+            onBlur={formik.handleBlur}
           ></AppAutocomplete>
           <br />
           <AppButton
