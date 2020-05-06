@@ -1,9 +1,5 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 import { responsiveFontSizes } from "@material-ui/core/styles";
-import { orange } from "@material-ui/core/colors";
-import { fade } from "@material-ui/core/styles/colorManipulator";
-// A custom theme for this app
-const defaultTheme = createMuiTheme();
 export const themeStyle = createMuiTheme({
   spacing: 5,
   palette: {

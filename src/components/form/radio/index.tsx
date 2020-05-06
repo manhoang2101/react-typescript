@@ -32,11 +32,10 @@ export interface IAppRadioProps extends WithStyles<typeof style> {
 class AppRadio extends React.Component<IAppRadioProps> {
   constructor(props: Readonly<IAppRadioProps>) {
     super(props);
-    this.handleChange.bind(this);
   }
-  handleChange = (_event: any) => {
+  handleOnChange = (_event: any) => {
     const { onChange } = this.props;
-    onChange && onChange(_event.target.value);
+    onChange && onChange(_event);
   };
   render() {
     const { name, style, id, value, label, error, helperText } = this.props;
@@ -47,7 +46,7 @@ class AppRadio extends React.Component<IAppRadioProps> {
           aria-label={label}
           name={name}
           value={value}
-          onChange={this.handleChange}
+          onChange={this.handleOnChange}
           id={id}
           style={style}
         >

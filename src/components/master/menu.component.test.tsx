@@ -7,12 +7,7 @@ import MenuComponent from "./menu.component";
 
 describe("<MenuComponent />", () => {
   const Component = withStyles(style)(MenuComponent);
-  test("toMatchSnapshot()", () => {
-    const container = shallow(
-      <Component MenuId={`MenuId`} MobileMenuId={`MobileMenuId`} />
-    );
-    expect(container).toMatchSnapshot();
-  });
+
   test("renders call SetHeight", () => {
     render(<Component MenuId={`MenuId`} MobileMenuId={`MobileMenuId`} />);
     const expected = document.querySelectorAll("#MenuId");

@@ -53,7 +53,7 @@ const MenuProps = {
 export interface IAppSelectProps extends WithStyles<typeof style> {
   style?: Object;
   value?: any;
-  onChange?: (value: string) => void;
+  onChange?: (event: any, value: string) => void;
   onFocus?: (event: any) => void;
   onBlur?: (event: any) => void;
   name?: string;
@@ -110,9 +110,9 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
           ]) ||
         selectItems,
     };
-    this.handleChange.bind(this);
+    this.handleOnChange.bind(this);
   }
-  handleChange = (_event: any) => {
+  handleOnChange = (_event: any) => {
     const {
       onChange,
       multiple,
@@ -162,7 +162,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       typeof value === "object"
         ? value.filter((item: any) => !notSelect.includes(item))
         : value;
-    onChange && onChange(value);
+    onChange && onChange(_event, value);
   };
 
   handleRenderValue = (_selected: any): any => {
@@ -177,7 +177,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
         options?.emptyOption?.label) ||
       (label.length <= 2 && label.join(", ")) || (
         <Tooltip
-          className="data-test-handleRenderValue"
+          className="App-Tooltip"
           title={label.join(", ")}
           aria-label={label.join(", ")}
           placement="top"
@@ -189,11 +189,11 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       )
     );
   };
-  handleFocus = (event: React.ChangeEvent<{}>) => {
+  handleOnFocus = (event: React.ChangeEvent<{}>) => {
     const { onFocus } = this.props;
     onFocus && onFocus(event);
   };
-  handleBlur = (event: React.ChangeEvent<{}>) => {
+  handleOnBlur = (event: React.ChangeEvent<{}>) => {
     const { onBlur } = this.props;
     onBlur && onBlur(event);
   };
@@ -223,22 +223,25 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
         variant={variant}
         error={error}
       >
-        <InputLabel id={`label-${id}`}>{label}</InputLabel>
+        <InputLabel className={`App-InputLabel`} id={`label-${id}`}>
+          {label}
+        </InputLabel>
         <Select
+          className={`App-Select`}
           labelId={`label-${id}`}
           id={id}
           error={error}
           defaultValue={values}
           name={name}
-          onChange={this.handleChange}
+          onChange={this.handleOnChange}
           placeholder={placeholder}
           disabled={disabled}
           style={style}
           multiple={multiple}
           input={<Input />}
           MenuProps={MenuProps}
-          onOpen={this.handleFocus}
-          onClose={this.handleBlur}
+          onOpen={this.handleOnFocus}
+          onClose={this.handleOnBlur}
           {...((multiple && { renderValue: this.handleRenderValue }) || {})}
         >
           {emptySelectOption && !multiple && (
@@ -273,7 +276,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
           ))}
         </Select>
         {error && (
-          <FormHelperText error className="data-test-FormHelperText">
+          <FormHelperText error className="App-FormHelperText">
             {helperText}
           </FormHelperText>
         )}

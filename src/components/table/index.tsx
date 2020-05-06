@@ -59,8 +59,8 @@ export class AppTable extends React.Component<IAppSidebarProps> {
         ...column,
         children: this.props.columns.filter((item) => item?.pid === column.key),
       }));
-    this.handleChangePage.bind(this);
-    this.handleChangeRowsPerPage.bind(this);
+    this.handleOnChangePage.bind(this);
+    this.handleOnChangeRowsPerPage.bind(this);
   }
   private renderTheadParent(
     column: ITableColumn & { children: ITableColumn[] },
@@ -279,10 +279,10 @@ export class AppTable extends React.Component<IAppSidebarProps> {
       return data;
     }
   }
-  public handleChangePage = (_event: any, row: number) => {
+  public handleOnChangePage = (_event: any, row: number) => {
     this.props.onChangePage && this.props.onChangePage(row);
   };
-  public handleChangeRowsPerPage = (event: any) => {
+  public handleOnChangeRowsPerPage = (event: any) => {
     const per = parseInt(event.target.value);
     this.props.onChangeRowsPerPage && this.props.onChangeRowsPerPage(per);
   };
@@ -384,8 +384,8 @@ export class AppTable extends React.Component<IAppSidebarProps> {
             count={(count && count) || 0}
             rowsPerPage={rowsPerPage || 10}
             page={page || 0}
-            onChangePage={this.handleChangePage}
-            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+            onChangePage={this.handleOnChangePage}
+            onChangeRowsPerPage={this.handleOnChangeRowsPerPage}
           />
         )}
       </>

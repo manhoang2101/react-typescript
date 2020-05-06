@@ -12,37 +12,41 @@ import AppCheckBox, { IAppCheckBoxProps } from "../checkbox";
 
 export interface IAppGroupCheckBoxProps extends WithStyles<typeof style> {
   style?: Object;
-  checked: boolean;
-  onChange?: (
-    values: {
-      value?: string;
-      label?: string;
-    }[],
-    event?: any
-  ) => void;
+  onChange?: (event?: any, values?: Partial<IAppCheckBoxProps>[]) => void;
   name?: string;
   helperText?: string;
   error?: boolean;
   label?: string;
   required?: boolean;
   checkItems: Partial<IAppCheckBoxProps>[];
+  values?: string[];
 }
 export interface IAppGroupCheckBoxState {
-  selectItem?: Partial<IAppCheckBoxProps>[];
+  selectItem: Partial<IAppCheckBoxProps>[];
+  checkItems: Partial<IAppCheckBoxProps>[];
 }
-class IAppGroupCheckBox extends React.Component<
+class AppGroupCheckBox extends React.Component<
   IAppGroupCheckBoxProps,
   IAppGroupCheckBoxState
 > {
   constructor(props: Readonly<IAppGroupCheckBoxProps>) {
     super(props);
+    const { checkItems, values } = this.props;
+    const selectItem =
+      (values &&
+        checkItems.filter((item) => values.includes(item?.value as string))) ||
+      [];
     this.state = {
-      selectItem: [],
+      selectItem,
+      checkItems: checkItems.map((item) => ({
+        ...item,
+        checked: (values && values.includes(item?.value as string)) || false,
+      })),
     };
   }
-  handleChange = (
-    checked: boolean,
-    _event?: React.ChangeEvent<HTMLInputElement>
+  handleOnChange = (
+    _event?: React.ChangeEvent<HTMLInputElement>,
+    checked?: boolean
   ) => {
     const { onChange, checkItems } = this.props;
     const { selectItem } = this.state;
@@ -52,17 +56,27 @@ class IAppGroupCheckBox extends React.Component<
       .shift();
     const values =
       (itemChanged &&
-        ((checked && [...((selectItem && selectItem) || []), itemChanged]) ||
+        ((checked && [...selectItem, itemChanged]) ||
           selectItem?.filter((item) => item.value !== itemChanged.value))) ||
       [];
-
     this.setState({
       selectItem: values,
+      checkItems: checkItems.map((item) => ({
+        ...item,
+        checked:
+          (values &&
+            values
+              .map((item) => item.value as string)
+              .includes(item?.value as string)) ||
+          false,
+      })),
     });
-    onChange && onChange(values, _event);
+    onChange && onChange(_event, values);
   };
+
   render() {
-    const { checkItems, name, style, error, required, helperText } = this.props;
+    const { name, style, label, error, required, helperText } = this.props;
+    const { checkItems } = this.state;
     return (
       <FormControl
         required={required}
@@ -72,15 +86,22 @@ class IAppGroupCheckBox extends React.Component<
         className={`App-GroupCheckBox`}
         style={style}
       >
-        <FormLabel component="legend">label</FormLabel>
+        <FormLabel component="legend" className={`App-FormLabel`}>
+          {label}
+        </FormLabel>
         <FormGroup>
           {checkItems.map((item, key) => (
-            <AppCheckBox key={key} {...item} onChange={this.handleChange} />
+            <AppCheckBox key={key} {...item} onChange={this.handleOnChange} />
           ))}
         </FormGroup>
-        {error && <FormHelperText>{helperText}</FormHelperText>}
+        {error && (
+          <FormHelperText className={`App-FormHelperText`}>
+            {helperText}
+          </FormHelperText>
+        )}
       </FormControl>
     );
   }
 }
-export default withStyles(style)(IAppGroupCheckBox);
+
+export default withStyles(style)(AppGroupCheckBox);

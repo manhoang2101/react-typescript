@@ -6,35 +6,45 @@ import React from "react";
 
 describe("<AppRadio />", () => {
   const Component = withStyles(style)(AppTextField);
-  test("toMatchSnapshot()", () => {
-    const container = shallow(<Component />);
-    expect(container).toMatchSnapshot();
-  });
-  test("should call handleChange()", () => {
-    const handleChange = jest.fn();
-    const container = mount(<Component onChange={handleChange} />);
+  test("should call handleOnChange()", () => {
+    const handleOnChange = jest.fn();
+    const container = mount(<Component onChange={handleOnChange} />);
     const input = container.find("input");
     input.at(0).simulate("change");
-    expect(handleChange).toBeCalled();
+    expect(handleOnChange).toBeCalled();
   });
-  test("should call handleFocus()", () => {
-    const handleFocus = jest.fn();
+  test("should call handleOnFocus()", () => {
+    const handleOnFocus = jest.fn();
     let wrapper = shallow(
       <Component
-        onFocus={handleFocus}
+        onFocus={handleOnFocus}
         placeholder="placeholder"
         label="label"
       />
     );
     let component = wrapper.dive().dive().instance();
-    component.handleFocus(null);
-    expect(handleFocus).toHaveBeenCalled();
+    component.handleOnFocus(null);
+    expect(handleOnFocus).toHaveBeenCalled();
   });
-  test("should call handleBlur()", () => {
-    const handleBlur = jest.fn();
-    let wrapper = shallow(<Component onBlur={handleBlur} />);
+  test("should call handleOnClick()", () => {
+    const handleOnClick = jest.fn();
+    let wrapper = shallow(
+      <Component
+        onClick={handleOnClick}
+        placeholder="placeholder"
+        label="label"
+      />
+    );
     let component = wrapper.dive().dive().instance();
-    component.handleBlur(null);
-    expect(handleBlur).toHaveBeenCalled();
+    component.handleOnClick(null);
+    expect(handleOnClick).toHaveBeenCalled();
+  });
+
+  test("should call handleOnBlur()", () => {
+    const handleOnBlur = jest.fn();
+    let wrapper = shallow(<Component onBlur={handleOnBlur} />);
+    let component = wrapper.dive().dive().instance();
+    component.handleOnBlur(null);
+    expect(handleOnBlur).toHaveBeenCalled();
   });
 });

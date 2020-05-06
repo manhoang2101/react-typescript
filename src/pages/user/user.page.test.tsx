@@ -16,14 +16,7 @@ describe("UserPage", () => {
   beforeEach(() => {
     stories = mockStore(initialState);
   });
-  test("render component", () => {
-    const { container } = render(
-      <Provider store={stories}>
-        <UserPage />
-      </Provider>
-    );
-    expect(container).toMatchSnapshot();
-  });
+
   test("UserPage as component", () => {
     const container = shallow(
       <Provider store={stories}>

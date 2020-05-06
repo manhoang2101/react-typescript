@@ -722,8 +722,8 @@ describe("<TableCell />", () => {
           value: 1,
         },
       };
-      container.handleChangePage(null, 1);
-      container.handleChangeRowsPerPage(event);
+      container.handleOnChangePage(null, 1);
+      container.handleOnChangeRowsPerPage(event);
       expect(handleOnChangePage).toHaveBeenCalled();
       expect(handleOnChangeRowsPerPage).toHaveBeenCalled();
     });

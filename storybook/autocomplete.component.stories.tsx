@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Observable } from "rxjs";
-import AppAutocomplete, { Option } from "../src/components/form/autocomplete";
+import AppAutocomplete, { IOption } from "../src/components/form/autocomplete";
 export const Default = () => {
-  const options: Option[] = [
+  const options: IOption[] = [
     { label: "Select1", value: "Select1" },
-    { label: "Radio2", value: "Radio2" },
-    { label: "Radio3", value: "Radio3" },
-    { label: "Radio4", value: "Radio4" },
+    { label: "Select2", value: "Select2" },
+    { label: "Select3", value: "Select3" },
+    { label: "Select4", value: "Select4" },
   ];
   return (
     <AppAutocomplete
@@ -17,28 +17,56 @@ export const Default = () => {
   );
 };
 export const Multiple = () => {
-  const options: Option[] = [
+  const items: IOption[] = [
     { label: "Select1", value: "Select1" },
-    { label: "Radio2", value: "Radio2" },
-    { label: "Radio3", value: "Radio3" },
-    { label: "Radio4", value: "Radio4" },
+    { label: "Select2", value: "Select2" },
+    { label: "Select3", value: "Select3" },
+    { label: "Select4", value: "Select4" },
   ];
+  const [options] = React.useState<IOption[]>(items);
+  const [option, setOption] = React.useState<IOption[]>([]);
+  const handelOnChangeOption = (t) => {
+    setOption(t);
+  };
+  return (
+    <AppAutocomplete
+      multiple
+      async={false}
+      options={options}
+      option={option}
+      label="Multiple"
+      onChangeOption={handelOnChangeOption}
+    ></AppAutocomplete>
+  );
+};
+export const MultipleHasDefault = () => {
+  const options: IOption[] = [
+    { label: "Select1", value: "Select1" },
+    { label: "Select2", value: "Select2" },
+    { label: "Select3", value: "Select3" },
+    { label: "Select4", value: "Select4" },
+  ];
+  const [option, setOption] = React.useState<IOption[]>([
+    { label: "Select1", value: "Select1" },
+  ]);
+  const handelOnChangeOption = (t) => {
+    setOption(t);
+  };
   return (
     <AppAutocomplete
       multiple
       async={false}
       options={options}
       label="Multiple"
+      option={option}
+      onChangeOption={handelOnChangeOption}
     ></AppAutocomplete>
   );
 };
-interface CountryType {
-  name: string;
-}
 export const Asynchronous = () => {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = React.useState<Option[]>([]);
-  const [option, setOption] = React.useState<Option>();
+  const [options, setOptions] = React.useState<IOption[]>([]);
+  const [option, setOption] = React.useState<IOption>();
   const handelOnChangeOption = (t) => {
     setOption(t);
   };
@@ -76,8 +104,8 @@ export const Asynchronous = () => {
 };
 export const AsynchronousMultiple = () => {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = React.useState<Option[]>([]);
-  const [option, setOption] = React.useState<Option[]>([]);
+  const [options, setOptions] = React.useState<IOption[]>([]);
+  const [option, setOption] = React.useState<IOption[]>([]);
   const handelChange = (t) => {
     setOption(t);
   };
@@ -119,8 +147,8 @@ export const AsynchronousMultiple = () => {
 };
 export const HasValidate = () => {
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = React.useState<Option[]>([]);
-  const [option, setOption] = React.useState<Option[]>([]);
+  const [options, setOptions] = React.useState<IOption[]>([]);
+  const [option, setOption] = React.useState<IOption[]>([]);
   const handelOnChangeOption = (t) => {
     setOption(t);
   };

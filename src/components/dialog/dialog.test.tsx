@@ -33,20 +33,7 @@ describe("<AppDialog />", () => {
       </Button>
     </DialogActions>
   );
-  test("toMatchSnapshot()", () => {
-    const container = shallow(
-      <Component
-        fullScreen
-        maxWidth={false}
-        open={false}
-        onClose={handleClickClose}
-        dialogTitle={dialogTitle}
-        dialogContent={dialogContent}
-        dialogActions={dialogActions}
-      />
-    );
-    expect(container).toMatchSnapshot();
-  });
+
   test("should show text of DialogContent fullScreen", () => {
     const handleClickClose = jest.fn();
     const dialogTitle = () => (

@@ -15,8 +15,8 @@ export interface IAppCheckBoxProps extends WithStyles<typeof style> {
   label?: string;
   value?: string;
   onChange?: (
-    selected: boolean,
-    event?: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
+    selected?: boolean
   ) => void;
   name?: string;
   helperText?: string;
@@ -26,14 +26,13 @@ export interface IAppCheckBoxProps extends WithStyles<typeof style> {
 class AppCheckBox extends React.Component<IAppCheckBoxProps> {
   constructor(props: Readonly<IAppCheckBoxProps>) {
     super(props);
-    this.handleChange.bind(this);
   }
-  handleChange = (
+  handleOnChange = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
   ) => {
     const { onChange } = this.props;
-    onChange && onChange(checked, _event);
+    onChange && onChange(_event, checked);
   };
   render() {
     const {
@@ -49,11 +48,12 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
     return (
       (isGroup && (
         <FormControlLabel
+          className={`App-FormControlLabel`}
           control={
             <Checkbox
               className={`App-Checkbox`}
               checked={checked}
-              onChange={this.handleChange}
+              onChange={this.handleOnChange}
               name={name}
               value={value}
               style={style}
@@ -68,7 +68,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
               <Checkbox
                 className={`App-Checkbox`}
                 checked={checked}
-                onChange={this.handleChange}
+                onChange={this.handleOnChange}
                 name={name}
                 value={value}
                 style={style}
@@ -86,4 +86,5 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
     );
   }
 }
+
 export default withStyles(style)(AppCheckBox);

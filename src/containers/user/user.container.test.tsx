@@ -26,9 +26,6 @@ describe("My Connected React-Redux MasterContainer", () => {
       </Provider>
     );
   });
-  it("should render with given state from Redux stories", () => {
-    expect(warper).toMatchSnapshot();
-  });
 
   it("should onSelectUser", () => {
     const setUser = jest.fn();
