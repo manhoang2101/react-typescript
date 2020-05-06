@@ -25,8 +25,8 @@ export const Multiple = () => {
   ];
   const [options] = React.useState<IOption[]>(items);
   const [option, setOption] = React.useState<IOption[]>([]);
-  const handelOnChangeOption = (t) => {
-    setOption(t);
+  const handelOnChangeOption = (e, v) => {
+    setOption(v);
   };
   return (
     <AppAutocomplete
@@ -49,8 +49,8 @@ export const MultipleHasDefault = () => {
   const [option, setOption] = React.useState<IOption[]>([
     { label: "Select1", value: "Select1" },
   ]);
-  const handelOnChangeOption = (t) => {
-    setOption(t);
+  const handelOnChangeOption = (e, v) => {
+    setOption(v);
   };
   return (
     <AppAutocomplete
@@ -67,8 +67,8 @@ export const Asynchronous = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<IOption[]>([]);
   const [option, setOption] = React.useState<IOption>();
-  const handelOnChangeOption = (t) => {
-    setOption(t);
+  const handelOnChangeOption = (e, v) => {
+    setOption(v);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
     return Observable.create((observer) => {
@@ -106,8 +106,8 @@ export const AsynchronousMultiple = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<IOption[]>([]);
   const [option, setOption] = React.useState<IOption[]>([]);
-  const handelChange = (t) => {
-    setOption(t);
+  const handelOnChangeOption = (e, v) => {
+    setOption(v);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
     return Observable.create((observer) => {
@@ -139,7 +139,7 @@ export const AsynchronousMultiple = () => {
       async
       options={options}
       open={open}
-      onChangeOption={handelChange}
+      onChangeOption={handelOnChangeOption}
       onChangeInput={handelChangeInput}
       label="AsynchronousMultiple"
     ></AppAutocomplete>
@@ -149,7 +149,7 @@ export const HasValidate = () => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = React.useState<IOption[]>([]);
   const [option, setOption] = React.useState<IOption[]>([]);
-  const handelOnChangeOption = (t) => {
+  const handelOnChangeOption = (e, t) => {
     setOption(t);
   };
   const handelChangeInput = (value?: any): Observable<boolean> => {
