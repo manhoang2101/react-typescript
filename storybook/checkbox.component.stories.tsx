@@ -3,7 +3,7 @@ import AppCheckBox from "../src/components/form/checkbox";
 import { FormGroup, FormControlLabel, Checkbox } from "@material-ui/core";
 export const Default = () => {
   const [checked, setChecked] = useState(false);
-  const handleOnChange = (checked) => {
+  const handleOnChange = (_event, checked) => {
     setChecked(checked);
   };
   return <AppCheckBox checked={checked} onChange={handleOnChange} />;
@@ -12,10 +12,10 @@ export const Default = () => {
 export const HasLabel = () => {
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
-  const handleOnChange = (checked) => {
+  const handleOnChange = (_event, checked) => {
     setChecked(checked);
   };
-  const handleOnChange1 = (checked) => {
+  const handleOnChange1 = (_event, checked) => {
     setChecked1(checked);
   };
   return (
@@ -30,10 +30,10 @@ export const HasLabel = () => {
 export const HasError = () => {
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
-  const handleOnChange = (checked) => {
+  const handleOnChange = (_event, checked) => {
     setChecked(checked);
   };
-  const handleOnChange1 = (checked) => {
+  const handleOnChange1 = (_event, checked) => {
     setChecked1(checked);
   };
   return (

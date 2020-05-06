@@ -18,10 +18,13 @@ export interface IAppCheckBoxProps extends WithStyles<typeof style> {
     event: React.ChangeEvent<HTMLInputElement>,
     selected?: boolean
   ) => void;
+  onBlur?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   helperText?: string;
   error?: boolean;
   isGroup?: boolean;
+  required?: boolean;
+  key?: string | number;
 }
 class AppCheckBox extends React.Component<IAppCheckBoxProps> {
   constructor(props: Readonly<IAppCheckBoxProps>) {
@@ -44,6 +47,8 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
       error,
       isGroup,
       helperText,
+      required,
+      key,
     } = this.props;
     return (
       (isGroup && (
@@ -51,10 +56,12 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
           className={`App-FormControlLabel`}
           control={
             <Checkbox
+              key={key}
+              id={`${name}-${key}`}
               className={`App-Checkbox`}
               checked={checked}
               onChange={this.handleOnChange}
-              name={name}
+              name={`${name}-${key}`}
               value={value}
               style={style}
             />
@@ -62,7 +69,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
           label={label}
         />
       )) || (
-        <FormControl error={error}>
+        <FormControl error={!!error} required={required}>
           <FormControlLabel
             control={
               <Checkbox
@@ -76,8 +83,8 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
             }
             label={label}
           />
-          {error && (
-            <FormHelperText className={`App-FormHelperText`}>
+          {!!error && (
+            <FormHelperText error={!!error} className={`App-FormHelperText`}>
               {helperText}
             </FormHelperText>
           )}

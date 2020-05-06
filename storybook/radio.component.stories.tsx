@@ -8,7 +8,8 @@ export const Default = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (value) => {
+  const handleOnChange = (event) => {
+    const { value } = event.target;
     setChecked(value);
   };
   return (
@@ -29,7 +30,8 @@ export const HasError = () => {
     { label: "Radio3", value: "Radio3" },
     { label: "Radio4", value: "Radio4" },
   ];
-  const handleOnChange = (value) => {
+  const handleOnChange = (event) => {
+    const { value } = event.target;
     setChecked(value);
   };
   return (
