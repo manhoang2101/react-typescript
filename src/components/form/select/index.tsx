@@ -58,6 +58,8 @@ export interface IAppSelectProps extends WithStyles<typeof style> {
   onChange?: (event: any, value: any) => void;
   onFocus?: (event: any) => void;
   onBlur?: (event: any) => void;
+  onBlurInput?: (event: any) => void;
+  onFocusInput?: (event: any) => void;
   name?: string;
   label?: string;
   disabled?: boolean;
@@ -225,6 +227,8 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       multiple,
       emptySelectOption,
       optionSelectAll,
+      onBlurInput,
+      onFocusInput,
     } = this.props;
     const { options, selectedAll, defaultValue, values } = this.state;
 
@@ -250,7 +254,14 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
             disabled={disabled}
             style={{ ...style, minWidth: 120 }}
             multiple={multiple}
-            input={<Input name={name} className={classes.formControl} />}
+            input={
+              <Input
+                name={name}
+                className={classes.formControl}
+                onBlur={onBlurInput}
+                onFocus={onFocusInput}
+              />
+            }
             MenuProps={MenuProps}
             onOpen={this.handleOnFocus}
             onClose={this.handleOnBlur}

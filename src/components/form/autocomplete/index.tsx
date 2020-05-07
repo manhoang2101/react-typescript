@@ -39,6 +39,8 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
   error?: boolean;
   helperText?: string;
   minLengthCallChangeInput?: number;
+  onBlur?: (event?: any) => void;
+  name?: string;
 }
 export interface AppAutocompleteStates {
   open: boolean;
@@ -88,7 +90,15 @@ class AppAutocomplete extends React.Component<
     values: any
   ) => {
     const { onChangeOption } = this.props;
-    onChangeOption && onChangeOption(_event, values);
+    const event = {
+      ..._event,
+      target: {
+        ..._event.target,
+        value: values,
+      },
+    };
+
+    onChangeOption && onChangeOption(event, values);
   };
   private handleOpen = () => {
     const { onOpen } = this.props;
@@ -136,6 +146,7 @@ class AppAutocomplete extends React.Component<
       helperText,
       variant,
       renderTextField,
+      name,
     } = this.props;
 
     return (
@@ -152,7 +163,8 @@ class AppAutocomplete extends React.Component<
             className: classes.textField,
           }}
           error={!!error}
-          helperText={helperText}
+          helperText={!!error && helperText}
+          name={name}
         />
       )) || (
         <TextField
@@ -160,6 +172,9 @@ class AppAutocomplete extends React.Component<
           {...params}
           label={label}
           variant={variant}
+          name={name}
+          error={!!error}
+          helperText={!!error && helperText}
         />
       )
     );
@@ -180,7 +195,6 @@ class AppAutocomplete extends React.Component<
   };
   private handleGetOptionSelected = (selected: IOption) => {
     const { getOptionSelected, multiple, option } = this.props;
-
     return (
       !multiple ||
       (getOptionSelected && getOptionSelected(selected)) ||
@@ -195,10 +209,11 @@ class AppAutocomplete extends React.Component<
     return (getOptionLabel && getOptionLabel(option)) || option.label;
   };
   render() {
-    const { async, multiple, classes, options, disabled } = this.props;
+    const { async, multiple, classes, options, disabled, onBlur } = this.props;
     const { open, loading, defaultValue } = this.state;
     return (
       <Autocomplete
+        onBlur={onBlur}
         autoComplete={!async}
         multiple={multiple}
         defaultValue={defaultValue}
