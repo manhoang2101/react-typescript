@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppGroupCheckBox from "../src/components/form/groupcheckbox";
+import AppGroupCheckBox from "../../src/components/form/groupcheckbox";
 export const Default = () => {
   const [values, setValues] = useState([]);
   const handleOnChange = (values) => {
@@ -88,4 +88,4 @@ export const Error = () => {
     />
   );
 };
-export default { title: "Component/Form/GroupCheckbox" };
+export default { title: "Components/Form/GroupCheckbox" };

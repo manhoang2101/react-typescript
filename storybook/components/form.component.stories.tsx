@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import AppForm from "../src/components/form";
-import AppRadio, { IRadioItem } from "../src/components/form/radio";
-import AppButton from "../src/components/form/button";
-import AppTextField from "../src/components/form/textfield";
-import AppGroupCheckBox from "../src/components/form/groupcheckbox";
-import AppSelect, { ISelectItem } from "../src/components/form/select";
-import AppAutocomplete, { IOption } from "../src/components/form/autocomplete";
+import AppForm from "../../src/components/form";
+import AppRadio, { IRadioItem } from "../../src/components/form/radio";
+import AppButton from "../../src/components/form/button";
+import AppTextField from "../../src/components/form/textfield";
+import AppGroupCheckBox from "../../src/components/form/groupcheckbox";
+import AppSelect, { ISelectItem } from "../../src/components/form/select";
+import AppAutocomplete, {
+  IOption,
+} from "../../src/components/form/autocomplete";
 import * as Yup from "yup";
 export const Basic = () => {
   const radioItem: IRadioItem[] = [
@@ -145,4 +147,4 @@ export const Basic = () => {
     ></AppForm>
   );
 };
-export default { title: "Component/Form" };
+export default { title: "Components/Form" };

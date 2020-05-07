@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppCheckBox from "../src/components/form/checkbox";
+import AppCheckBox from "../../src/components/form/checkbox";
 import { FormGroup, FormControlLabel, Checkbox } from "@material-ui/core";
 export const Default = () => {
   const [checked, setChecked] = useState(false);
@@ -47,4 +47,4 @@ export const HasError = () => {
     />
   );
 };
-export default { title: "Component/Form/Checkbox" };
+export default { title: "Components/Form/Checkbox" };

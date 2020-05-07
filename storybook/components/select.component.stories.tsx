@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppSelect, { ISelectItem } from "../src/components/form/select";
+import AppSelect, { ISelectItem } from "../../src/components/form/select";
 export const Default = () => {
   const [value, setChecked] = useState("");
   const items: ISelectItem[] = [
@@ -185,4 +185,4 @@ export const HasMultipleError = () => {
     />
   );
 };
-export default { title: "Component/Form/Select" };
+export default { title: "Components/Form/Select" };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppDialog from "../src/components/dialog";
+import AppDialog from "../../src/components/dialog";
 import {
   DialogTitle,
   DialogContent,
@@ -202,4 +202,4 @@ export const FullWidth = () => {
     </>
   );
 };
-export default { title: "Component/Dialog" };
+export default { title: "Components/Dialog" };

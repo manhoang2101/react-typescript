@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import AppTable from "../src/components/table";
-import GenerateData from "./generateData";
-import { ITableColumn, IRenderCell, Order } from "../src/components/table/type";
+import AppTable from "../../src/components/table";
+import GenerateData from "../generateData";
+import {
+  ITableColumn,
+  IRenderCell,
+  Order,
+} from "../../src/components/table/type";
 
 const constSchema = {
   id: "id",
@@ -349,4 +353,4 @@ export const TableonDoubleClickRow = () => {
     ></AppTable>
   );
 };
-export default { title: "Component/Table" };
+export default { title: "Components/Table" };

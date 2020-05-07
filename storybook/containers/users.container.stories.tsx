@@ -1,9 +1,9 @@
 import React from "react";
-import UserContainer from "../src/containers/user";
-import GenerateData from "./generateData";
-import { ITableColumn } from "../src/components/table/type";
+import UserContainer from "../../src/containers/user";
+import GenerateData from "../generateData";
+import { ITableColumn } from "../../src/components/table/type";
 import { withStyles } from "@material-ui/core";
-import style from "../src/pages/user/style";
+import style from "../../src/pages/user/style";
 const constSchema = {
   id: "id",
   name: "name",
@@ -45,4 +45,4 @@ export const Users = () => {
   return <Component users={data} />;
 };
 
-export default { title: "Container/Users" };
+export default { title: "Containers/Users" };

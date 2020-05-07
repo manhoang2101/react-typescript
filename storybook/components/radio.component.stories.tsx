@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppRadio, { IRadioItem } from "../src/components/form/radio";
+import AppRadio, { IRadioItem } from "../../src/components/form/radio";
 export const Default = () => {
   const [value, setChecked] = useState("Radio4");
   const items: IRadioItem[] = [
@@ -46,4 +46,4 @@ export const HasError = () => {
     />
   );
 };
-export default { title: "Component/Form/Radio" };
+export default { title: "Components/Form/Radio" };

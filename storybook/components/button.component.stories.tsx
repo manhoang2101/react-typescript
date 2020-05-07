@@ -1,5 +1,5 @@
 import React from "react";
-import AppButton from "../src/components/form/button";
+import AppButton from "../../src/components/form/button";
 
 export const Default = () => (
   <AppButton color={"default"} text="Default">
@@ -40,4 +40,4 @@ export const EventDoubleClick = () => (
     primary
   </AppButton>
 );
-export default { title: "Component/Form/Button" };
+export default { title: "Components/Form/Button" };

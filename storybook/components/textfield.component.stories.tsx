@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AppTextField from "../src/components/form/textfield";
+import AppTextField from "../../src/components/form/textfield";
 export const Default = () => {
   const [value, setChecked] = useState("Default");
   const handleOnChange = (value) => {
@@ -114,4 +114,4 @@ export const HasVariantError = () => {
     />
   );
 };
-export default { title: "Component/Form/TextField" };
+export default { title: "Components/Form/TextField" };

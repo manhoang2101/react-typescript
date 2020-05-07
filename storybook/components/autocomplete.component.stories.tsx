@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Observable } from "rxjs";
-import AppAutocomplete, { IOption } from "../src/components/form/autocomplete";
+import AppAutocomplete, {
+  IOption,
+} from "../../src/components/form/autocomplete";
 export const Default = () => {
   const options: IOption[] = [
     { label: "Select1", value: "Select1" },
@@ -190,4 +192,4 @@ export const HasValidate = () => {
     ></AppAutocomplete>
   );
 };
-export default { title: "Component/Form/Autocomplete" };
+export default { title: "Components/Form/Autocomplete" };
