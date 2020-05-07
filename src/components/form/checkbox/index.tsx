@@ -25,6 +25,7 @@ export interface IAppCheckBoxProps extends WithStyles<typeof style> {
   isGroup?: boolean;
   required?: boolean;
   key?: string | number;
+  className?: string;
 }
 class AppCheckBox extends React.Component<IAppCheckBoxProps> {
   constructor(props: Readonly<IAppCheckBoxProps>) {
@@ -49,7 +50,9 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
       helperText,
       required,
       key,
+      className,
     } = this.props;
+    const appCheckBoxClass = ["App-CheckBox", className];
     return (
       (isGroup && (
         <FormControlLabel
@@ -58,7 +61,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
             <Checkbox
               key={key}
               id={`${name}-${key}`}
-              className={`App-Checkbox`}
+              className={appCheckBoxClass.join(" ")}
               checked={checked}
               onChange={this.handleOnChange}
               name={`${name}-${key}`}
@@ -73,7 +76,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
           <FormControlLabel
             control={
               <Checkbox
-                className={`App-Checkbox`}
+                className={appCheckBoxClass.join(" ")}
                 checked={checked}
                 onChange={this.handleOnChange}
                 name={name}

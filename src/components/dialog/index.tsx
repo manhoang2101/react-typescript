@@ -31,6 +31,7 @@ export interface IAppDialogProps extends WithStyles<typeof style> {
   dialogActions: any;
   dialogTitle?: any;
   dialogContent: any;
+  className?: string;
 }
 class AppDialog extends React.Component<IAppDialogProps> {
   render() {
@@ -44,10 +45,12 @@ class AppDialog extends React.Component<IAppDialogProps> {
       dialogContent,
       classes,
       onClose,
+      className,
     } = this.props;
     const OnDialogTitle = dialogTitle || null;
     const OnDialogActions = dialogActions;
     const OnDialogContent = dialogContent;
+    const appDialogClass = ["App-Button", className];
     return (
       <React.Fragment>
         <Dialog
@@ -60,6 +63,7 @@ class AppDialog extends React.Component<IAppDialogProps> {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
           TransitionComponent={Transition}
+          className={appDialogClass.join(" ")}
         >
           <AppBar className={classes.appBar}>
             <Toolbar className={classes.gutters}>

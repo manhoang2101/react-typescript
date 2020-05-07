@@ -15,6 +15,7 @@ export interface IAppFormProps extends WithStyles<typeof style> {
   initialErrors?: (formik: any) => void;
   initialStatus?: (formik: any) => void;
   initialTouched?: (formik: any) => void;
+  className?: string;
 }
 export class AppFrom extends React.Component<IAppFormProps> {
   formik: any;
@@ -30,7 +31,14 @@ export class AppFrom extends React.Component<IAppFormProps> {
   };
 
   render() {
-    const { initialValues, formSchema, render, initialStatus } = this.props;
+    const {
+      initialValues,
+      formSchema,
+      render,
+      initialStatus,
+      className,
+    } = this.props;
+    const appFormClass = ["App-Form", className];
     return (
       <Formik
         initialValues={initialValues}
@@ -38,7 +46,9 @@ export class AppFrom extends React.Component<IAppFormProps> {
         onSubmit={this.handleOnSubmit}
         initialStatus={initialStatus}
       >
-        {(formik) => <Form>{render(formik)}</Form>}
+        {(formik) => (
+          <Form className={appFormClass.join(" ")}>{render(formik)}</Form>
+        )}
       </Formik>
     );
   }

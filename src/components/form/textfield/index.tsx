@@ -19,6 +19,7 @@ export interface IAppTextFieldProps extends WithStyles<typeof style> {
   id?: string;
   placeholder?: string;
   inputProps?: any;
+  className?: string;
 }
 interface AppTextFieldState {
   onFocus: boolean;
@@ -70,11 +71,13 @@ class AppTextField extends React.Component<
       placeholder,
       inputProps,
       classes,
+      className,
     } = this.props;
     const { defaultValue } = this.state;
+    const appTextFieldClass = [className, classes.AppTextField];
     return (
       <TextField
-        className={classes.AppTextField}
+        className={appTextFieldClass.join(" ")}
         onClick={this.handleOnClick}
         defaultValue={defaultValue}
         onChange={this.handleOnChange}

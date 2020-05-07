@@ -41,6 +41,7 @@ export interface AppAutocompleteProps extends WithStyles<typeof style> {
   minLengthCallChangeInput?: number;
   onBlur?: (event?: any) => void;
   name?: string;
+  className?: string;
 }
 export interface AppAutocompleteStates {
   open: boolean;
@@ -209,15 +210,24 @@ class AppAutocomplete extends React.Component<
     return (getOptionLabel && getOptionLabel(option)) || option.label;
   };
   render() {
-    const { async, multiple, classes, options, disabled, onBlur } = this.props;
+    const {
+      async,
+      multiple,
+      classes,
+      options,
+      disabled,
+      onBlur,
+      className,
+    } = this.props;
     const { open, loading, defaultValue } = this.state;
+    const appAutocompleteClass = ["App-Autocomplete", className];
     return (
       <Autocomplete
         onBlur={onBlur}
         autoComplete={!async}
         multiple={multiple}
         defaultValue={defaultValue}
-        className="App-Autocomplete"
+        className={appAutocompleteClass.join(" ")}
         options={options}
         getOptionLabel={this.handelGetOptionLabel}
         filterOptions={filterOptions}
