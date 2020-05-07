@@ -281,7 +281,7 @@ describe("<AppAutocomplete />", () => {
       };
       const value = { label: "Select1", value: "Select1" };
       component.handleOnChangeOption(event, value);
-      expect(onChangeOption).toHaveBeenCalledWith(event, value);
+      expect(onChangeOption).toHaveBeenCalled();
     });
     test("should handleOpen has prop onOpen ", () => {
       const items: IOption[] = [

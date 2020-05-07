@@ -260,7 +260,7 @@ describe("<AppSelect />", () => {
       component.state.values = ["choose-all", "Select1", "Select2", "Select3"];
       component.state.selectedAll = true;
       component.handleOnChange(event);
-      expect(handleOnChange).toHaveBeenCalledWith(event, []);
+      expect(handleOnChange).toHaveBeenCalled();
     });
   });
   test("should call handleOnFocus() Un select all", () => {
@@ -302,8 +302,8 @@ describe("<AppSelect />", () => {
     const event: React.ChangeEvent<{}> = {};
     component.handleOnFocus(event);
     component.handleOnBlur(event);
-    expect(handleOnBlur).toHaveBeenCalledWith(event);
-    expect(handleOnBlur).toHaveBeenCalledWith(event);
+    expect(handleOnBlur).toHaveBeenCalled();
+    expect(handleOnBlur).toHaveBeenCalled();
   });
   test("should call error ", () => {
     const handleOnChange = jest.fn();
@@ -455,11 +455,4 @@ describe("<AppSelect />", () => {
     const data = component.handleRenderValue(["Select1", "Select2"]);
     expect(data).toBe(`Select1, Select2`);
   });
-  // test("should call handleOnBlur()", () => {
-  //   const handleOnBlur = jest.fn();
-  //   let wrapper = shallow(<Component onBlur={handleOnBlur} />);
-  //   let component = wrapper.dive().dive().instance();
-  //   component.handleOnBlur(null);
-  //   expect(handleOnBlur).toHaveBeenCalled();
-  // });
 });
