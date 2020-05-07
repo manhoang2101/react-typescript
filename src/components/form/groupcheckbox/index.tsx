@@ -79,7 +79,6 @@ class AppGroupCheckBox extends React.Component<
         value: values,
       },
     };
-    console.log(event);
     onChange && onChange(event, values);
   };
 
