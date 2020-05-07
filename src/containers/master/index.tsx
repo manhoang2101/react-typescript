@@ -11,9 +11,11 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import clsx from "clsx";
+import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
 import { IConfig } from "../../stories/common/common.types";
 export interface PropsMaster extends WithStyles<typeof styles> {
   fetchConfigAction: () => void;
+  openNotification: (callBack: () => void) => void;
   config: IConfig;
   pageLoading: boolean;
 }
@@ -42,6 +44,13 @@ export class MasterContainer extends React.Component<
       OpenSidebar: status,
     });
   };
+  handOpenNotification = (variant: VariantType, massage: string) => {
+    const { openNotification } = this.props;
+    const { enqueueSnackbar } = useSnackbar();
+    openNotification(() => {
+      enqueueSnackbar(massage, { variant });
+    });
+  };
   setHeightElement = (name: string, height: number) => {
     switch (name) {
       case "HeaderComponent":
@@ -59,7 +68,7 @@ export class MasterContainer extends React.Component<
   render() {
     const { classes } = this.props;
     return (
-      <>
+      <SnackbarProvider maxSnack={3}>
         <HeaderComponent
           Open={this.state.OpenSidebar}
           SetOpen={this.handleOpenSidebar}
@@ -84,7 +93,11 @@ export class MasterContainer extends React.Component<
                   key={route.label}
                   pathMatch={route?.pathMatch}
                 >
-                  {<route.component />}
+                  {
+                    <route.component
+                      openNotification={this.handOpenNotification}
+                    />
+                  }
                 </Route>
               ))}
             </Switch>
@@ -97,7 +110,7 @@ export class MasterContainer extends React.Component<
           SetHeight={this.setHeightElement}
           key="FooterComponent"
         />
-      </>
+      </SnackbarProvider>
     );
   }
 }

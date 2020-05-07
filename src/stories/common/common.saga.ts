@@ -2,6 +2,7 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { BaseAction } from "../types";
 import { callApi, initOptionCallApi, IOptionCallApi } from "../../untils/api";
 import ECommonAction from "./common.actions";
+import { OpenNotification } from "./common.types";
 
 export function* fetchConfig() {
   const option: IOptionCallApi = {
@@ -23,7 +24,10 @@ export function* fetchConfig() {
     payload: false,
   });
 }
-
+export function* openNotification(action: OpenNotification) {
+  action.payload();
+}
 export default function* watchFetchCommonRequest() {
   yield takeEvery(ECommonAction.FETCH_CONFIG, fetchConfig);
+  yield takeEvery(ECommonAction.OPEN_NOTIFICATION, openNotification);
 }

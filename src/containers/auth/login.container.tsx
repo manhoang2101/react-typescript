@@ -1,9 +1,10 @@
 import React from "react";
 import style from "./style";
 import { WithStyles, withStyles, Grid, Paper } from "@material-ui/core";
+import ContainerProp from "..";
 export interface IAppLoginContainerProps extends WithStyles<typeof style> {}
 export class AppLoginContainer extends React.Component<
-  IAppLoginContainerProps
+  IAppLoginContainerProps & ContainerProp
 > {
   render() {
     const { classes } = this.props;
