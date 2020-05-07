@@ -43,7 +43,7 @@ describe("<AppGroupCheckBox />", () => {
     const { container } = render(
       <Component checkItems={props.checkItems} label={props.label} />
     );
-    const el = container.querySelectorAll(".App-Checkbox");
+    const el = container.querySelectorAll(".App-CheckBox");
     expect(el.length).toBe(3);
   });
   test("should test prop Error ", () => {
@@ -74,7 +74,7 @@ describe("<AppGroupCheckBox />", () => {
       },
     ];
     component.handleOnChange(event, true);
-    expect(props.onChange).toHaveBeenCalledWith(event, expected);
+    expect(props.onChange).toHaveBeenCalled();
   });
 
   test("should call handleOnChange() on event error", () => {
@@ -83,7 +83,7 @@ describe("<AppGroupCheckBox />", () => {
     const event = {};
     const expected: any[] = [];
     component.handleOnChange(event, false);
-    expect(props.onChange).toHaveBeenCalledWith(event, expected);
+    expect(props.onChange).toHaveBeenCalled();
   });
   test("should call handleOnChange() on Unselect", () => {
     const wrapper = shallow(<Component {...props} />);
@@ -103,6 +103,6 @@ describe("<AppGroupCheckBox />", () => {
       ],
     });
     component.handleOnChange(event, false);
-    expect(props.onChange).toHaveBeenCalledWith(event, expected);
+    expect(props.onChange).toHaveBeenCalled();
   });
 });
