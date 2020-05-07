@@ -1,3 +1,4 @@
+import { VariantType } from "notistack";
 export default interface ContainerProp {
-  openNotification: () => void;
+  openNotification: (status: VariantType, massage: string) => void;
 }
