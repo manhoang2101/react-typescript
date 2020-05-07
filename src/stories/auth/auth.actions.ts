@@ -1,0 +1,7 @@
+enum EAuthAction {
+  LOGIN_SUBMIT = "[AUTH] LOGIN_SUBMIT",
+  LOGIN_SUBMIT_SUCCESS = "[AUTH] FETCH_USERS_SUCCESS",
+  SET_USER = "[AUTH] SET_USER",
+  ADD_USER = "[AUTH] ADD_USER",
+}
+export default EAuthAction;

@@ -11,6 +11,7 @@ export interface IAppButtonProps extends WithStyles<typeof style> {
   text?: string;
   variant?: "text" | "outlined" | "contained" | undefined;
   color?: "inherit" | "primary" | "secondary" | "default" | undefined;
+  fullWidth?: boolean;
 }
 
 export class AppButton extends React.Component<IAppButtonProps> {
@@ -25,6 +26,7 @@ export class AppButton extends React.Component<IAppButtonProps> {
         onDoubleClick={this.props.onDoubleClick}
         className={appButtonClass.join(" ")}
         type={this.props.type}
+        fullWidth={this.props.fullWidth}
       >
         {this.props.text}
       </Button>
