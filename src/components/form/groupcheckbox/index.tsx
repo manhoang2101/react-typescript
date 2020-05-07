@@ -20,6 +20,7 @@ export interface IAppGroupCheckBoxProps extends WithStyles<typeof style> {
   required?: boolean;
   checkItems: Partial<IAppCheckBoxProps>[];
   values?: string[];
+  className?: string;
 }
 export interface IAppGroupCheckBoxState {
   selectItem: Partial<IAppCheckBoxProps>[];
@@ -83,16 +84,25 @@ class AppGroupCheckBox extends React.Component<
   };
 
   render() {
-    const { name, style, label, error, required, helperText } = this.props;
+    const {
+      name,
+      style,
+      label,
+      error,
+      required,
+      helperText,
+      className,
+    } = this.props;
     const { checkItems } = this.state;
+    const appGroupCheckBoxClass = ["App-GroupCheckBox", className];
     return (
-      <FormGroup>
+      <FormGroup className={appGroupCheckBoxClass.join(" ")}>
         <FormControl
           required={required}
           error={!!error}
           component="fieldset"
           name={name}
-          className={`App-GroupCheckBox`}
+          className={`App-FormControl`}
           style={style}
         >
           <FormLabel component="legend" className={`App-FormLabel`}>
