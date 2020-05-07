@@ -73,6 +73,7 @@ export interface IAppSelectProps extends WithStyles<typeof style> {
   options?: IOptionSelect;
   multiple?: boolean;
   optionSelectAll?: boolean;
+  className?: string;
 }
 class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
   state: IAppSelectState = {
@@ -229,9 +230,10 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
       optionSelectAll,
       onBlurInput,
       onFocusInput,
+      className,
     } = this.props;
     const { options, selectedAll, defaultValue, values } = this.state;
-
+    const appSelectClass = ["App-Select", className];
     return (
       <FormGroup>
         <FormControl
@@ -243,7 +245,7 @@ class AppSelect extends React.Component<IAppSelectProps, IAppSelectState> {
             {label}
           </InputLabel>
           <Select
-            className={`App-Select`}
+            className={appSelectClass.join(" ")}
             labelId={`label-${id}`}
             id={id}
             error={!!error}

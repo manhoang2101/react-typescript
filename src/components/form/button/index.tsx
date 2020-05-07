@@ -4,7 +4,7 @@ import style from "./style";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 export interface IAppButtonProps extends WithStyles<typeof style> {
   style?: Object;
-  class?: string;
+  className?: string;
   onClick?: () => void;
   onDoubleClick?: () => void;
   type?: "button" | "reset" | "submit" | undefined;
@@ -15,7 +15,7 @@ export interface IAppButtonProps extends WithStyles<typeof style> {
 
 export class AppButton extends React.Component<IAppButtonProps> {
   render() {
-    const appButtonClass = [[this.props.class]];
+    const appButtonClass = ["App-Button", this.props.className];
     return (
       <Button
         variant={this.props.variant}

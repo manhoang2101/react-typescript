@@ -26,6 +26,7 @@ export interface IAppRadioProps extends WithStyles<typeof style> {
   label?: string;
   id?: string;
   radioItems: IRadioItem[];
+  className?: string;
   error?: boolean;
   helperText?: string;
 }
@@ -39,9 +40,19 @@ class AppRadio extends React.Component<IAppRadioProps> {
     onChange && onChange(_event);
   };
   render() {
-    const { name, style, id, value, label, error, helperText } = this.props;
+    const {
+      name,
+      style,
+      id,
+      value,
+      label,
+      error,
+      helperText,
+      className,
+    } = this.props;
+    const appGroupRadioClass = ["App-GroupRadio", className];
     return (
-      <FormGroup>
+      <FormGroup className={appGroupRadioClass.join(" ")}>
         <FormControl error={!!error}>
           <FormLabel component="legend">{label}</FormLabel>
           <RadioGroup
@@ -58,7 +69,7 @@ class AppRadio extends React.Component<IAppRadioProps> {
                 value={item.value}
                 control={
                   <Radio
-                    className={`App-RadioGroup`}
+                    className={`App-Radio`}
                     color={item.color}
                     disabled={item.disabled}
                     style={item.style}
