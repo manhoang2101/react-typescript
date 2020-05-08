@@ -1,8 +1,9 @@
 import { HomePage } from "../pages/home";
 import { UserPage } from "../pages/user";
+import ContainerProp from "../containers";
 export interface IAppRoute {
   path: string;
-  component: React.Component;
+  component: React.Component<ContainerProp>;
   label?: string;
   pathMatch?: string;
 }

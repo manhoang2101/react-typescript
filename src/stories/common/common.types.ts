@@ -17,4 +17,12 @@ export interface FetchConfigSuccess extends BaseAction {
   type: typeof ECommonAction.FETCH_CONFIG_SUCCESS;
   payload: IConfig;
 }
-export type CommonActionTypes = UpdateLoading | FetchConfigSuccess;
+
+export interface OpenNotification extends BaseAction {
+  type: typeof ECommonAction.OPEN_NOTIFICATION;
+  payload: () => void;
+}
+export type CommonActionTypes =
+  | UpdateLoading
+  | FetchConfigSuccess
+  | OpenNotification;

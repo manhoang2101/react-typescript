@@ -9,6 +9,7 @@ export const mapStateToProps = (state: IAppState) => ({
 });
 export const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchConfigAction: () => dispatch({ type: ECommonAction.FETCH_CONFIG }),
+  openNotification: () => dispatch({ type: ECommonAction.OPEN_NOTIFICATION }),
 });
 const App = connect(mapStateToProps, mapDispatchToProps)(MasterContainer);
 export default App;

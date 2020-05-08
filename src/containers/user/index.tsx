@@ -3,6 +3,7 @@ import React from "react";
 import { WithStyles } from "@material-ui/core";
 import style from "../../pages/user/style";
 import AppTable from "../../components/table";
+import ContainerProp from "..";
 
 interface PropsFromDispatch extends WithStyles<typeof style> {
   fetchUsersAction?: () => void;
@@ -10,7 +11,7 @@ interface PropsFromDispatch extends WithStyles<typeof style> {
   addUser?: (user: IUser) => void;
 }
 
-type Props = IUserState & PropsFromDispatch;
+type Props = IUserState & PropsFromDispatch & ContainerProp;
 
 class UserContainer extends React.Component<Props> {
   constructor(props: Readonly<Props>) {
