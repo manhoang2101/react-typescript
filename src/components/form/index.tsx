@@ -19,9 +19,7 @@ export interface IAppFormProps extends WithStyles<typeof style> {
 }
 export class AppFrom extends React.Component<IAppFormProps> {
   formik: any;
-  constructor(prop: Readonly<IAppFormProps>) {
-    super(prop);
-  }
+
   handleOnSubmit = (
     values: FormikValues,
     formikHelpers: FormikHelpers<FormikValues>

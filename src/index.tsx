@@ -8,15 +8,21 @@ import { createBrowserHistory } from "history";
 import configureStore from "./configureStore";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-import theme from "./untils/theme";
+import { SnackbarProvider } from "notistack";
+import { CookiesProvider } from "react-cookie";
+import theme from "./theme";
 const history = createBrowserHistory();
 const stories = configureStore(history);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <Provider store={stories}>
-      <App />
-    </Provider>
+    <CookiesProvider>
+      <Provider store={stories}>
+        <SnackbarProvider maxSnack={3}>
+          <App history={history} />
+        </SnackbarProvider>
+      </Provider>
+    </CookiesProvider>
     <CssBaseline />
   </ThemeProvider>,
   document.getElementById("root")

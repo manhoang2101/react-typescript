@@ -2,42 +2,54 @@ import React from "react";
 import AppButton from "../../src/components/form/button";
 
 export const Default = () => (
-  <AppButton color={"default"} text="Default">
-    primary
-  </AppButton>
+  <AppButton
+    type="button"
+    variant="contained"
+    color={"default"}
+    text="Default"
+  ></AppButton>
 );
 export const Primary = () => (
-  <AppButton color={"primary"} text="Primary">
-    primary
-  </AppButton>
+  <AppButton
+    type="button"
+    variant="contained"
+    color={"primary"}
+    text="Primary"
+  ></AppButton>
 );
 export const Inherit = () => (
-  <AppButton color={"inherit"} text="Inherit">
-    primary
-  </AppButton>
+  <AppButton
+    type="button"
+    variant="contained"
+    color={"inherit"}
+    text="Inherit"
+  ></AppButton>
 );
 export const Secondary = () => (
-  <AppButton color={"secondary"} text="Secondary">
-    primary
-  </AppButton>
+  <AppButton
+    type="button"
+    variant="contained"
+    color={"secondary"}
+    text="Secondary"
+  ></AppButton>
 );
 
 export const EventClick = () => (
   <AppButton
+    type="button"
+    variant="contained"
     color={"secondary"}
     text="Secondary"
     onClick={() => alert("onClick")}
-  >
-    primary
-  </AppButton>
+  ></AppButton>
 );
 export const EventDoubleClick = () => (
   <AppButton
+    type="button"
+    variant="contained"
     color={"secondary"}
     text="Secondary"
     onDoubleClick={() => alert("onDoubleClick")}
-  >
-    primary
-  </AppButton>
+  ></AppButton>
 );
 export default { title: "Components/Form/Button" };

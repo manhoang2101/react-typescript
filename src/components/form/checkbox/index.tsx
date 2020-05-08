@@ -26,11 +26,9 @@ export interface IAppCheckBoxProps extends WithStyles<typeof style> {
   required?: boolean;
   key?: string | number;
   className?: string;
+  color?: "primary" | "secondary" | "default" | undefined;
 }
 class AppCheckBox extends React.Component<IAppCheckBoxProps> {
-  constructor(props: Readonly<IAppCheckBoxProps>) {
-    super(props);
-  }
   handleOnChange = (
     _event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean
@@ -51,6 +49,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
       required,
       key,
       className,
+      color,
     } = this.props;
     const appCheckBoxClass = ["App-CheckBox", className];
     return (
@@ -67,6 +66,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
               name={`${name}-${key}`}
               value={value}
               style={style}
+              color={color}
             />
           }
           label={label}
@@ -82,6 +82,7 @@ class AppCheckBox extends React.Component<IAppCheckBoxProps> {
                 name={name}
                 value={value}
                 style={style}
+                color={color}
               />
             }
             label={label}

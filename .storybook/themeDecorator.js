@@ -1,5 +1,5 @@
 import React from "react";
-import theme from "../src/untils/theme";
+import theme from "../src/theme";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { createBrowserHistory } from "history";
 import configureStore from "../src/configureStore";

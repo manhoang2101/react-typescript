@@ -1,119 +1,111 @@
-import HeaderComponent from "../../components/master/header.component";
-import React from "react";
-import FooterComponent from "../../components/master/footer.component";
+import React, { Fragment } from "react";
 import { AppRoutes } from "../../untils/routers";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import styles from "../../untils/styles";
+import { withSnackbar, WithSnackbarProps, VariantType } from "notistack";
 import {
   WithStyles,
   withStyles,
   Backdrop,
   CircularProgress,
+  IconButton,
 } from "@material-ui/core";
-import clsx from "clsx";
-import { SnackbarProvider, VariantType, useSnackbar } from "notistack";
+import CloseIcon from "@material-ui/icons/Close";
 import { IConfig } from "../../stories/common/common.types";
-export interface PropsMaster extends WithStyles<typeof styles> {
+import { Cookies } from "react-cookie";
+import PrivateContainer from "./privateRoute";
+export interface MasterProps extends WithStyles<typeof styles> {
   fetchConfigAction: () => void;
-  openNotification: (callBack: () => void) => void;
   config: IConfig;
   pageLoading: boolean;
+  cookies: Cookies;
+  history: any;
 }
-export interface StatesMaster {
+export interface MasterStates {
   OpenSidebar: boolean;
   HeightHeader: number;
   HeightFooter: number;
+  showHeader: boolean;
+  showFooter: boolean;
 }
-export class MasterContainer extends React.Component<
-  PropsMaster,
-  StatesMaster
-> {
-  constructor(props: Readonly<PropsMaster>) {
+export type Props = MasterProps & WithSnackbarProps;
+export class MasterContainer extends React.Component<Props, MasterStates> {
+  constructor(props: Readonly<Props>) {
     super(props);
     this.state = {
       OpenSidebar: false,
       HeightHeader: 0,
       HeightFooter: 0,
+      showHeader: true,
+      showFooter: true,
     };
-    this.handleOpenSidebar.bind(this);
-    this.setHeightElement.bind(this);
     this.props.fetchConfigAction();
   }
-  handleOpenSidebar = (status: boolean) => {
-    this.setState({
-      OpenSidebar: status,
-    });
-  };
-  handOpenNotification = (variant: VariantType, massage: string) => {
-    const { openNotification } = this.props;
-    const { enqueueSnackbar } = useSnackbar();
-    openNotification(() => {
-      enqueueSnackbar(massage, { variant });
-    });
-  };
-  setHeightElement = (name: string, height: number) => {
-    switch (name) {
-      case "HeaderComponent":
-        this.setState({
-          HeightHeader: height,
-        });
-        break;
-      case "FooterComponent":
-        this.setState({
-          HeightFooter: height,
-        });
-        break;
-    }
+  handleOpenNotification = (
+    variant: VariantType,
+    message: string,
+    option?: any,
+    callBack?: () => void
+  ) => {
+    const defaultOption = {
+      variant,
+      action: (key: number) => (
+        <Fragment>
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              this.props.closeSnackbar(key);
+            }}
+          >
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        </Fragment>
+      ),
+    };
+
+    const mergeOption = { ...defaultOption, ...option };
+    this.props.enqueueSnackbar(message, mergeOption);
+    callBack && callBack();
   };
   render() {
     const { classes } = this.props;
     return (
-      <SnackbarProvider maxSnack={3}>
-        <HeaderComponent
-          Open={this.state.OpenSidebar}
-          SetOpen={this.handleOpenSidebar}
-          SetHeight={this.setHeightElement}
-          key="HeaderComponent"
-        />
-        <main
-          style={{
-            marginTop: this.state.HeightHeader,
-            marginBottom: this.state.HeightFooter,
-          }}
-          className={clsx(classes.content, {
-            [classes.contentShift]: this.state.OpenSidebar,
-          })}
-        >
-          <Router>
-            <Switch key="Switch">
-              {AppRoutes.map((route) => (
+      <>
+        <Router>
+          <Switch key="Switch">
+            {AppRoutes.filter((route) => route.isPrivate === false).map(
+              (route) => (
                 <Route
                   exact
                   path={route.path}
-                  key={route.label}
-                  pathMatch={route?.pathMatch}
-                >
-                  {
+                  key={route.key}
+                  render={(props) => (
                     <route.component
-                      openNotification={this.handOpenNotification}
+                      {...props}
                       config={this.props.config}
+                      openNotification={this.handleOpenNotification}
+                      cookies={this.props.cookies}
                     />
-                  }
-                </Route>
-              ))}
-            </Switch>
-          </Router>
-          <Backdrop className={classes.backdrop} open={this.props.pageLoading}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        </main>
-        <FooterComponent
-          SetHeight={this.setHeightElement}
-          key="FooterComponent"
-        />
-      </SnackbarProvider>
+                  )}
+                />
+              )
+            )}
+            {
+              <PrivateContainer
+                {...this.props}
+                openNotification={this.handleOpenNotification}
+              />
+            }
+          </Switch>
+        </Router>
+        <Backdrop className={classes.backdrop} open={this.props.pageLoading}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </>
     );
   }
 }
 
-export default withStyles(styles)(MasterContainer);
+export default withStyles(styles)(withSnackbar(MasterContainer));

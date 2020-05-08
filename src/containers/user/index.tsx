@@ -5,14 +5,12 @@ import style from "../../pages/user/style";
 import AppTable from "../../components/table";
 import ContainerProp from "..";
 
-interface PropsFromDispatch extends WithStyles<typeof style> {
+interface IUserContainerProps extends WithStyles<typeof style> {
   fetchUsersAction?: () => void;
   setUser?: (user: IUser) => void;
   addUser?: (user: IUser) => void;
 }
-
-type Props = IUserState & PropsFromDispatch & ContainerProp;
-
+type Props = IUserState & IUserContainerProps & ContainerProp;
 class UserContainer extends React.Component<Props> {
   constructor(props: Readonly<Props>) {
     super(props);

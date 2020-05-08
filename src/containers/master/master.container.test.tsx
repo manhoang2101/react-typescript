@@ -16,25 +16,4 @@ describe("My Connected React-Redux MasterContainer", () => {
     Component = withStyles(styles)(MasterContainer);
     stories.dispatch = jest.fn();
   });
-  it("should handleOpenSidebar", () => {
-    const fetchConfigAction = jest.fn();
-    const props = {
-      config: {},
-      fetchConfigAction,
-      pageLoading: false,
-    };
-    Component = withStyles(styles)(MasterContainer);
-    const container = shallow(
-      <Provider store={stories}>
-        <Component {...props} />
-      </Provider>
-    )
-      .find(Component)
-      .dive()
-      .dive()
-      .dive()
-      .instance();
-    container.handleOpenSidebar(true);
-    expect(container.state.OpenSidebar).toBe(true);
-  });
 });

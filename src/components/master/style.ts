@@ -15,9 +15,10 @@ const style = (theme: Theme) =>
     },
     title: {
       display: "none",
-      [theme.breakpoints.up("sm")]: {
+      [theme.breakpoints.up("lg")]: {
         display: "block",
       },
+      color: theme.palette.common.white,
     },
     search: {
       position: "relative",

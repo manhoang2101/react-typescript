@@ -97,7 +97,7 @@ export class HeaderComponent extends React.Component<
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" noWrap>
-              Material-UI
+              3SHU-UI
             </Typography>
             <div className={classes.search}>
               <div className={classes.searchIcon}>

@@ -20,6 +20,10 @@ export interface IAppTextFieldProps extends WithStyles<typeof style> {
   placeholder?: string;
   inputProps?: any;
   className?: string;
+  margin?: "normal" | "none" | "dense" | undefined;
+  fullWidth?: boolean;
+  autoComplete?: string;
+  autoFocus?: boolean;
 }
 interface AppTextFieldState {
   onFocus: boolean;
@@ -72,11 +76,19 @@ class AppTextField extends React.Component<
       inputProps,
       classes,
       className,
+      margin,
+      fullWidth,
+      autoComplete,
+      autoFocus,
     } = this.props;
     const { defaultValue } = this.state;
     const appTextFieldClass = [className, classes.AppTextField];
     return (
       <TextField
+        autoComplete={autoComplete}
+        fullWidth={fullWidth}
+        autoFocus={autoFocus}
+        margin={margin}
         className={appTextFieldClass.join(" ")}
         onClick={this.handleOnClick}
         defaultValue={defaultValue}
