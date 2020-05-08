@@ -95,10 +95,8 @@ export class MasterContainer extends React.Component<
                 >
                   {
                     <route.component
-                      openNotification={(
-                        status: VariantType,
-                        massage: string
-                      ) => this.handOpenNotification(status, massage)}
+                      openNotification={this.handOpenNotification}
+                      config={this.props.config}
                     />
                   }
                 </Route>

@@ -24,7 +24,7 @@ export function* fetchConfig() {
     payload: false,
   });
 }
-export function* openNotification(action: OpenNotification) {
+export function openNotification(action: OpenNotification) {
   action.payload();
 }
 export default function* watchFetchCommonRequest() {
