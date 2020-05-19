@@ -14,17 +14,19 @@ export function* fetchUsers() {
     payload: true,
   });
   const res = yield call(callApi, option);
-  const actonPut: BaseAction = {
+  const actionPut: BaseAction = {
     type: EUserAction.FETCH_USERS_SUCCESS,
     payload: res.data,
   };
-  yield put(actonPut);
+  yield put(actionPut);
   yield put({
     type: ECommonAction.UPDATE_LOADING,
     payload: false,
   });
 }
 
+
 export default function* watchFetchUserRequest() {
   yield takeEvery(EUserAction.FETCH_USERS, fetchUsers);
+  
 }

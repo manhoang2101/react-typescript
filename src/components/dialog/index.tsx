@@ -28,7 +28,7 @@ export interface IAppDialogProps extends WithStyles<typeof style> {
   fullScreen?: boolean;
   open: boolean;
   onClose: () => void;
-  dialogActions: any;
+  dialogActions?: any;
   dialogTitle?: any;
   dialogContent: any;
   className?: string;
@@ -48,8 +48,8 @@ class AppDialog extends React.Component<IAppDialogProps> {
       className,
     } = this.props;
     const OnDialogTitle = dialogTitle || null;
-    const OnDialogActions = dialogActions;
-    const OnDialogContent = dialogContent;
+    const onDialogActions = dialogActions || dialogActions;
+    const onDialogContent = dialogContent;
     const appDialogClass = ["App-Button", className];
     return (
       <React.Fragment>
@@ -80,8 +80,8 @@ class AppDialog extends React.Component<IAppDialogProps> {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <OnDialogContent />
-          <OnDialogActions />
+         {onDialogContent} 
+         {onDialogActions}
         </Dialog>
       </React.Fragment>
     );

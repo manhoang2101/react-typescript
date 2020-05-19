@@ -28,8 +28,19 @@ export interface AddUser extends BaseAction {
   type: typeof EUserAction.ADD_USER;
   payload: IUser;
 }
+export interface DeleteUser extends BaseAction {
+  type: typeof EUserAction.DELETE_USER;
+  payload: number;
+}
+export interface UpdateUser extends BaseAction {
+  type: typeof EUserAction.UPDATE_USER;
+  payload: IUser;
+}
 export type UserActionTypes =
   | SetUser
   | AddUser
+  | DeleteUser
+  | UpdateUser
   | FetchUsersAction
-  | FetchUsersSuccessAction;
+  | FetchUsersSuccessAction
+  

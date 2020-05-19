@@ -1,8 +1,8 @@
 import React from "react";
 
 export interface ITableColumn {
-  label: string;
-  key: string;
+  label: any;
+  key: any;
   renderThead?: Function;
   renderCell?: Function;
   styleThead?: React.CSSProperties;
