@@ -72,12 +72,16 @@ class UserContainer extends React.Component<Props, State> {
     setUser && setUser(cell.row);
     this.setState({ open: true, isUpdate: true });
   };
+  onCancel =()=>{
+    this.handleClickClose();
+  }
   render() {
 
     const { open } = this.state;
     const { users = [] } = this.props;
     const SignupSchema = Yup.object().shape({
       id: Yup.string().required("this is field Required"),
+      name: Yup.string().required("this is field Required"),
     });
     const { user } = this.props;
     return (
@@ -114,20 +118,24 @@ class UserContainer extends React.Component<Props, State> {
                           value={formik.values.name}
                           onChange={formik.handleChange}
                           label={`Name *`}
+                          error={
+                            formik.errors.name !== undefined && formik.touched.name
+                          }
+                          helperText={formik.errors.name}
                           onBlur={formik.handleBlur}
                         ></AppTextField>
                         <AppTextField
                           name={`cardNumber`}
                           value={formik.values.cardNumber}
                           onChange={formik.handleChange}
-                          label={`Card Number *`}
+                          label={`Card Number`}
                           onBlur={formik.handleBlur}
                         ></AppTextField>
                         <AppTextField
                           name={`cardType`}
                           value={formik.values.cardType}
                           onChange={formik.handleChange}
-                          label={`CardType *`}
+                          label={`CardType `}
                           onBlur={formik.handleBlur}
                         ></AppTextField>
                         <br />
@@ -135,8 +143,15 @@ class UserContainer extends React.Component<Props, State> {
                           type="submit"
                           variant="contained"
                           color="primary"
-                          text="Done"
+                          text="Submit"
                           // onClick={() => console.log(user)}
+                        />
+                        <AppButton
+                          type="button"
+                          variant="contained"
+                          color="primary"
+                          text="Cancel"
+                          onClick={this.onCancel}
                         />
                       </div>
                     );
