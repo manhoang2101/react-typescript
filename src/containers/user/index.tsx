@@ -149,7 +149,7 @@ class UserContainer extends React.Component<Props, State> {
                         <AppButton
                           type="button"
                           variant="contained"
-                          color="primary"
+                          color="inherit"
                           text="Cancel"
                           onClick={this.onCancel}
                         />
